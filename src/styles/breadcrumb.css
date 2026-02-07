@@ -1,0 +1,31 @@
+.breadcrumb {
+  width: 1200px;
+  margin-top: 90px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+}
+
+.breadcrumb-link {
+  color: #24394C;
+  text-decoration: none;
+}
+
+.breadcrumb-link:hover {
+  text-decoration: underline;
+}
+
+.breadcrumb-separator {
+  color: #8F8F8F;
+}
+
+.breadcrumb-current {
+  color: #24394C;
+  text-decoration: underline;
+  cursor: default;
+}

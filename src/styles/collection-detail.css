@@ -1,0 +1,79 @@
+/* 🔥 MAIN WRAPPER */
+.our-collection {
+  width: 1200px;
+  margin: 20px auto; /* Centered for a cleaner detail view */
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* 🔥 FILTERS BAR SCOPED */
+.our-collection .filters-bar {
+  width: 100%;
+  margin: 0 0 8px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Inter', sans-serif;
+}
+
+.our-collection .filters-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.our-collection .filter-label {
+  font-size: 16px;
+  font-weight: 500;
+  color: #24394C;
+}
+
+/* 🔥 CLEAN SELECT BOX DESIGN */
+.our-collection .filter-select {
+  height: 40px;
+  padding: 0 14px;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  color: #24394C;
+  background: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  border-radius: 8px;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.our-collection .filter-select:hover {
+  border-color: #24394C;
+}
+
+.our-collection .filter-select:focus {
+  border-color: #24394C;
+  box-shadow: none;
+}
+
+.our-collection .filters-right {
+  font-size: 14px;
+  color: #8F8F8F;
+}
+
+/* 🔥 PRODUCT GRID - 4 COLUMN LAYOUT */
+.our-collection .products-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Forces exactly 4 columns */
+  gap: 22px;
+  margin-bottom: 0;
+}
+
+/* 🔥 OPTIONAL: HEADER STYLING */
+.our-collection h1 {
+  font-family: 'Inter', sans-serif;
+  font-size: 32px;
+  color: #24394C;
+  margin: 0;
+}
+
+.our-collection .collection-header p {
+  font-family: 'Inter', sans-serif;
+  margin: 4px 0 0 0;

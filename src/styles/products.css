@@ -1,0 +1,69 @@
+.products-page {
+  width: 1200px;
+  margin-left: 150px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.filters-bar {
+  width: 1200px;
+  margin: 0 auto 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-style: medium;
+  font-family: 'Inter', sans-serif;
+}
+
+.filters-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.filter-label {
+  font-size: 16px;
+  font-weight: 500;
+  color: #24394C;
+}
+
+/* 🔥 CLEAN SELECT BOX DESIGN */
+.filter-select {
+  height: 40px;
+  padding: 0 14px;
+  font-size: 14px;
+  font-family: Inter, sans-serif;
+  color: #24394C;
+  background: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  border-radius: 8px;
+  cursor: pointer;
+  outline: none;
+}
+
+/* subtle hover */
+.filter-select:hover {
+  border-color: #24394C;
+}
+
+/* remove default blue focus */
+.filter-select:focus {
+  border-color: #24394C;
+  box-shadow: none;
+}
+
+.filters-right {
+  font-size: 14px;
+  color: #8F8F8F;
+}
+
+
+/* PRODUCT GRID */
+.products-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 22px;
+  margin-bottom: 50px;
+}
+

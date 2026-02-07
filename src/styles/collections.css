@@ -1,0 +1,125 @@
+.collections {
+  width: 1200px;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.collections-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 32px;
+  font-weight: 600;
+  color: #24394C;
+}
+
+/* 🔥 ROW BASE */
+.collections-row {
+  width: 1199px;
+  height: 341px;
+  display: flex;
+  gap: 23px;
+}
+
+/* ROW 1: Large → Small */
+.row-1 .large {
+  width: 690px;
+}
+
+.row-1 .small {
+  width: 486px;
+}
+
+/* ROW 2: Small → Large */
+.row-2 .small {
+  width: 486px;
+}
+
+.row-2 .large {
+  width: 690px;
+}
+
+/* CARD BASE */
+.collection-card {
+  height: 341px;
+  border-radius: 32px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+/* 🔥 COLLECTION CONTENT BLOCK */
+.collection-content {
+  position: absolute;
+  top: 147px;
+  left: 40px;
+
+  width: 344px;
+  height: 154px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  font-family: "Poppins", sans-serif;
+  color: #ffffff;
+}
+
+/* HEADING */
+.collection-content h3 {
+  width: 344px;
+  height: 42px;
+
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1.1;
+  margin: 0;
+}
+
+/* PARAGRAPH */
+.collection-content p {
+  width: 344px;
+  height: 48px;
+
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.6;
+  margin: 0;
+  opacity: 0.9;
+}
+
+/* BUTTON */
+.collection-content button {
+  width: 148px;
+  height: 32px;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 8px 12px;
+  border-radius: 9px;
+  border: none;
+
+  background: #ffffff;
+  color: #24394C;
+
+  font-family: "Poppins", sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+
+  cursor: pointer;
+}
+
+.collection-content button span {
+  font-size: 16px;
+}
+
+/* 🔥 HOVER */
+.collection-card:hover {
+  transform: scale(1.01);
+  transition: 0.3s ease;
+}

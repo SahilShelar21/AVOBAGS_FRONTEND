@@ -1,0 +1,123 @@
+.hero {
+  position: relative;
+  height: 111vh;          /* lock to screen */
+  min-height: 760px;     /* 🔥 ensures text fits below bag */
+  width: 100%;
+  overflow: hidden;
+}
+
+
+
+/* =========================
+   WATERMARK TEXT
+========================= */
+.hero-watermark {
+  position: absolute;
+  top: 120px;
+  left: 254px;
+  width: 1000px;
+  height: 260px;
+  font-family: "Geist", sans-serif;
+  font-weight: 600;
+  font-style: semibold;
+  font-size: 200px;
+  line-height: 100%;
+  letter-spacing: -0.03em;
+
+  background: linear-gradient(
+    180.08deg,
+    #E5E7EB 23.71%,
+    #FFFFFF 77.27%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  backdrop-filter: blur(3px);
+
+  z-index: 1;
+  user-select: none;
+  white-space: nowrap;
+}
+
+/* =========================
+   BAG IMAGE
+========================= */
+.hero-bag {
+  position: absolute;
+  top: 145px;
+  left: 480px;
+  width: 450px;
+  height: 420px;
+  object-fit: contain;
+  z-index: 2;
+}
+/* =========================
+   TEXT + BUTTON GROUP
+========================= */
+.hero-text {
+  position: absolute;
+  top: 550px;
+  left: 399px;
+  width: 650px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  text-align: center;
+  z-index: 3;
+}
+
+/* Heading tighter */
+.hero-text h2 {
+font-family: Playfair Display;
+font-weight: 500;
+font-style: Medium;
+font-size: 54px;
+line-height: 50px;
+letter-spacing: 0%;
+text-align: center;
+  line-height: 48px; /* tighter */
+  color: #24394C;
+  margin: 0;
+}
+
+/* Subtitle closer */
+.hero-text p {
+font-family: 'Inter', sans-serif;
+font-weight: 400;
+font-style: Regular;
+font-size: 16px;
+line-height: 100%;
+letter-spacing: 0%;
+text-align: center;
+text-align: center;
+color:#8F8F8F;
+;
+}
+
+/* Button spacing */
+.hero-text button {
+margin-top: 1px;
+  width: 229px;
+  height: 60px;
+  padding: 15px 25px;
+  border-radius: 16px;
+  border: none;
+  background-color: #0F1C50 !important;
+  color: #FFFFFF !important;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1;
+  text-align: center;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    box-shadow 0.3s ease;
+
+}
+.hero-text button:hover {
+  background-color: #0A1455 !important;
+  box-shadow: 0 12px 30px rgba(15, 28, 80, 0.35);
+}

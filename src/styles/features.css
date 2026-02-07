@@ -1,0 +1,43 @@
+.features-section {
+  min-height: 5vh;          /* NEXT PAGE */
+  padding: 60px 10%;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  background: #ffffff;
+  gap: 10px;
+}
+
+.feature-item {
+  width: 383px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 2px;
+}
+
+.feature-item img {
+  width: 32px;
+  height: 32px;
+  margin-bottom: 25px;
+}
+
+.feature-item h3 {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  font-weight: 400; 
+  font-style: medium;
+  font-size: 22px;
+  color: #0F1C50;
+  margin-bottom: 15px;
+}
+
+.feature-item p {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  font-weight: 200;
+  font-size: 16px;
+  color: #8F8F8F;
+}

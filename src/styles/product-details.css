@@ -1,0 +1,275 @@
+.product-page {
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+}
+
+/* LAYOUT */
+.product-wrapper {
+  display: flex;
+  gap: 45px;
+  width: 1200px;
+  padding: 40px 120px;
+  margin: 0 auto;
+}
+
+/* GALLERY */
+.gallery {
+  display: flex;
+  gap: 24px;
+  
+}
+
+.thumbs {
+  display: flex;
+  width: 102px;
+  height: 100px;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.thumbs img {
+width: 73.722412109375;
+height: 73.722412109375;
+opacity: 1;
+top: 23.14px;
+left: 14.14px;
+  border-radius: 6px;
+  object-fit: cover;
+  cursor: pointer;
+background: #EAEAEA;
+
+}
+
+.main-image img {
+  width: 521px;
+  height: 552px;
+  border-radius: 10px;
+  object-fit: contain;
+background: #EAEAEA;
+}
+
+/* INFO */
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.info h1 {
+font-family: 'Inter', sans-serif;
+font-weight: 600;
+font-style: Semi Bold;
+font-size: 32px;
+line-height: 100%;
+letter-spacing: 0%;
+}
+
+/* RATING */
+.rating {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  font-size: 14px;
+}
+
+/* PRICE */
+.price-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.price {
+  font-size: 26px;
+  font-weight: 600;
+}
+
+.old {
+  text-decoration: line-through;
+  font-size: 18px;
+  color: #9ca3af;
+}
+
+.save {
+  background: #dcfce7;
+  color: #16a34a;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+/* COLORS 
+.color-dots {
+  display: flex;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.dot {
+  width: 47px;
+  height: 47px;
+  border-radius: 50%;
+  border: 1px solid #ddd;
+}
+
+.dot.black {
+  background: black;
+}
+*/
+/* PRODUCT DETAIL FEATURE PILLS */
+.product-page .features {
+  display: flex;
+  gap: 12px;
+  flex-wrap: nowrap;
+}
+
+.product-page .feature-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+  background: transparent;
+  border-radius: 0;
+  font-size: 13px;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+}
+
+.product-page .feature-pill:hover {
+  border-color: transparent;
+  background: transparent;
+}
+
+.product-page .feature-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.product-page .feature-text {
+  font-weight: 500;
+  color: #24394c;
+}
+
+/* STOCK */
+.stock {
+  font-size: 13px;
+  color: #ea580c;
+}
+
+/* SERVICES */
+.services {
+  display: flex;
+  gap: 24px;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.service-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.service-icon {
+  width: 15px;
+  height: 15px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+/* Container to handle spacing and alignment */
+.buttons {
+  display: flex;
+  gap: 16px; /* Adjusted gap to match visual spacing */
+  width: 100%;
+  max-width: 500px; /* Limits width for a realistic button look */
+  font-family: 'Inter', sans-serif; /* Clean sans-serif like the image */
+}
+
+/* Base styles for both buttons */
+button {
+  flex: 1;
+  height: 48px;
+  padding: 0 20px;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* "Add to Bag" styling */
+.add {
+  background-color: #f4f7fa; /* Light grey-blue tint from image */
+  color: #1e293b; /* Darker slate for the text */
+}
+
+/* "Buy Now" styling */
+.buy {
+  background-color: #101a44; /* Deep navy blue */
+  color: #ffffff;
+}
+
+/* Hover effects for interaction */
+button:hover {
+  opacity: 0.9;
+}
+/* Container and Header Layout */
+.tabs-container {
+  margin-top: 30px;
+  width: 100%;
+  min-height: 300px;
+}
+
+.tab-headers {
+  display: flex;
+  gap: 30px;
+  border-bottom: 1px solid #e5e7eb; /* Light grey bottom line */
+  margin-bottom: 20px;
+}
+
+/* Button Styling */
+.tab-btn {
+  background: none;
+  border: none;
+  padding: 10px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #94a3b8; /* Faded grey for inactive tab */
+  cursor: pointer;
+  position: relative;
+  transition: color 0.2s ease;
+}
+
+/* Active State (Underline) */
+.tab-btn.active {
+  color: #0f1c4d; /* Dark navy for active text */
+}
+
+.tab-btn.active::after {
+  content: "";
+  position: absolute;
+  bottom: -1px; /* Overlaps the container border */
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #0f1c4d; /* Dark underline */
+}
+
+/* Content Styling */
+.tab-content {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #64748b; /* Soft grey for the paragraph text */
+}
+
+.description-text {
+  white-space: pre-line; /* Preserves paragraph breaks */
+}
