@@ -13,7 +13,7 @@ import PageTransition from "./components/PageTransition";
 import ScrollToTop from "./components/ScrollToTop";
 import LuxurySplash from "./components/LuxurySplash";
 
-import Auth from "./pages/Auth";
+import Auth from "./pages/auth";
 import Account from "./pages/Account";
 import Home from "./pages/Home";
 import Products from "./pages/Products";
@@ -21,7 +21,7 @@ import NewArrivalsPage from "./pages/NewArrivalsPage";
 import ProductDetails from "./pages/ProductDetails";
 import CollectionDetail from "./pages/CollectionDetail";
 import AllProducts from "./pages/AllProducts";
-import Checkout from "./pages/Checkout";
+import Checkout from "./pages/checkout";
 import Contact from "./pages/Contact";
 
 import { getSessionId } from "./utils/session";
