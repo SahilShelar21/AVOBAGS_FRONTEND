@@ -11,6 +11,8 @@ import Navbar from "./components/Navbar";
 import CartDrawer from "./components/CartDrawer";
 import PageTransition from "./components/PageTransition";
 import ScrollToTop from "./components/ScrollToTop";
+import LuxurySplash from "./components/LuxurySplash";
+
 import Auth from "./pages/Auth";
 import Account from "./pages/Account";
 import Home from "./pages/Home";
@@ -25,18 +27,25 @@ import Contact from "./pages/Contact";
 import { getSessionId } from "./utils/session";
 
 /* ==================================================
-   🔁 INNER APP (SAFE TO USE ROUTER HOOKS)
+   🔁 INNER APP (ROUTER SAFE)
 ================================================== */
 function App() {
   const location = useLocation();
 
+  const [loading, setLoading] = useState(true);
   const [cartItems, setCartItems] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
 
+  /* 🔒 LOCK SCROLL DURING SPLASH */
+  useEffect(() => {
+    document.body.style.overflow = loading ? "hidden" : "auto";
+  }, [loading]);
+
+  /* 🛒 FETCH CART (AFTER SPLASH) */
   const fetchCart = async () => {
     try {
       const res = await fetch(
-        `http://localhost:5000/api/cart?sessionId=${getSessionId()}`
+        `${API_BASE_URL}/api/cart?sessionId=${getSessionId()}`
       );
 
       if (!res.ok) {
@@ -53,122 +62,132 @@ function App() {
   };
 
   useEffect(() => {
-    fetchCart();
-  }, []);
+    if (!loading) {
+      fetchCart();
+    }
+  }, [loading]);
 
   return (
     <>
-      <Navbar
-        cartItems={cartItems}
-        onCartClick={() => setIsCartOpen(true)}
-      />
+      {/* 🧳 LUXURY SPLASH */}
+      {loading && <LuxurySplash onFinish={() => setLoading(false)} />}
 
-      <CartDrawer
-        isOpen={isCartOpen}
-        onClose={() => setIsCartOpen(false)}
-        cartItems={cartItems}
-        setCartItems={setCartItems}
-        fetchCart={fetchCart}
-      />
+      {/* 🚫 BLOCK APP UNTIL SPLASH ENDS */}
+      {!loading && (
+        <>
+          <Navbar
+            cartItems={cartItems}
+            onCartClick={() => setIsCartOpen(true)}
+          />
 
-      <div style={{ marginTop: "77px" }}>
-        <AnimatePresence mode="wait">
-          <Routes location={location} key={location.pathname}>
-            <Route
-              path="/"
-              element={
-                <PageTransition>
-                  <Home />
-                </PageTransition>
-              }
-            />
+          <CartDrawer
+            isOpen={isCartOpen}
+            onClose={() => setIsCartOpen(false)}
+            cartItems={cartItems}
+            setCartItems={setCartItems}
+            fetchCart={fetchCart}
+          />
 
-            <Route
-              path="/products"
-              element={
-                <PageTransition>
-                  <Products />
-                </PageTransition>
-              }
-            />
+          <div style={{ marginTop: "77px" }}>
+            <AnimatePresence mode="wait">
+              <Routes location={location} key={location.pathname}>
+                <Route
+                  path="/"
+                  element={
+                    <PageTransition>
+                      <Home />
+                    </PageTransition>
+                  }
+                />
 
-            <Route
-              path="/all-products"
-              element={
-                <PageTransition>
-                  <AllProducts />
-                </PageTransition>
-              }
-            />
+                <Route
+                  path="/products"
+                  element={
+                    <PageTransition>
+                      <Products />
+                    </PageTransition>
+                  }
+                />
 
-            <Route
-              path="/collection-detail"
-              element={
-                <PageTransition>
-                  <CollectionDetail />
-                </PageTransition>
-              }
-            />
+                <Route
+                  path="/all-products"
+                  element={
+                    <PageTransition>
+                      <AllProducts />
+                    </PageTransition>
+                  }
+                />
 
-            <Route
-              path="/new-arrivals"
-              element={
-                <PageTransition>
-                  <NewArrivalsPage />
-                </PageTransition>
-              }
-            />
+                <Route
+                  path="/collection-detail"
+                  element={
+                    <PageTransition>
+                      <CollectionDetail />
+                    </PageTransition>
+                  }
+                />
 
-            <Route
-              path="/contact"
-                element={
-                  <PageTransition>
-                    <Contact />
-                  </PageTransition>
-            }
-            />
+                <Route
+                  path="/new-arrivals"
+                  element={
+                    <PageTransition>
+                      <NewArrivalsPage />
+                    </PageTransition>
+                  }
+                />
 
-            <Route
-              path="/product/:slug"
-              element={
-                <PageTransition>
-                  <ProductDetails
-                    fetchCart={fetchCart}
-                    openCart={() => setIsCartOpen(true)}
-                  />
-                </PageTransition>
-              }
-            />
+                <Route
+                  path="/contact"
+                  element={
+                    <PageTransition>
+                      <Contact />
+                    </PageTransition>
+                  }
+                />
 
-            <Route
-              path="/auth"
-              element={
-                <PageTransition>
-                  <Auth />
-                </PageTransition>
-              }
-            />
+                <Route
+                  path="/product/:slug"
+                  element={
+                    <PageTransition>
+                      <ProductDetails
+                        fetchCart={fetchCart}
+                        openCart={() => setIsCartOpen(true)}
+                      />
+                    </PageTransition>
+                  }
+                />
 
-            <Route
-              path="/account"
-              element={
-                <PageTransition>
-                  <Account />
-                </PageTransition>
-              }
-            />
+                <Route
+                  path="/auth"
+                  element={
+                    <PageTransition>
+                      <Auth />
+                    </PageTransition>
+                  }
+                />
 
-            <Route
-              path="/checkout"
-              element={
-                <PageTransition>
-                  <Checkout />
-                </PageTransition>
-              }
-            />
-          </Routes>
-        </AnimatePresence>
-      </div>
+                <Route
+                  path="/account"
+                  element={
+                    <PageTransition>
+                      <Account />
+                    </PageTransition>
+                  }
+                />
+
+                <Route
+                  path="/checkout"
+                  element={
+                    <PageTransition>
+                      <Checkout />
+                    </PageTransition>
+                  }
+                />
+              </Routes>
+            </AnimatePresence>
+          </div>
+        </>
+      )}
     </>
   );
 }

@@ -13,9 +13,9 @@ import warrantyIcon from "../assets/bags/Products_details/warranty.png";
 import returnIcon from "../assets/bags/Products_details/return.png";
 import shippingIcon from "../assets/bags/Products_details/shipping.png";
 import { useNavigate } from "react-router-dom";
-
-
 import "../styles/product-details.css";
+import API_BASE_URL from "../config/api";
+
 
 export default function ProductDetails({ fetchCart, openCart }) {
   console.log("fetchCart:", fetchCart);
@@ -58,7 +58,7 @@ export default function ProductDetails({ fetchCart, openCart }) {
   // ✅ ADD TO CART (FINAL & WORKING)
   const handleAddToCart = async () => {
   try {
-    await fetch("http://localhost:5000/api/cart/add", {
+    await fetch("${API_BASE_URL}/api/cart/add", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

@@ -1,5 +1,7 @@
 import "../styles/cart-drawer.css";
 import { useNavigate } from "react-router-dom";
+import API_BASE_URL from "../config/api";
+
 
 export default function CartDrawer({
   isOpen,
@@ -22,7 +24,7 @@ export default function CartDrawer({
     if (newQty < 1) return;
 
     try {
-      const res = await fetch("http://localhost:5000/api/cart/update", {
+      const res = await fetch("${API_BASE_URL}/api/cart/update", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id, quantity: newQty }),
@@ -45,7 +47,7 @@ export default function CartDrawer({
      =============================== */
   const removeItem = async (id) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/cart/${id}`, {
+      const res = await fetch(`${API_BASE_URL}/api/cart/${id}`, {
         method: "DELETE",
       });
 
@@ -70,7 +72,7 @@ export default function CartDrawer({
         items: items.map((item) => ({
           productId: item.product_id,
           name: item.name,
-          image: `http://localhost:5000${item.image_url}`,
+          image: `${API_BASE_URL}${item.image_url}`,
           price: item.price,
           quantity: item.quantity,
         })),
@@ -101,7 +103,7 @@ export default function CartDrawer({
             <div className="cart-card" key={item.id}>
               <div className="cart-img-box">
                 <img
-                  src={`http://localhost:5000${item.image_url}`}
+                  src={`${API_BASE_URL}${item.image_url}`}
                   alt={item.name}
                 />
               </div>

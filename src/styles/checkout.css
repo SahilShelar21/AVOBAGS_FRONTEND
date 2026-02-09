@@ -1,53 +1,217 @@
+/* styles/checkout.css */
+
+/* 1. Main Container Layout */
 .checkout {
-  display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 40px;
-  padding: 60px;
+  display: flex;
   max-width: 1200px;
-  margin: auto;
+  margin: 40px auto;
+  gap: 30px;
+  padding: 20px;
+  font-family: 'Inter', -apple-system, sans-serif;
+  color: #0b1c2d;
+  background-color: #fcfcfc;
 }
 
-.checkout-left,
-.checkout-right {
-  background: #fff;
-  padding: 30px;
-  border-radius: 10px;
+/* 2. Left Side: Shipping & Forms */
+.checkout-left {
+  flex: 1.5;
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  border: 1px solid #f0f0f0;
 }
 
 .checkout-left h2 {
-  margin-bottom: 20px;
+  font-family: 'Cinzel', serif;
+  font-size: 24px;
+  margin-bottom: 30px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* 3. Input Grid & Field Styling */
+.input-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.full-width {
+  grid-column: span 2;
 }
 
 .checkout-left input {
   width: 100%;
-  padding: 12px;
-  margin-bottom: 12px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
+  padding: 14px 16px;
+  font-size: 14px;
+  border: 1.5px solid #d1d5db; /* Proper structured border */
+  border-radius: 4px;
+  background-color: #ffffff;
+  transition: all 0.2s ease-in-out;
+  box-sizing: border-box;
 }
 
-.checkout-left button {
-  width: 100%;
+.checkout-left input:focus {
+  outline: none;
+  border-color: #0b1c2d;
+  box-shadow: 0 0 0 3px rgba(11, 28, 45, 0.08);
+}
+
+.checkout-left input::placeholder {
+  color: #9ca3af;
+}
+
+/* Validation States */
+.checkout-left input.error {
+  border-color: #dc2626;
+  background-color: #fffafb;
+}
+
+.error-text {
+  color: #dc2626;
+  font-size: 12px;
+  font-weight: 500;
+  margin-top: 5px;
+  display: block;
+}
+
+/* 4. Payment Method Section */
+.payment-method {
+  margin: 40px 0;
+  padding: 25px;
+  background: #f8fafc;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+}
+
+.payment-method h4 {
+  margin-bottom: 20px;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.payment-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   padding: 14px;
-  background: black;
-  color: white;
-  border: none;
+  margin-bottom: 12px;
+  border: 1.5px solid #e5e7eb;
   border-radius: 6px;
+  cursor: pointer;
+  background: #ffffff;
+  transition: all 0.2s;
+}
+
+.payment-option:hover {
+  border-color: #0b1c2d;
+}
+
+.payment-option input[type="radio"] {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: #0b1c2d;
   cursor: pointer;
 }
 
-.checkout-left button:disabled {
-  opacity: 0.6;
+.payment-option span {
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+}
+
+/* 5. Right Side: Order Summary */
+.checkout-right {
+  flex: 1;
+  background: #0b1c2d; /* Luxury Navy */
+  color: #ffffff;
+  padding: 40px;
+  border-radius: 8px;
+  height: fit-content;
+  position: sticky;
+  top: 20px;
+  box-shadow: 0 10px 30px rgba(11, 28, 45, 0.2);
+}
+
+.checkout-right h3 {
+  font-family: 'Cinzel', serif;
+  font-size: 20px;
+  margin-bottom: 25px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 15px;
+  letter-spacing: 1px;
 }
 
 .summary-item {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10px;
+  margin-bottom: 18px;
+  font-size: 14px;
+  font-weight: 300;
+  letter-spacing: 0.5px;
 }
 
 .summary-total {
   display: flex;
   justify-content: space-between;
-  font-size: 18px;
+  margin-top: 25px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: 20px;
+  font-weight: 600;
+}
+
+/* 6. Action Button & Notes */
+.email-note {
+  font-size: 12px;
+  color: #6b7280;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.btn-place-order {
+  width: 100%;
+  padding: 18px;
+  background: #0b1c2d;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btn-place-order:hover {
+  background: #1a2e44;
+}
+
+.btn-place-order:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+}
+
+/* 7. Responsive Design */
+@media (max-width: 900px) {
+  .checkout {
+    flex-direction: column;
+  }
+  
+  .checkout-right {
+    position: static;
+    order: -1; /* Summary appears first on mobile */
+  }
+
+  .input-group {
+    grid-template-columns: 1fr;
+  }
+
+  .full-width {
+    grid-column: span 1;
+  }
 }

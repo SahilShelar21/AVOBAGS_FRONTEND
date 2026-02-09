@@ -2,7 +2,6 @@ import { useState } from "react";
 import "../styles/auth.css";
 import hero_bag from "../assets/hero_bag.png";
 
-
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [form, setForm] = useState({
@@ -46,8 +45,8 @@ const Auth = () => {
     if (!validate()) return;
 
     const url = isLogin
-      ? "http://localhost:5000/api/auth/login"
-      : "http://localhost:5000/api/auth/signup";
+      ? "${API_BASE_URL}/api/auth/login"
+      : "${API_BASE_URL}/api/auth/signup";
 
     const body = isLogin
       ? { identifier: form.identifier, password: form.password }

@@ -1,21 +1,44 @@
 import { useEffect, useState } from "react";
+import API_BASE_URL from "../config/api";
 
 const Account = () => {
   const user = JSON.parse(localStorage.getItem("user"));
   const token = localStorage.getItem("token");
+  const sessionId = localStorage.getItem("sessionId");
+
   const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/orders/my-orders", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then(res => res.json())
-      .then(data => setOrders(data));
+    const fetchOrders = async () => {
+      try {
+        const res = await fetch(`${API_BASE_URL}/api/orders/my-orders`, {
+          headers: {
+            Authorization: token ? `Bearer ${token}` : "",
+            "x-session-id": sessionId || "",
+          },
+        });
+
+        if (!res.ok) {
+          setOrders([]);
+          return;
+        }
+
+        const data = await res.json();
+        setOrders(Array.isArray(data) ? data : []);
+      } catch (err) {
+        console.error(err);
+        setOrders([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchOrders();
   }, []);
 
   if (!user) return <p>Please login</p>;
+  if (loading) return <p>Loading orders...</p>;
 
   return (
     <div className="max-w-5xl mx-auto mt-10 px-4">
@@ -27,9 +50,7 @@ const Account = () => {
         Your Orders
       </h3>
 
-      {orders.length === 0 && (
-        <p>No orders yet</p>
-      )}
+      {orders.length === 0 && <p>No orders yet</p>}
 
       {orders.map(order => (
         <div
