@@ -4,7 +4,7 @@ import "../styles/collections.css";
 import backpackImg from "../assets/bags/Collections/Collection_Backpack.png";
 import laptopImg from "../assets/bags/Collections/Collection-Laptopbags.png";
 import travelImg from "../assets/bags/Collections/Collection-Travelbags.png";
-import trolleyImg from "../assets/bags/Collections/Collection-Trollybags.png";
+import trolleyImg from "../assets/bags/Collections/Collection_Trollybags.png";
 
 export default function OurCollections() {
   const navigate = useNavigate();

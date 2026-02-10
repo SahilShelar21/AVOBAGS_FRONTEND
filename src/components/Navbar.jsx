@@ -1,5 +1,5 @@
 import { NavLink, Link, useNavigate } from "react-router-dom";
-import logo from "../assets/bags/AvoBags_full_logo.jpeg";
+import logo from "../assets/bags/avobags_full_logo.jpeg";
 
 export default function Navbar({ cartItems = [], onCartClick }) {
   const navigate = useNavigate(); // ✅ FIX 1
