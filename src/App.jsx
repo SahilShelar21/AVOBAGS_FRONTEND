@@ -21,7 +21,7 @@ import NewArrivalsPage from "./pages/NewArrivalsPage";
 import ProductDetails from "./pages/ProductDetails";
 import CollectionDetail from "./pages/CollectionDetail";
 import AllProducts from "./pages/AllProducts";
-import Checkout from "./pages/Checkout";
+import Checkout from "./pages/Checkouts";
 import Contact from "./pages/Contact";
 
 import { getSessionId } from "./utils/session";

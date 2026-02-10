@@ -83,7 +83,7 @@ export default function Checkout() {
 
       /* 1️⃣ CREATE ORDER IN DB */
       const orderRes = await fetch(
-        "${API_BASE_URL}/api/orders/create",
+        `${API_BASE_URL}/api/orders/create`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -116,7 +116,7 @@ export default function Checkout() {
 
       /* 🔵 RAZORPAY PAYMENT */
       const paymentRes = await fetch(
-        "${API_BASE_URL}/api/orders/payment/create",
+        `${API_BASE_URL}/api/orders/payment/create`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -142,7 +142,7 @@ export default function Checkout() {
         description: "Order Payment",
         order_id: razorpayOrder.id,
         handler: async (response) => {
-          await fetch("${API_BASE_URL}/api/orders/verify", {
+          await fetch(`${API_BASE_URL}/api/orders/verify`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
