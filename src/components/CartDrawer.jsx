@@ -1,7 +1,7 @@
 import "../styles/cart-drawer.css";
 import { useNavigate } from "react-router-dom";
-import API_BASE_URL from "../config/api";
 
+const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 export default function CartDrawer({
   isOpen,
@@ -24,7 +24,7 @@ export default function CartDrawer({
     if (newQty < 1) return;
 
     try {
-      const res = await fetch("${API_BASE_URL}/api/cart/update", {
+      const res = await fetch(`${API_BASE_URL}/api/cart/update`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id, quantity: newQty }),
@@ -72,7 +72,7 @@ export default function CartDrawer({
         items: items.map((item) => ({
           productId: item.product_id,
           name: item.name,
-          image: `${API_BASE_URL}${item.image_url}`,
+          image: item.image_url, // already absolute URL from DB
           price: item.price,
           quantity: item.quantity,
         })),
@@ -103,7 +103,7 @@ export default function CartDrawer({
             <div className="cart-card" key={item.id}>
               <div className="cart-img-box">
                 <img
-                  src={`${API_BASE_URL}${item.image_url}`}
+                  src={item.image_url}
                   alt={item.name}
                 />
               </div>
