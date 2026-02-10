@@ -12,7 +12,7 @@ import CartDrawer from "./components/CartDrawer";
 import PageTransition from "./components/PageTransition";
 import ScrollToTop from "./components/ScrollToTop";
 import LuxurySplash from "./components/LuxurySplash";
-
+import API_BASE_URL from "./config/api";
 import Auth from "./pages/Auth";
 import Account from "./pages/Account";
 import Home from "./pages/Home";
@@ -43,23 +43,24 @@ function App() {
 
   /* 🛒 FETCH CART (AFTER SPLASH) */
   const fetchCart = async () => {
-    try {
-      const res = await fetch(
-        `${API_BASE_URL}/api/cart?sessionId=${getSessionId()}`
-      );
+  try {
+    const res = await fetch(
+      `${API_BASE_URL}/api/cart?sessionId=${getSessionId()}`
+    );
 
-      if (!res.ok) {
-        setCartItems([]);
-        return;
-      }
-
-      const data = await res.json();
-      setCartItems(Array.isArray(data) ? data : []);
-    } catch (err) {
-      console.error("Failed to fetch cart", err);
+    if (!res.ok) {
       setCartItems([]);
+      return;
     }
-  };
+
+    const data = await res.json();
+    setCartItems(Array.isArray(data) ? data : []);
+  } catch (err) {
+    console.error("Failed to fetch cart", err);
+    setCartItems([]);
+  }
+};
+
 
   useEffect(() => {
     if (!loading) {

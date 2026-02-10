@@ -56,18 +56,22 @@ export default function ProductDetails({ fetchCart, openCart }) {
   });
 }; 
   // ✅ ADD TO CART (FINAL & WORKING)
-  const handleAddToCart = async () => {
+const handleAddToCart = async () => {
   try {
-    await fetch("${API_BASE_URL}/api/cart/add", {
+    const res = await fetch(`${API_BASE_URL}/api/cart/add`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         sessionId: getSessionId(),
         productId: product.id,
         quantity: 1,
-        price: Number(product.price), // 🔑 ensure number
+        price: Number(product.price),
       }),
     });
+
+    if (!res.ok) {
+      throw new Error("Add to cart failed");
+    }
 
     await fetchCart();
     openCart();
@@ -75,6 +79,7 @@ export default function ProductDetails({ fetchCart, openCart }) {
     console.error("ADD TO CART FAILED:", err);
   }
 };
+
 
 
   return (
