@@ -1,7 +1,7 @@
 import React from 'react';
 import { Instagram, Facebook, Twitter, Linkedin } from 'lucide-react'; // Accessible icons
 import "../styles/footer.css";
-import Logo from "../assets/bags/Avobags_full_logo.jpeg"; 
+import logo from "../assets/bags/avobags_logo.png";
 
 export default function Footer() {
   return (
@@ -9,7 +9,7 @@ export default function Footer() {
       <div className="footer-container">
         {/* Brand Info & Socials */}
         <div className="footer-brand">
-          <img src={Logo} alt="AVO BAGS" className="footer-logo" />
+          <img src={logo} alt="AVO BAGS" className="footer-logo" />
           <p>
             Clarity gives you the blocks and components you need to create 
             a truly professional website.
