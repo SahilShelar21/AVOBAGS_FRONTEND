@@ -12,22 +12,24 @@ import CartDrawer from "./components/CartDrawer";
 import PageTransition from "./components/PageTransition";
 import ScrollToTop from "./components/ScrollToTop";
 import LuxurySplash from "./components/LuxurySplash";
-import API_BASE_URL from "./config/api";
-import Auth from "./pages/Auth";
-import Account from "./pages/Account";
-import Home from "./pages/Home";
-import Products from "./pages/Products";
-import NewArrivalsPage from "./pages/NewArrivalsPage";
-import ProductDetails from "./pages/ProductDetails";
-import CollectionDetail from "./pages/CollectionDetail";
-import AllProducts from "./pages/AllProducts";
-import Checkout from "./pages/Checkouts";
-import Contact from "./pages/Contact";
 
+import API_BASE_URL from "./config/api";
 import { getSessionId } from "./utils/session";
 
+/* Pages */
+import Home from "./pages/Home";
+import Products from "./pages/Products";
+import AllProducts from "./pages/AllProducts";
+import ProductDetails from "./pages/ProductDetails";
+import CollectionDetail from "./pages/CollectionDetail";
+import NewArrivalsPage from "./pages/NewArrivalsPage";
+import Contact from "./pages/Contact";
+import Auth from "./pages/Auth";
+import Account from "./pages/Account";
+import Checkouts from "./pages/Checkouts";
+
 /* ==================================================
-   🔁 INNER APP (ROUTER SAFE)
+   🔁 INNER APP
 ================================================== */
 function App() {
   const location = useLocation();
@@ -41,39 +43,34 @@ function App() {
     document.body.style.overflow = loading ? "hidden" : "auto";
   }, [loading]);
 
-  /* 🛒 FETCH CART (AFTER SPLASH) */
+  /* 🛒 FETCH CART */
   const fetchCart = async () => {
-  try {
-    const res = await fetch(
-      `${API_BASE_URL}/api/cart?sessionId=${getSessionId()}`
-    );
+    try {
+      const res = await fetch(
+        `${API_BASE_URL}/api/cart?sessionId=${getSessionId()}`
+      );
 
-    if (!res.ok) {
+      if (!res.ok) {
+        setCartItems([]);
+        return;
+      }
+
+      const data = await res.json();
+      setCartItems(Array.isArray(data) ? data : []);
+    } catch (err) {
+      console.error("Failed to fetch cart", err);
       setCartItems([]);
-      return;
     }
-
-    const data = await res.json();
-    setCartItems(Array.isArray(data) ? data : []);
-  } catch (err) {
-    console.error("Failed to fetch cart", err);
-    setCartItems([]);
-  }
-};
-
+  };
 
   useEffect(() => {
-    if (!loading) {
-      fetchCart();
-    }
+    if (!loading) fetchCart();
   }, [loading]);
 
   return (
     <>
-      {/* 🧳 LUXURY SPLASH */}
       {loading && <LuxurySplash onFinish={() => setLoading(false)} />}
 
-      {/* 🚫 BLOCK APP UNTIL SPLASH ENDS */}
       {!loading && (
         <>
           <Navbar
@@ -92,56 +89,21 @@ function App() {
           <div style={{ marginTop: "77px" }}>
             <AnimatePresence mode="wait">
               <Routes location={location} key={location.pathname}>
-                <Route
-                  path="/"
-                  element={
-                    <PageTransition>
-                      <Home />
-                    </PageTransition>
-                  }
-                />
+                <Route path="/" element={<PageTransition><Home /></PageTransition>} />
+                <Route path="/products" element={<PageTransition><Products /></PageTransition>} />
+                <Route path="/all-products" element={<PageTransition><AllProducts /></PageTransition>} />
+                <Route path="/collection-detail" element={<PageTransition><CollectionDetail /></PageTransition>} />
+                <Route path="/new-arrivals" element={<PageTransition><NewArrivalsPage /></PageTransition>} />
+                <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
+                <Route path="/auth" element={<PageTransition><Auth /></PageTransition>} />
+                <Route path="/account" element={<PageTransition><Account /></PageTransition>} />
 
+                {/* ✅ CHECKOUT */}
                 <Route
-                  path="/products"
+                  path="/checkouts"
                   element={
                     <PageTransition>
-                      <Products />
-                    </PageTransition>
-                  }
-                />
-
-                <Route
-                  path="/all-products"
-                  element={
-                    <PageTransition>
-                      <AllProducts />
-                    </PageTransition>
-                  }
-                />
-
-                <Route
-                  path="/collection-detail"
-                  element={
-                    <PageTransition>
-                      <CollectionDetail />
-                    </PageTransition>
-                  }
-                />
-
-                <Route
-                  path="/new-arrivals"
-                  element={
-                    <PageTransition>
-                      <NewArrivalsPage />
-                    </PageTransition>
-                  }
-                />
-
-                <Route
-                  path="/contact"
-                  element={
-                    <PageTransition>
-                      <Contact />
+                      <Checkouts />
                     </PageTransition>
                   }
                 />
@@ -157,33 +119,6 @@ function App() {
                     </PageTransition>
                   }
                 />
-
-                <Route
-                  path="/auth"
-                  element={
-                    <PageTransition>
-                      <Auth />
-                    </PageTransition>
-                  }
-                />
-
-                <Route
-                  path="/account"
-                  element={
-                    <PageTransition>
-                      <Account />
-                    </PageTransition>
-                  }
-                />
-
-                <Route
-                  path="/checkout"
-                  element={
-                    <PageTransition>
-                      <Checkout />
-                    </PageTransition>
-                  }
-                />
               </Routes>
             </AnimatePresence>
           </div>
@@ -194,7 +129,7 @@ function App() {
 }
 
 /* ==================================================
-   🌍 ROOT WRAPPER
+   🌍 ROOT
 ================================================== */
 export default function AppWrapper() {
   return (

@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import "../styles/checkout.css";
+import "../styles/checkouts.css";
 import API_BASE_URL from "../config/api";
 
 
