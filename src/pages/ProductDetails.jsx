@@ -25,6 +25,7 @@ export default function ProductDetails({ fetchCart, openCart }) {
   const [mainImage, setMainImage] = useState(null);
   const [activeTab, setActiveTab] = useState("description");
   const navigate = useNavigate();
+  const [quantity, setQuantity] = useState(1);
 
   const allProducts = [...bestsellers, ...newArrivals];
   const product = allProducts.find((p) => p.slug === slug);
@@ -58,29 +59,55 @@ export default function ProductDetails({ fetchCart, openCart }) {
   // ✅ ADD TO CART (FINAL & WORKING)
 const handleAddToCart = async () => {
   try {
-    const res = await fetch(`${API_BASE_URL}/api/cart/add`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        sessionId: getSessionId(),
-        productId: product.id,
-        quantity: 1,
-        price: Number(product.price),
-      }),
-    });
+    const token = localStorage.getItem("token");
 
-    if (!res.ok) {
-      throw new Error("Add to cart failed");
+    // ✅ Logged in → send to backend
+    if (token) {
+      const res = await fetch(`${API_BASE_URL}/api/cart/add`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          productId: product.id,
+          quantity: 1,
+        }),
+      });
+
+      if (!res.ok) throw new Error("Add to cart failed");
+
+      fetchCart();
+      openCart();
     }
 
-    await fetchCart();
-    openCart();
+    // ✅ Guest → store locally
+    else {
+      const guestCart =
+        JSON.parse(localStorage.getItem("guestCart")) || [];
+
+      const existing = guestCart.find(
+        (item) => item.id === product.id
+      );
+
+      if (existing) {
+        existing.quantity += 1;
+      } else {
+        guestCart.push({ ...product, quantity: 1 });
+      }
+
+      localStorage.setItem(
+        "guestCart",
+        JSON.stringify(guestCart)
+      );
+
+      fetchCart();
+      openCart();
+    }
   } catch (err) {
     console.error("ADD TO CART FAILED:", err);
   }
 };
-
-
 
   return (
     <section className="product-page">

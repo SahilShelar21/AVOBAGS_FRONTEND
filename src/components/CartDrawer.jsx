@@ -49,25 +49,19 @@ const updateQty = async (id, newQty) => {
   /* ===============================
      REMOVE ITEM
      =============================== */
-const removeItem = async (id) => {
-  try {
-    const res = await fetch(`${API_BASE_URL}/api/cart/${id}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${token}`,  // 🔥 IMPORTANT
-      },
-    });
+  const removeItem = async (id) => {
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/cart/${id}`, {
+        method: "DELETE",
+      });
 
-    if (!res.ok) throw new Error("Delete failed");
+      if (!res.ok) throw new Error("Delete failed");
 
-    setCartItems((prev) =>
-      prev.filter((item) => item.id !== id)
-    );
-  } catch (err) {
-    console.error("REMOVE FAILED", err);
-  }
-};
-
+      setCartItems((prev) => prev.filter((item) => item.id !== id));
+    } catch (err) {
+      console.error("REMOVE FAILED", err);
+    }
+  };
 
   /* ===============================
      CHECKOUT
@@ -77,7 +71,7 @@ const removeItem = async (id) => {
 
     onClose();
 
-    navigate("/checkouts", {
+    navigate("/checkout", {
       state: {
         items: items.map((item) => ({
           productId: item.product_id,

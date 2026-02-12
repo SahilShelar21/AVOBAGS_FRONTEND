@@ -18,6 +18,7 @@ const Auth = () => {
   const [errors, setErrors] = useState({});
   const [serverError, setServerError] = useState("");
 
+  
   /* ===============================
      VALIDATION
   =============================== */
@@ -47,58 +48,90 @@ const Auth = () => {
   /* ===============================
      SUBMIT
   =============================== */
-  const handleSubmit = async () => {
-    setServerError("");
-    if (!validate()) return;
+/* ===============================
+   SUBMIT
+================================ */
+const handleSubmit = async () => {
+  setServerError("");
+  if (!validate()) return;
 
-    const url = isLogin
-      ? `${API_BASE_URL}/api/auth/login`
-      : `${API_BASE_URL}/api/auth/signup`;
+  const url = isLogin
+    ? `${API_BASE_URL}/api/auth/login`
+    : `${API_BASE_URL}/api/auth/signup`;
 
-    const body = isLogin
-      ? { identifier: form.identifier, password: form.password }
-      : {
-          name: form.name,
-          email: form.email,
-          phone: form.phone,
-          password: form.password,
-        };
+  const body = isLogin
+    ? { identifier: form.identifier, password: form.password }
+    : {
+        name: form.name,
+        email: form.email,
+        phone: form.phone,
+        password: form.password,
+      };
 
-    try {
-      const res = await fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      });
+  try {
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
 
-      const contentType = res.headers.get("content-type");
+    const contentType = res.headers.get("content-type");
 
-      if (!res.ok) {
-        if (contentType && contentType.includes("application/json")) {
-          const errorData = await res.json();
-          setServerError(errorData.error || "Request failed");
-        } else {
-          setServerError("Server error occurred");
-        }
-        return;
+    if (!res.ok) {
+      if (contentType && contentType.includes("application/json")) {
+        const errorData = await res.json();
+        setServerError(errorData.error || errorData.message || "Request failed");
+      } else {
+        setServerError("Server error occurred");
       }
-
-      const data = await res.json();
-
-      if (!data.success) {
-        setServerError(data.error || "Something went wrong");
-        return;
-      }
-
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("user", JSON.stringify(data.user));
-
-      window.location.href = "/account";
-    } catch (err) {
-      console.error("Auth error:", err);
-      setServerError("Unable to connect to server");
+      return;
     }
-  };
+
+    const data = await res.json();
+
+    if (!data.success) {
+      setServerError(data.error || "Something went wrong");
+      return;
+    }
+
+    // ✅ SAVE TOKEN + USER
+    localStorage.setItem("token", data.token);
+    localStorage.setItem("user", JSON.stringify(data.user));
+
+    // ✅ MERGE GUEST CART INTO SERVER CART (LOGIN ONLY)
+    if (isLogin) {
+      const token = data.token;
+      const guestCart = JSON.parse(localStorage.getItem("guestCart")) || [];
+
+      if (guestCart.length > 0) {
+        for (const item of guestCart) {
+          await fetch(`${API_BASE_URL}/api/cart/add`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+              productId: item.id,
+              quantity: item.quantity,
+            }),
+          });
+        }
+
+        // Clear guest cart after merging
+        localStorage.removeItem("guestCart");
+      }
+    }
+
+    // ✅ REDIRECT
+    window.location.href = "/account";
+
+  } catch (err) {
+    console.error("Auth error:", err);
+    setServerError("Unable to connect to server");
+  }
+};
+
 
   return (
     <div className="auth-page">

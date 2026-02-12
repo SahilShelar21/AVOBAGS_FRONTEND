@@ -1,30 +1,57 @@
-/* src/styles/static-pages.css */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
 .static-page {
-  padding: 120px 20px 80px; /* Space for fixed navbar */
-  background: #ffffff;
-  min-height: 80vh;
-  animation: fadeIn 0.5s ease-in-out;
+  /* 🌊 Navy to White Gradient Background */
+  background: linear-gradient(135deg, #0b1c2d 0%, #1a3a5a 40%, #ffffff 100%);
+  
+  /* 🎒 Subtle Bag Pattern Overlay */
+  background-image: 
+    url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 15h-5v-2a3 3 0 0 1 6 0v2zm-7 0v-2a5 5 0 0 1 10 0v2h2v15H21V15h2zm-2 17h18v2H21v-2z' fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E"),
+    linear-gradient(135deg, #0b1c2d 0%, #1a3a5a 45%, #ffffff 100%);
+  
+  padding: 140px 20px 100px;
+  min-height: 100vh;
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  align-items: center;
+  animation: fadeIn 0.8s ease-out;
 }
 
 .static-container {
-  width: 90%;
-  max-width: 800px;
+  width: 95%;
+  max-width: 850px;
   margin: 0 auto;
+  /* ⚪ Clean White Card */
+  background: #ffffff;
+  padding: 60px;
+  border-radius: 24px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .static-page h1 {
   font-size: 42px;
   font-weight: 700;
   color: #0b1c2d;
-  margin-bottom: 30px;
-  border-bottom: 3px solid #f3f4f6;
-  padding-bottom: 15px;
+  margin-bottom: 25px;
+  letter-spacing: -1px;
+}
+
+.static-page h1::after {
+  content: "";
+  display: block;
+  width: 50px;
+  height: 5px;
+  background: #0b1c2d;
+  margin-top: 10px;
+  border-radius: 10px;
 }
 
 .static-page h2 {
   margin-top: 40px;
   margin-bottom: 15px;
   font-size: 24px;
+  font-weight: 600;
   color: #1a1a1a;
 }
 
@@ -35,49 +62,63 @@
   margin-bottom: 20px;
 }
 
-.static-page ul {
-  padding-left: 20px;
-  margin-bottom: 20px;
-}
-
 .static-page li {
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   color: #4b5563;
-  list-style-type: square;
+  display: flex;
+  align-items: center;
 }
 
-/* Feedback Form Styling */
+.static-page li::before {
+  content: "•";
+  margin-right: 12px;
+  color: #0b1c2d;
+  font-size: 24px;
+  line-height: 0;
+}
+
+/* 📝 Form Elements */
 .feedback-form textarea {
   width: 100%;
-  padding: 15px;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  font-family: inherit;
+  padding: 18px;
+  background: #f9fafb;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 12px;
+  font-family: 'Poppins', sans-serif;
   font-size: 16px;
-  transition: border-color 0.3s;
+  transition: all 0.2s;
 }
 
 .feedback-form textarea:focus {
   outline: none;
   border-color: #0b1c2d;
+  background: #ffffff;
 }
 
 .static-btn {
   background: #0b1c2d;
   color: white;
-  padding: 12px 30px;
+  padding: 14px 35px;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
   font-weight: 600;
-  transition: opacity 0.3s;
+  font-size: 16px;
+  transition: transform 0.2s, background 0.2s;
 }
 
 .static-btn:hover {
-  opacity: 0.9;
+  background: #1a3a5a;
+  transform: translateY(-2px);
 }
 
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive UI */
+@media (max-width: 768px) {
+  .static-container { padding: 40px 25px; }
+  .static-page h1 { font-size: 32px; }
 }
