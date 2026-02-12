@@ -1,11 +1,9 @@
-import { NavLink, Link, useNavigate } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import logo from "../assets/bags/avobags_logo.png";
+import UserMenu from "./UserMenu"; // ✅ ADD THIS
 
 export default function Navbar({ cartItems = [], onCartClick }) {
-  const navigate = useNavigate(); // ✅ FIX 1
-
   const safeCart = Array.isArray(cartItems) ? cartItems : [];
-
   const cartCount = safeCart.reduce(
     (total, item) => total + item.quantity,
     0
@@ -50,14 +48,8 @@ export default function Navbar({ cartItems = [], onCartClick }) {
 
       {/* Right Icons */}
       <div style={styles.icons}>
-        {/* USER ICON (NO BUTTON ❌) */}
-        <div
-          style={styles.iconCircle}
-          onClick={() => navigate("/auth")}
-          title="Login / Signup"
-        >
-          👤
-        </div>
+        {/* ✅ USER MENU DROPDOWN */}
+        <UserMenu />
 
         {/* CART ICON */}
         <div style={{ position: "relative" }}>
@@ -78,7 +70,7 @@ export default function Navbar({ cartItems = [], onCartClick }) {
   );
 }
 
-/* ✅ STYLES */
+/* ✅ STYLES (UNCHANGED) */
 const styles = {
   header: {
     position: "fixed",
@@ -122,6 +114,7 @@ const styles = {
     display: "flex",
     justifyContent: "flex-end",
     gap: "18px",
+    alignItems: "center",
   },
   iconCircle: {
     width: "36px",

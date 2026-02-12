@@ -1,18 +1,27 @@
 import React from 'react';
-import { Instagram, Facebook, Twitter, Linkedin } from 'lucide-react'; // Accessible icons
+import { Link } from 'react-router-dom'; // ✅ Import Link
+import { Instagram, Facebook, Twitter, Linkedin } from 'lucide-react';
 import "../styles/footer.css";
 import logo from "../assets/bags/avobags_logo.png";
 
 export default function Footer() {
+  
+  // Helper to scroll to top when a link is clicked
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <footer className="footer-section">
       <div className="footer-container">
         {/* Brand Info & Socials */}
         <div className="footer-brand">
-          <img src={logo} alt="AVO BAGS" className="footer-logo" />
+          <Link to="/" onClick={scrollToTop}>
+            <img src={logo} alt="AVO BAGS" className="footer-logo" />
+          </Link>
           <p>
-            Clarity gives you the blocks and components you need to create 
-            a truly professional website.
+            Premium backpacks for modern explorers. 
+            Crafting durability and elegance into every stitch.
           </p>
           
           <div className="social-icons">
@@ -36,31 +45,31 @@ export default function Footer() {
           <div className="footer-column">
             <h4>Company</h4>
             <ul>
-              <li><a href="/about">About Us</a></li>
-              <li><a href="/products">Products</a></li>
-              <li><a href="/career">Career</a></li>
-              <li><a href="/feedback">Feedback</a></li>
+              <li><Link to="/about" onClick={scrollToTop}>About Us</Link></li>
+              <li><Link to="/products" onClick={scrollToTop}>Products</Link></li>
+              <li><Link to="/career" onClick={scrollToTop}>Career</Link></li>
+              <li><Link to="/feedback" onClick={scrollToTop}>Feedback</Link></li>
             </ul>
           </div>
 
           <div className="footer-column">
             <h4>Help</h4>
             <ul>
-              <li><a href="/support">Customer Support</a></li>
-              <li><a href="/terms">Terms & Conditions</a></li>
-              <li><a href="/privacy">Privacy Policy</a></li>
+              <li><Link to="/support" onClick={scrollToTop}>Customer Support</Link></li>
+              <li><Link to="/terms" onClick={scrollToTop}>Terms & Conditions</Link></li>
+              <li><Link to="/privacy" onClick={scrollToTop}>Privacy Policy</Link></li>
             </ul>
           </div>
         </div>
       </div>
 
       <div className="footer-bottom">
-  <hr />
-  <div className="footer-credits">
-    <p>© Copyright 2026, All Rights Reserved by AVO BAGS</p>
-    <p>Design & Develop by Rohit Sawant & Sahil Shelar</p>
-  </div>
-</div>
+        <hr />
+        <div className="footer-credits">
+          <p>© Copyright 2026, All Rights Reserved by AVO BAGS</p>
+          <p>Design & Developed by Rohit Sawant & Sahil Shelar</p>
+        </div>
+      </div>
     </footer>
   );
 }

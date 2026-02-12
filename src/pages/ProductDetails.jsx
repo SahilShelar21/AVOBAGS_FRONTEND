@@ -41,7 +41,7 @@ export default function ProductDetails({ fetchCart, openCart }) {
   ];
 
   const handleBuyNow = () => {
-  navigate("/checkout", {
+  navigate("/checkouts", {
     state: {
       items: [
         {

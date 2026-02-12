@@ -9,6 +9,7 @@ import { AnimatePresence } from "framer-motion";
 
 import Navbar from "./components/Navbar";
 import CartDrawer from "./components/CartDrawer";
+import UserMenu from "./components/UserMenu";
 import PageTransition from "./components/PageTransition";
 import ScrollToTop from "./components/ScrollToTop";
 import LuxurySplash from "./components/LuxurySplash";
@@ -27,6 +28,8 @@ import Contact from "./pages/Contact";
 import Auth from "./pages/Auth";
 import Account from "./pages/Account";
 import Checkouts from "./pages/Checkouts";
+import MyOrders from "./pages/MyOrders";
+import OrderSuccess from "./pages/OrderSuccess";
 
 /* ==================================================
    🔁 INNER APP
@@ -43,26 +46,50 @@ function App() {
     document.body.style.overflow = loading ? "hidden" : "auto";
   }, [loading]);
 
-  /* 🛒 FETCH CART */
+  /* 🛒 FETCH CART (User OR Guest) */
   const fetchCart = async () => {
     try {
-      const res = await fetch(
-        `${API_BASE_URL}/api/cart?sessionId=${getSessionId()}`
-      );
+      const token = localStorage.getItem("token");
+      const baseUrl = `${API_BASE_URL}/api/cart`;
 
-      if (!res.ok) {
-        setCartItems([]);
-        return;
+      // Logged-in user cart
+      if (token) {
+        const res = await fetch(baseUrl, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!res.ok) {
+          setCartItems([]);
+          return;
+        }
+
+        const data = await res.json();
+        setCartItems(Array.isArray(data) ? data : []);
       }
 
-      const data = await res.json();
-      setCartItems(Array.isArray(data) ? data : []);
+      // Guest cart
+      else {
+        const res = await fetch(
+          `${baseUrl}?sessionId=${getSessionId()}`
+        );
+
+        if (!res.ok) {
+          setCartItems([]);
+          return;
+        }
+
+        const data = await res.json();
+        setCartItems(Array.isArray(data) ? data : []);
+      }
     } catch (err) {
       console.error("Failed to fetch cart", err);
       setCartItems([]);
     }
   };
 
+  /* Load cart after splash */
   useEffect(() => {
     if (!loading) fetchCart();
   }, [loading]);
@@ -76,6 +103,14 @@ function App() {
           <Navbar
             cartItems={cartItems}
             onCartClick={() => setIsCartOpen(true)}
+          />
+
+          <UserMenu
+            onLogout={() => {
+              localStorage.removeItem("token");
+              setCartItems([]);      // Clear cart
+              setIsCartOpen(false);  // Close drawer
+            }}
           />
 
           <CartDrawer
@@ -97,8 +132,9 @@ function App() {
                 <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
                 <Route path="/auth" element={<PageTransition><Auth /></PageTransition>} />
                 <Route path="/account" element={<PageTransition><Account /></PageTransition>} />
+                <Route path="/my-orders" element={<PageTransition><MyOrders /></PageTransition>} />
+                <Route path="/success" element={<OrderSuccess />} />
 
-                {/* ✅ CHECKOUT */}
                 <Route
                   path="/checkouts"
                   element={
@@ -129,7 +165,7 @@ function App() {
 }
 
 /* ==================================================
-   🌍 ROOT
+   🌍 ROOT WRAPPER (DEFAULT EXPORT)
 ================================================== */
 export default function AppWrapper() {
   return (

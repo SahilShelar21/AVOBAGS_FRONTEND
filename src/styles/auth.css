@@ -50,7 +50,7 @@
 
 .auth-left img {
   position: absolute;
-  bottom: 175px;        /* move up/down */
+  bottom: 130px;        /* move up/down */
   left: 34%;
   transform: translateX(-50%) scale(1.05);
   width: 240px;

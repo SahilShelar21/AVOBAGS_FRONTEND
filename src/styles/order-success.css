@@ -1,0 +1,35 @@
+.success-container {
+  position: relative;
+  height: 100vh;
+  background: #0b1c2d;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#fireworks {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.success-card {
+  position: relative;
+  background: white;
+  padding: 50px;
+  border-radius: 10px;
+  text-align: center;
+  z-index: 10;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+}
+
+.track-btn {
+  margin-top: 20px;
+  padding: 14px 28px;
+  background: #0b1c2d;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}

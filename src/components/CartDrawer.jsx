@@ -20,44 +20,54 @@ export default function CartDrawer({
   /* ===============================
      UPDATE QUANTITY
      =============================== */
-  const updateQty = async (id, newQty) => {
-    if (newQty < 1) return;
+const updateQty = async (id, newQty) => {
+  if (newQty < 1) return;
 
-    try {
-      const res = await fetch(`${API_BASE_URL}/api/cart/update`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id, quantity: newQty }),
-      });
+  try {
+    const res = await fetch(`${API_BASE_URL}/api/cart/update`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,   // 🔥 IMPORTANT
+      },
+      body: JSON.stringify({ id, quantity: newQty }),
+    });
 
-      if (!res.ok) throw new Error("Update failed");
+    if (!res.ok) throw new Error("Update failed");
 
-      setCartItems((prev) =>
-        prev.map((item) =>
-          item.id === id ? { ...item, quantity: newQty } : item
-        )
-      );
-    } catch (err) {
-      console.error("QTY UPDATE FAILED", err);
-    }
-  };
+    setCartItems((prev) =>
+      prev.map((item) =>
+        item.id === id ? { ...item, quantity: newQty } : item
+      )
+    );
+  } catch (err) {
+    console.error("QTY UPDATE FAILED", err);
+  }
+};
+
 
   /* ===============================
      REMOVE ITEM
      =============================== */
-  const removeItem = async (id) => {
-    try {
-      const res = await fetch(`${API_BASE_URL}/api/cart/${id}`, {
-        method: "DELETE",
-      });
+const removeItem = async (id) => {
+  try {
+    const res = await fetch(`${API_BASE_URL}/api/cart/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,  // 🔥 IMPORTANT
+      },
+    });
 
-      if (!res.ok) throw new Error("Delete failed");
+    if (!res.ok) throw new Error("Delete failed");
 
-      setCartItems((prev) => prev.filter((item) => item.id !== id));
-    } catch (err) {
-      console.error("REMOVE FAILED", err);
-    }
-  };
+    setCartItems((prev) =>
+      prev.filter((item) => item.id !== id)
+    );
+  } catch (err) {
+    console.error("REMOVE FAILED", err);
+  }
+};
+
 
   /* ===============================
      CHECKOUT
@@ -67,7 +77,7 @@ export default function CartDrawer({
 
     onClose();
 
-    navigate("/checkout", {
+    navigate("/checkouts", {
       state: {
         items: items.map((item) => ({
           productId: item.product_id,
