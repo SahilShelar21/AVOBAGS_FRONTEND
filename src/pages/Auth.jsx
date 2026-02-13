@@ -69,36 +69,26 @@ const Auth = () => {
 
     try {
       const res = await fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      });
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+        });
 
-      console.log("Response status:", res.status);
+    const text = await res.text();
 
-      if (!res.ok) {
-        const text = await res.text();
-        console.error("Server error response:", text);
-        setServerError("Server error occurred");
-        return;
-      }
-
-      let data;
-
-      try {
-        data = await res.json();
-      } catch (err) {
-        console.error("Invalid JSON returned from server");
+    let data;
+    try {
+        data = JSON.parse(text);
+    } catch {
         setServerError("Server returned invalid response");
-        return;
-      }
+    return;
+    }
 
-      console.log("Auth Response:", data);
+if (!res.ok || !data.success) {
+  setServerError(data.error || "Authentication failed");
+  return;
+}
 
-      if (!data.success) {
-        setServerError(data.error || "Something went wrong");
-        return;
-      }
 
       // ✅ SAVE TOKEN + USER
       if (data.token) {
