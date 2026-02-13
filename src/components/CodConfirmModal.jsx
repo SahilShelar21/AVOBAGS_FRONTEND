@@ -2,14 +2,7 @@ import { useState } from "react";
 import "../styles/cod-confirm-modal.css";
 import API_BASE_URL from "../config/api";
 
-export default function CodConfirmModal({
-  open,
-  onClose,
-  items,
-  total,
-  customer,
-  onOrderCreated,
-}) {
+export default function CodConfirmModal({ open, onClose, items, total, customer, onOrderCreated }) {
   const [loading, setLoading] = useState(false);
 
   if (!open) return null;
@@ -22,7 +15,7 @@ export default function CodConfirmModal({
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`, // ✅ REQUIRED
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
         body: JSON.stringify({
           sessionId: localStorage.getItem("sessionId"),
@@ -39,18 +32,14 @@ export default function CodConfirmModal({
         }),
       });
 
-      if (!res.ok) {
-        const text = await res.text();
-        console.error("Server error:", text);
-        throw new Error("Order failed");}
+      if (!res.ok) throw new Error("Order failed");
 
       const data = await res.json();
-
-
       if (!data.success) throw new Error("Order failed");
 
       onOrderCreated(data.orderId);
       onClose();
+
     } catch (err) {
       console.error(err);
       alert("Something went wrong!");
@@ -63,9 +52,8 @@ export default function CodConfirmModal({
     <div className="cod-modal-overlay">
       <div className="cod-modal-card">
         <h2>Confirm Your Order</h2>
-
         {items.map((item, index) => (
-            <div key={`${item.product_id || item.productId}-${index}`}>
+          <div key={`${item.product_id || item.productId}-${index}`}>
             {item.name} × {item.quantity}
           </div>
         ))}
@@ -76,7 +64,7 @@ export default function CodConfirmModal({
         <div className="cod-modal-actions">
           <button onClick={onClose} disabled={loading}>Cancel</button>
           <button onClick={handleConfirm} disabled={loading}>
-            {loading ? "Processing..." : "Done"}
+            {loading ? "Processing..." : "Confirm Order"}
           </button>
         </div>
       </div>

@@ -1,16 +1,19 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/auth.css";
 import hero_bag from "../assets/hero_bag.png";
 
 const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 const Auth = () => {
+  const navigate = useNavigate(); // ✅ MOVED INSIDE COMPONENT
+
   const [isLogin, setIsLogin] = useState(true);
 
   const [form, setForm] = useState({
     name: "",
     email: "",
-    phone: "", // ✅ FIXED COMMA
+    phone: "",
     password: "",
     identifier: "",
   });
@@ -18,7 +21,6 @@ const Auth = () => {
   const [errors, setErrors] = useState({});
   const [serverError, setServerError] = useState("");
 
-  
   /* ===============================
      VALIDATION
   =============================== */
@@ -48,96 +50,93 @@ const Auth = () => {
   /* ===============================
      SUBMIT
   =============================== */
-/* ===============================
-   SUBMIT
-================================ */
-const handleSubmit = async () => {
-  setServerError("");
-  if (!validate()) return;
+  const handleSubmit = async () => {
+    setServerError("");
+    if (!validate()) return;
 
-  const url = isLogin
-    ? `${API_BASE_URL}/api/auth/login`
-    : `${API_BASE_URL}/api/auth/signup`;
+    const url = isLogin
+      ? `${API_BASE_URL}/api/auth/login`
+      : `${API_BASE_URL}/api/auth/signup`;
 
-  const body = isLogin
-    ? { identifier: form.identifier, password: form.password }
-    : {
-        name: form.name,
-        email: form.email,
-        phone: form.phone,
-        password: form.password,
-      };
-
-  try {
-    const res = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-    });
-
-    // 🔎 DEBUG STATUS
-    console.log("Response status:", res.status);
-
-    if (!res.ok) {
-      const text = await res.text();
-      console.error("Server error response:", text);
-      setServerError("Server error occurred");
-      return;
-    }
-
-    let data;
+    const body = isLogin
+      ? { identifier: form.identifier, password: form.password }
+      : {
+          name: form.name,
+          email: form.email,
+          phone: form.phone,
+          password: form.password,
+        };
 
     try {
-      data = await res.json();
-    } catch (err) {
-      console.error("Invalid JSON returned from server");
-      setServerError("Server returned invalid response");
-      return;
-    }
+      const res = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
 
-    console.log("Auth Response:", data);
+      console.log("Response status:", res.status);
 
-    if (!data.success) {
-      setServerError(data.error || "Something went wrong");
-      return;
-    }
-
-    // ✅ SAVE TOKEN + USER
-    if (data.token) {
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("user", JSON.stringify(data.user));
-
-      // ✅ MERGE GUEST CART
-      const token = data.token;
-      const guestCart = JSON.parse(localStorage.getItem("guestCart")) || [];
-
-      if (guestCart.length > 0) {
-        for (const item of guestCart) {
-          await fetch(`${API_BASE_URL}/api/cart/add`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify({
-              productId: item.id,
-              quantity: item.quantity,
-            }),
-          });
-        }
-
-        localStorage.removeItem("guestCart");
+      if (!res.ok) {
+        const text = await res.text();
+        console.error("Server error response:", text);
+        setServerError("Server error occurred");
+        return;
       }
+
+      let data;
+
+      try {
+        data = await res.json();
+      } catch (err) {
+        console.error("Invalid JSON returned from server");
+        setServerError("Server returned invalid response");
+        return;
+      }
+
+      console.log("Auth Response:", data);
+
+      if (!data.success) {
+        setServerError(data.error || "Something went wrong");
+        return;
+      }
+
+      // ✅ SAVE TOKEN + USER
+      if (data.token) {
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("user", JSON.stringify(data.user));
+
+        const token = data.token;
+        const guestCart =
+          JSON.parse(localStorage.getItem("guestCart")) || [];
+
+        // ✅ MERGE GUEST CART
+        if (guestCart.length > 0) {
+          for (const item of guestCart) {
+            await fetch(`${API_BASE_URL}/api/cart/add`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+              body: JSON.stringify({
+                productId: item.id,
+                quantity: item.quantity,
+              }),
+            });
+          }
+
+          localStorage.removeItem("guestCart");
+        }
+      }
+
+      // ✅ REDIRECT AFTER SUCCESS
+      navigate("/account");
+
+    } catch (err) {
+      console.error("Auth error:", err);
+      setServerError("Unable to connect to server");
     }
-
-    window.location.href = "/account";
-
-  } catch (err) {
-    console.error("Auth error:", err);
-    setServerError("Unable to connect to server");
-  }
-};
-
+  };
 
   return (
     <div className="auth-page">
@@ -241,6 +240,7 @@ const handleSubmit = async () => {
             <button className="auth-btn" onClick={handleSubmit}>
               {isLogin ? "Login" : "Create Account"}
             </button>
+
           </div>
         </div>
       </div>

@@ -2,9 +2,9 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import "../styles/checkouts.css";
 import API_BASE_URL from "../config/api";
-import CodConfirmModal from "../components/CodConfirmModal"; // ✅ IMPORT MODAL
+import CodConfirmModal from "../components/CodConfirmModal";
 
-export default function Checkout() {
+export default function Checkouts() {
   const { state } = useLocation();
   const navigate = useNavigate();
   const items = state?.items || [];
@@ -12,7 +12,7 @@ export default function Checkout() {
   const [loading, setLoading] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState("razorpay");
   const [errors, setErrors] = useState({});
-  const [showCodModal, setShowCodModal] = useState(false); // ✅ NEW
+  const [showCodModal, setShowCodModal] = useState(false);
 
   const [customer, setCustomer] = useState({
     name: "",
@@ -30,72 +30,119 @@ export default function Checkout() {
     0
   );
 
+  /* ---------------- HANDLE INPUT ---------------- */
   const handleChange = (e) => {
     setCustomer({ ...customer, [e.target.name]: e.target.value });
+
     if (errors[e.target.name]) {
       setErrors({ ...errors, [e.target.name]: "" });
     }
   };
 
+  /* ---------------- VALIDATION ---------------- */
   const validate = () => {
-    let tempErrors = {};
+    let temp = {};
 
-    if (!customer.name.trim()) tempErrors.name = "Full Name is required";
-    if (!customer.email || !/\S+@\S+\.\S+/.test(customer.email))
-      tempErrors.email = "Valid Email is required";
+    if (!customer.name.trim()) temp.name = "Full Name is required";
+    if (!/\S+@\S+\.\S+/.test(customer.email))
+      temp.email = "Valid Email required";
     if (customer.email !== customer.confirmEmail)
-      tempErrors.confirmEmail = "Emails do not match";
-    if (!customer.phone || customer.phone.length < 10)
-      tempErrors.phone = "Valid Phone number is required";
-    if (!customer.address.trim()) tempErrors.address = "Address is required";
-    if (!customer.city.trim()) tempErrors.city = "City is required";
-    if (!customer.state.trim()) tempErrors.state = "State is required";
-    if (!customer.pincode.trim()) tempErrors.pincode = "Pincode is required";
+      temp.confirmEmail = "Emails do not match";
+    if (!/^\d{10}$/.test(customer.phone))
+      temp.phone = "Valid 10-digit phone required";
+    if (!customer.address.trim()) temp.address = "Address required";
+    if (!customer.city.trim()) temp.city = "City required";
+    if (!customer.state.trim()) temp.state = "State required";
+    if (!customer.pincode.trim()) temp.pincode = "Pincode required";
 
-    setErrors(tempErrors);
-    return Object.keys(tempErrors).length === 0;
+    setErrors(temp);
+    return Object.keys(temp).length === 0;
   };
 
   /* ---------------- PLACE ORDER ---------------- */
   const placeOrder = async () => {
     if (!validate()) return;
-    if (items.length === 0) return alert("Your cart is empty");
+    if (!items.length) return alert("Your cart is empty");
 
-    // 🟡 IF COD → OPEN MODAL ONLY
     if (paymentMethod === "cod") {
       setShowCodModal(true);
       return;
     }
 
-    // 🔵 RAZORPAY FLOW
     try {
       setLoading(true);
 
-      const orderRes = await fetch(
-        `${API_BASE_URL}/api/orders/create`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            sessionId: localStorage.getItem("sessionId"),
-            customer,
-            paymentMethod,
-            items,
-            totalAmount,
-          }),
-        }
-      );
+      // 1️⃣ Create Order in Backend
+      const orderRes = await fetch(`${API_BASE_URL}/api/orders/create`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          customer,
+          items,
+          totalAmount,
+          paymentMethod: "online",
+        }),
+      });
 
       const orderData = await orderRes.json();
       if (!orderData.success) throw new Error("Order creation failed");
 
-      navigate("/success", {
-        state: { orderId: orderData.orderId, email: customer.email },
-      });
+      // 2️⃣ Razorpay Setup
+      const options = {
+        key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+        amount: totalAmount * 100,
+        currency: "INR",
+        name: "AVOBAGS",
+        description: "Secure Order Payment",
+        order_id: orderData.razorpayOrderId,
+        prefill: {
+          name: customer.name,
+          email: customer.email,
+          contact: customer.phone,
+        },
+        theme: { color: "#0b1c2d" },
 
+        handler: async function (response) {
+          try {
+            const verifyRes = await fetch(
+              `${API_BASE_URL}/api/orders/verify-payment`,
+              {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  orderId: orderData.orderId,
+                  razorpayPaymentId: response.razorpay_payment_id,
+                  razorpayOrderId: response.razorpay_order_id,
+                  razorpaySignature: response.razorpay_signature,
+                }),
+              }
+            );
+
+            const verifyData = await verifyRes.json();
+            if (!verifyData.success)
+              throw new Error("Payment verification failed");
+
+            navigate("/order-success", {
+              state: { orderId: orderData.orderId },
+            });
+          } catch (err) {
+            alert("Payment verification failed. Please contact support.");
+            console.error(err);
+          }
+        },
+
+        modal: {
+          ondismiss: function () {
+            alert("Payment popup closed. You can retry.");
+          },
+        },
+      };
+
+      const rzp = new window.Razorpay(options);
+      rzp.open();
     } catch (err) {
       console.error(err);
-      alert("Something went wrong");
+      alert("Something went wrong during payment.");
     } finally {
       setLoading(false);
     }
@@ -104,64 +151,139 @@ export default function Checkout() {
   return (
     <>
       <div className="checkout">
+        {/* LEFT SIDE */}
         <div className="checkout-left">
           <h2>Shipping Details</h2>
 
           <div className="input-group">
-            <input name="name" placeholder="Full Name" onChange={handleChange} />
-            <input name="email" placeholder="Email" onChange={handleChange} />
-            <input name="confirmEmail" placeholder="Confirm Email" onChange={handleChange} />
-            <input name="phone" placeholder="Phone" onChange={handleChange} />
-            <input name="address" placeholder="Address" onChange={handleChange} />
-            <input name="city" placeholder="City" onChange={handleChange} />
-            <input name="state" placeholder="State" onChange={handleChange} />
-            <input name="pincode" placeholder="Pincode" onChange={handleChange} />
+            <div className="full-width">
+              <input
+                name="name"
+                placeholder="Full Name"
+                onChange={handleChange}
+                className={errors.name ? "error" : ""}
+              />
+              {errors.name && <span className="error-text">{errors.name}</span>}
+            </div>
+
+            <input
+              name="email"
+              placeholder="Email"
+              onChange={handleChange}
+              className={errors.email ? "error" : ""}
+            />
+            <input
+              name="confirmEmail"
+              placeholder="Confirm Email"
+              onChange={handleChange}
+              className={errors.confirmEmail ? "error" : ""}
+            />
+
+            <input
+              name="phone"
+              placeholder="Phone"
+              onChange={handleChange}
+              className={errors.phone ? "error" : ""}
+            />
+
+            <div className="full-width">
+              <input
+                name="address"
+                placeholder="Address"
+                onChange={handleChange}
+                className={errors.address ? "error" : ""}
+              />
+            </div>
+
+            <input
+              name="city"
+              placeholder="City"
+              onChange={handleChange}
+              className={errors.city ? "error" : ""}
+            />
+
+            <input
+              name="state"
+              placeholder="State"
+              onChange={handleChange}
+              className={errors.state ? "error" : ""}
+            />
+
+            <input
+              name="pincode"
+              placeholder="Pincode"
+              onChange={handleChange}
+              className={errors.pincode ? "error" : ""}
+            />
           </div>
 
+          {/* PAYMENT METHOD */}
           <div className="payment-method">
-            <label>
+            <h4>Payment Method</h4>
+
+            <label className="payment-option">
               <input
                 type="radio"
                 value="razorpay"
                 checked={paymentMethod === "razorpay"}
                 onChange={(e) => setPaymentMethod(e.target.value)}
               />
-              Pay Online
+              <span>Pay Online (Razorpay)</span>
             </label>
 
-            <label>
+            <label className="payment-option">
               <input
                 type="radio"
                 value="cod"
                 checked={paymentMethod === "cod"}
                 onChange={(e) => setPaymentMethod(e.target.value)}
               />
-              Cash on Delivery
+              <span>Cash on Delivery</span>
             </label>
           </div>
 
-          <button onClick={placeOrder} disabled={loading}>
-            {paymentMethod === "cod" ? "Place Order" : "Pay Now"}
+          <button
+            className="btn-place-order"
+            onClick={placeOrder}
+            disabled={loading}
+          >
+            {loading
+              ? "Processing..."
+              : paymentMethod === "cod"
+              ? "Place Order"
+              : "Pay Now"}
           </button>
         </div>
 
+        {/* RIGHT SIDE */}
         <div className="checkout-right">
-          <h3>Total: ₹{totalAmount}</h3>
+          <h3>Order Summary</h3>
+
+          {items.map((item, index) => (
+            <div key={index} className="summary-item">
+              <span>
+                {item.name} × {item.quantity}
+              </span>
+              <span>₹{item.price * item.quantity}</span>
+            </div>
+          ))}
+
+          <div className="summary-total">
+            <span>Total</span>
+            <span>₹{totalAmount}</span>
+          </div>
         </div>
       </div>
 
-      {/* ✅ COD MODAL CONNECTED */}
       <CodConfirmModal
         open={showCodModal}
         onClose={() => setShowCodModal(false)}
         items={items}
         total={totalAmount}
         customer={customer}
-        onOrderCreated={(orderId) => {
-          navigate("/success", {
-            state: { orderId, email: customer.email },
-          });
-        }}
+        onOrderCreated={(orderId) =>
+          navigate("/order-success", { state: { orderId } })
+        }
       />
     </>
   );

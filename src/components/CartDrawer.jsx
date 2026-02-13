@@ -71,7 +71,7 @@ const updateQty = async (id, newQty) => {
 
     onClose();
 
-    navigate("/checkout", {
+    navigate("/checkouts", {
       state: {
         items: items.map((item) => ({
           productId: item.product_id,
