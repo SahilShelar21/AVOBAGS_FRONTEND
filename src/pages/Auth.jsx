@@ -75,19 +75,27 @@ const handleSubmit = async () => {
       body: JSON.stringify(body),
     });
 
-    const contentType = res.headers.get("content-type");
+    // 🔎 DEBUG STATUS
+    console.log("Response status:", res.status);
 
     if (!res.ok) {
-      if (contentType && contentType.includes("application/json")) {
-        const errorData = await res.json();
-        setServerError(errorData.error || errorData.message || "Request failed");
-      } else {
-        setServerError("Server error occurred");
-      }
+      const text = await res.text();
+      console.error("Server error response:", text);
+      setServerError("Server error occurred");
       return;
     }
 
-    const data = await res.json();
+    let data;
+
+    try {
+      data = await res.json();
+    } catch (err) {
+      console.error("Invalid JSON returned from server");
+      setServerError("Server returned invalid response");
+      return;
+    }
+
+    console.log("Auth Response:", data);
 
     if (!data.success) {
       setServerError(data.error || "Something went wrong");
@@ -95,38 +103,33 @@ const handleSubmit = async () => {
     }
 
     // ✅ SAVE TOKEN + USER
-// 🧠 DEBUG RESPONSE
-console.log("Auth Response:", data);
+    if (data.token) {
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data.user));
 
-// ✅ SAVE TOKEN + USER
-if (data.token) {
-  localStorage.setItem("token", data.token);
-  localStorage.setItem("user", JSON.stringify(data.user));
+      // ✅ MERGE GUEST CART
+      const token = data.token;
+      const guestCart = JSON.parse(localStorage.getItem("guestCart")) || [];
 
-  // ✅ MERGE GUEST CART (WORKS FOR LOGIN + SIGNUP)
-  const token = data.token;
-  const guestCart = JSON.parse(localStorage.getItem("guestCart")) || [];
+      if (guestCart.length > 0) {
+        for (const item of guestCart) {
+          await fetch(`${API_BASE_URL}/api/cart/add`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+              productId: item.id,
+              quantity: item.quantity,
+            }),
+          });
+        }
 
-  if (guestCart.length > 0) {
-    for (const item of guestCart) {
-      await fetch(`${API_BASE_URL}/api/cart/add`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          productId: item.id,
-          quantity: item.quantity,
-        }),
-      });
+        localStorage.removeItem("guestCart");
+      }
     }
 
-    localStorage.removeItem("guestCart");
-  }
-}
-
-    // ✅ REDIRECT
     window.location.href = "/account";
 
   } catch (err) {
