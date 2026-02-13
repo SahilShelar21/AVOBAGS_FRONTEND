@@ -26,8 +26,17 @@
   opacity: 0.15;
   animation: move 25s infinite alternate;
 }
-.blob-light-1 { top: -100px; left: -100px; background: #3b82f6; }
-.blob-light-2 { bottom: -100px; right: -100px; background: #2dd4bf; }
+.blob-light-1 {
+  top: -100px;
+  left: -100px;
+  background: #22c55e;
+}
+
+.blob-light-2 {
+  bottom: -100px;
+  right: -100px;
+  background: #2dd4bf;
+}
 
 @keyframes move {
   from { transform: translate(0, 0); }
