@@ -60,93 +60,87 @@ export default function Checkouts() {
   };
 
   /* ---------------- PLACE ORDER ---------------- */
-  const placeOrder = async () => {
-    if (!validate()) return;
-    if (!items.length) return alert("Your cart is empty");
+const placeOrder = async () => {
+  if (!validate()) return;
+  if (!items.length) return alert("Your cart is empty");
 
-    if (paymentMethod === "cod") {
-      setShowCodModal(true);
-      return;
-    }
+  if (paymentMethod === "cod") {
+    setShowCodModal(true);
+    return;
+  }
 
-    try {
-      setLoading(true);
+  try {
+    setLoading(true);
 
-      // 1️⃣ Create Order in Backend
-      const orderRes = await fetch(`${API_BASE_URL}/api/orders/create`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          customer,
-          items,
-          totalAmount,
-          paymentMethod: "online",
-        }),
-      });
+    const options = {
+      key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+      amount: totalAmount * 100,
+      currency: "INR",
+      name: "AVOBAGS",
+      description: "Secure Order Payment",
+      prefill: {
+        name: customer.name,
+        email: customer.email,
+        contact: customer.phone,
+      },
+      theme: { color: "#0b1c2d" },
 
-      const orderData = await orderRes.json();
-      if (!orderData.success) throw new Error("Order creation failed");
+      handler: async function (response) {
+        try {
+          const verifyRes = await fetch(
+            `${API_BASE_URL}/api/orders/verify-payment`,
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_signature: response.razorpay_signature,
+                orderData: {
+                  name: customer.name,
+                  email: customer.email,
+                  phone: customer.phone,
+                  address: customer.address,
+                  city: customer.city,
+                  state: customer.state,
+                  pincode: customer.pincode,
+                  total_amount: totalAmount,
+                  session_id: Date.now().toString(),
+                },
+              }),
+            }
+          );
 
-      // 2️⃣ Razorpay Setup
-      const options = {
-        key: import.meta.env.VITE_RAZORPAY_KEY_ID,
-        amount: totalAmount * 100,
-        currency: "INR",
-        name: "AVOBAGS",
-        description: "Secure Order Payment",
-        order_id: orderData.razorpayOrderId,
-        prefill: {
-          name: customer.name,
-          email: customer.email,
-          contact: customer.phone,
+          const verifyData = await verifyRes.json();
+
+          if (!verifyData.success)
+            throw new Error("Payment verification failed");
+
+          navigate("/order-success", {
+            state: { orderId: verifyData.order.id },
+          });
+        } catch (err) {
+          console.error(err);
+          alert("Payment verification failed.");
+        }
+      },
+
+      modal: {
+        ondismiss: function () {
+          alert("Payment popup closed.");
         },
-        theme: { color: "#0b1c2d" },
+      },
+    };
 
-        handler: async function (response) {
-          try {
-            const verifyRes = await fetch(
-              `${API_BASE_URL}/api/orders/verify-payment`,
-              {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                  orderId: orderData.orderId,
-                  razorpayPaymentId: response.razorpay_payment_id,
-                  razorpayOrderId: response.razorpay_order_id,
-                  razorpaySignature: response.razorpay_signature,
-                }),
-              }
-            );
-
-            const verifyData = await verifyRes.json();
-            if (!verifyData.success)
-              throw new Error("Payment verification failed");
-
-            navigate("/order-success", {
-              state: { orderId: orderData.orderId },
-            });
-          } catch (err) {
-            alert("Payment verification failed. Please contact support.");
-            console.error(err);
-          }
-        },
-
-        modal: {
-          ondismiss: function () {
-            alert("Payment popup closed. You can retry.");
-          },
-        },
-      };
-
-      const rzp = new window.Razorpay(options);
-      rzp.open();
-    } catch (err) {
-      console.error(err);
-      alert("Something went wrong during payment.");
-    } finally {
-      setLoading(false);
-    }
-  };
+    const rzp = new window.Razorpay(options);
+    rzp.open();
+  } catch (err) {
+    console.error(err);
+    alert("Something went wrong during payment.");
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <>
