@@ -95,33 +95,36 @@ const handleSubmit = async () => {
     }
 
     // ✅ SAVE TOKEN + USER
-    localStorage.setItem("token", data.token);
-    localStorage.setItem("user", JSON.stringify(data.user));
+// 🧠 DEBUG RESPONSE
+console.log("Auth Response:", data);
 
-    // ✅ MERGE GUEST CART INTO SERVER CART (LOGIN ONLY)
-    if (isLogin) {
-      const token = data.token;
-      const guestCart = JSON.parse(localStorage.getItem("guestCart")) || [];
+// ✅ SAVE TOKEN + USER
+if (data.token) {
+  localStorage.setItem("token", data.token);
+  localStorage.setItem("user", JSON.stringify(data.user));
 
-      if (guestCart.length > 0) {
-        for (const item of guestCart) {
-          await fetch(`${API_BASE_URL}/api/cart/add`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify({
-              productId: item.id,
-              quantity: item.quantity,
-            }),
-          });
-        }
+  // ✅ MERGE GUEST CART (WORKS FOR LOGIN + SIGNUP)
+  const token = data.token;
+  const guestCart = JSON.parse(localStorage.getItem("guestCart")) || [];
 
-        // Clear guest cart after merging
-        localStorage.removeItem("guestCart");
-      }
+  if (guestCart.length > 0) {
+    for (const item of guestCart) {
+      await fetch(`${API_BASE_URL}/api/cart/add`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          productId: item.id,
+          quantity: item.quantity,
+        }),
+      });
     }
+
+    localStorage.removeItem("guestCart");
+  }
+}
 
     // ✅ REDIRECT
     window.location.href = "/account";

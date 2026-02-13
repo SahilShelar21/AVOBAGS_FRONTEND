@@ -1,11 +1,10 @@
 .hero {
   position: relative;
-  height: 111vh;          /* lock to screen */
+  height: 120vh;          /* lock to screen */
   min-height: 760px;     /* 🔥 ensures text fits below bag */
   width: 100%;
   overflow: hidden;
 }
-
 
 
 /* =========================
