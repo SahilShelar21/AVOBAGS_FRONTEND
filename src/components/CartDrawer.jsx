@@ -1,5 +1,6 @@
 import "../styles/cart-drawer.css";
 import { useNavigate } from "react-router-dom";
+const token = localStorage.getItem("token");
 
 const API_BASE_URL = import.meta.env.VITE_API_URL;
 
@@ -24,44 +25,39 @@ const updateQty = async (id, newQty) => {
   if (newQty < 1) return;
 
   try {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      console.error("No auth token found");
+      return;
+    }
+
     const res = await fetch(`${API_BASE_URL}/api/cart/update`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,   // 🔥 IMPORTANT
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({ id, quantity: newQty }),
     });
 
-    if (!res.ok) throw new Error("Update failed");
+    const data = await res.json();
 
+    if (!res.ok || !data.success) {
+      throw new Error("Update failed");
+    }
+
+    // Update UI only after backend success
     setCartItems((prev) =>
       prev.map((item) =>
         item.id === id ? { ...item, quantity: newQty } : item
       )
     );
+
   } catch (err) {
-    console.error("QTY UPDATE FAILED", err);
+    console.error("QTY UPDATE FAILED:", err);
   }
 };
-
-
-  /* ===============================
-     REMOVE ITEM
-     =============================== */
-  const removeItem = async (id) => {
-    try {
-      const res = await fetch(`${API_BASE_URL}/api/cart/${id}`, {
-        method: "DELETE",
-      });
-
-      if (!res.ok) throw new Error("Delete failed");
-
-      setCartItems((prev) => prev.filter((item) => item.id !== id));
-    } catch (err) {
-      console.error("REMOVE FAILED", err);
-    }
-  };
 
   /* ===============================
      CHECKOUT

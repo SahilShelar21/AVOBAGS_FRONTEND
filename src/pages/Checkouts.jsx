@@ -85,51 +85,52 @@ const placeOrder = async () => {
       },
       theme: { color: "#0b1c2d" },
 
-      handler: async function (response) {
-        try {
-          const verifyRes = await fetch(
-            `${API_BASE_URL}/api/orders/verify-payment`,
-            {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                razorpay_order_id: response.razorpay_order_id,
-                razorpay_payment_id: response.razorpay_payment_id,
-                razorpay_signature: response.razorpay_signature,
-                orderData: {
-                  name: customer.name,
-                  email: customer.email,
-                  phone: customer.phone,
-                  address: customer.address,
-                  city: customer.city,
-                  state: customer.state,
-                  pincode: customer.pincode,
-                  total_amount: totalAmount,
-                  session_id: Date.now().toString(),
-                },
-              }),
-            }
-          );
+handler: async function (response) {
+  try {
+    const verifyRes = await fetch(
+      `${API_BASE_URL}/api/orders/verify-payment`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          razorpay_order_id: response.razorpay_order_id,
+          razorpay_payment_id: response.razorpay_payment_id,
+          razorpay_signature: response.razorpay_signature,
+          orderData: {
+            name: customer.name,
+            email: customer.email,
+            phone: customer.phone,
+            address: customer.address,
+            city: customer.city,
+            state: customer.state,
+            pincode: customer.pincode,
+            total_amount: totalAmount,
+            session_id: Date.now().toString(),
+          },
+        }),
+      }
+    );
 
-          const verifyData = await verifyRes.json();
+    if (!verifyRes.ok) {
+      throw new Error("Server verification failed");
+    }
 
-          if (!verifyData.success)
-            throw new Error("Payment verification failed");
+    const verifyData = await verifyRes.json();
 
-          navigate("/order-success", {
-            state: { orderId: verifyData.order.id },
-          });
-        } catch (err) {
-          console.error(err);
-          alert("Payment verification failed.");
-        }
-      },
+    if (!verifyData.success) {
+      throw new Error(verifyData.message || "Payment verification failed");
+    }
 
-      modal: {
-        ondismiss: function () {
-          alert("Payment popup closed.");
-        },
-      },
+    navigate("/order-success", {
+      state: { orderId: verifyData.order.id },
+      replace: true,
+    });
+
+  } catch (err) {
+    console.error("Verification Error:", err);
+    alert("Payment verification failed. Please contact support.");
+  }
+},
     };
 
     const rzp = new window.Razorpay(options);
