@@ -4,7 +4,7 @@ import bag1_2 from "../assets/bags/Grey_Bag/Grey_feature.png";
 import bag1_3 from "../assets/bags/Grey_Bag/Grey_3.png";
 import bag1_4 from "../assets/bags/Grey_Bag/Grey_4.png";
 
-import bag2face from "../assets/bags/Blue_Bag/Blue_show.png";
+import bag2face from "../assets/bags/Blue_Bag/Blue_Show.png";
 import bag2facehover from "../assets/bags/Blue_Bag/Blue_Hover.png";
 import bag2_2 from "../assets/bags/Blue_Bag/Blue_Main.png";
 import bag2_3 from "../assets/bags/Blue_Bag/Blue_3.png";
