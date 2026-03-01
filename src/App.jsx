@@ -145,7 +145,7 @@ function App() {
                 />
 
                 <Route
-                  path="/success"
+                  path="/order-success"
                   element={<OrderSuccess />}
                 />
 

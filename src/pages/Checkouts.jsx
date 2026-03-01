@@ -106,6 +106,13 @@ handler: async function (response) {
             pincode: customer.pincode,
             total_amount: totalAmount,
             session_id: Date.now().toString(),
+            items: items.map((it) => ({
+              productId: it.product_id || it.productId,
+              name: it.name,
+              price: it.price,
+              quantity: it.quantity,
+              image: it.image || it.image_url || it.imageUrl || null,
+            })),
           },
         }),
       }
@@ -119,6 +126,15 @@ handler: async function (response) {
 
     if (!verifyData.success) {
       throw new Error(verifyData.message || "Payment verification failed");
+    }
+
+    // If backend returned a wa link for customer, open it (fallback when API not configured)
+    if (verifyData.waCustomerLink) {
+      try {
+        window.open(verifyData.waCustomerLink, "_blank");
+      } catch (e) {
+        console.log("Customer WA link:", verifyData.waCustomerLink);
+      }
     }
 
     navigate("/order-success", {
