@@ -12,9 +12,9 @@ function Home() {
     <>
       <Hero />
       <Features />
-      <Bestsellers />
-      <OurCollections />
       <NewArrivals />
+      <OurCollections />
+      <Bestsellers />
       <Testimonial />
       <Footer />
 

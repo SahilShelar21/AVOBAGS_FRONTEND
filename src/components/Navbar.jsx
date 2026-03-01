@@ -1,6 +1,5 @@
 import { NavLink, Link } from "react-router-dom";
 import logo from "../assets/bags/avobags_logo.png";
-import UserMenu from "./UserMenu"; // ✅ ADD THIS
 
 export default function Navbar({ cartItems = [], onCartClick }) {
   const safeCart = Array.isArray(cartItems) ? cartItems : [];
@@ -46,12 +45,8 @@ export default function Navbar({ cartItems = [], onCartClick }) {
         </NavLink>
       </nav>
 
-      {/* Right Icons */}
+      {/* Right: Cart Only */}
       <div style={styles.icons}>
-        {/* ✅ USER MENU DROPDOWN */}
-        <UserMenu />
-
-        {/* CART ICON */}
         <div style={{ position: "relative" }}>
           <div
             style={styles.iconCircle}
@@ -70,7 +65,7 @@ export default function Navbar({ cartItems = [], onCartClick }) {
   );
 }
 
-/* ✅ STYLES (UNCHANGED) */
+/* ✅ STYLES */
 const styles = {
   header: {
     position: "fixed",

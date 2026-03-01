@@ -11,12 +11,14 @@ export default function CodConfirmModal({ open, onClose, items, total, customer,
     try {
       setLoading(true);
 
+      // build headers and body; only include Authorization when token exists
+      const token = localStorage.getItem("token");
+      const headers = { "Content-Type": "application/json" };
+      if (token) headers.Authorization = `Bearer ${token}`;
+
       const res = await fetch(`${API_BASE_URL}/api/orders/create`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
+        headers,
         body: JSON.stringify({
           sessionId: localStorage.getItem("sessionId"),
           customer,
@@ -32,10 +34,20 @@ export default function CodConfirmModal({ open, onClose, items, total, customer,
         }),
       });
 
-      if (!res.ok) throw new Error("Order failed");
-
       const data = await res.json();
-      if (!data.success) throw new Error("Order failed");
+      if (!res.ok || !data.success) {
+        const msg = data?.message || "Order failed";
+        throw new Error(msg);
+      }
+
+      // navigate to success and optionally open admin WhatsApp link
+      if (data.waLink) {
+        try {
+          window.open(data.waLink, "_blank");
+        } catch (e) {
+          console.log("WA link:", data.waLink);
+        }
+      }
 
       onOrderCreated(data.orderId);
       onClose();

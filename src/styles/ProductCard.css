@@ -9,8 +9,8 @@
 }
 
 .product-image {
-  width: 282px;
-  height: 315px;
+  width: 350px;
+  height: 400px;
   background: #F5F5F5;
   border-radius: 12px;
   position: relative;
@@ -29,6 +29,7 @@
   opacity: 0;
 }
 
+/* swap image on hover without scaling card */
 .product-card:hover .img-hover {
   opacity: 1;
 }
@@ -36,6 +37,7 @@
 .product-card:hover .img-default {
   opacity: 0;
 }
+
 
 .product-info {
   display: flex;

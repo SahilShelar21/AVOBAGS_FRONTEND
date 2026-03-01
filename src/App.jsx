@@ -9,7 +9,6 @@ import { AnimatePresence } from "framer-motion";
 
 import Navbar from "./components/Navbar";
 import CartDrawer from "./components/CartDrawer";
-import UserMenu from "./components/UserMenu";
 import PageTransition from "./components/PageTransition";
 import ScrollToTop from "./components/ScrollToTop";
 import LuxurySplash from "./components/LuxurySplash";
@@ -24,13 +23,10 @@ import ProductDetails from "./pages/ProductDetails";
 import CollectionDetail from "./pages/CollectionDetail";
 import NewArrivalsPage from "./pages/NewArrivalsPage";
 import Contact from "./pages/Contact";
-import Auth from "./pages/Auth";
-import Account from "./pages/Account";
 import Checkouts from "./pages/Checkouts";
-import MyOrders from "./pages/MyOrders";
 import OrderSuccess from "./pages/OrderSuccess";
 
-/*Footer */
+/* Footer Pages */
 import About from "./pages/About";
 import Productfooter from "./pages/Product-footer";
 import Career from "./pages/Career";
@@ -38,7 +34,6 @@ import Feedback from "./pages/Feedback";
 import CustomerSupport from "./pages/CustomerSupport";
 import Terms from "./pages/Terms";
 import Privacy from "./pages/Privacy";
-
 
 /* ==================================================
    🔁 INNER APP
@@ -55,40 +50,19 @@ function App() {
     document.body.style.overflow = loading ? "hidden" : "auto";
   }, [loading]);
 
-  /* 🛒 FETCH CART (User OR Guest) */
-  /* 🛒 FETCH CART */
-const fetchCart = async () => {
-  try {
-    const token = localStorage.getItem("token");
-    const baseUrl = `${API_BASE_URL}/api/cart`;
-
-    // ✅ Logged-in user → server cart
-    if (token) {
-      const res = await fetch(baseUrl, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      if (!res.ok) {
-        setCartItems([]);
-        return;
-      }
-
-      const data = await res.json();
-      setCartItems(Array.isArray(data) ? data : []);
+  /* ==============================
+     🛒 FETCH CART (GUEST ONLY)
+  ============================== */
+  const fetchCart = () => {
+    try {
+      const guestCart =
+        JSON.parse(localStorage.getItem("guestCart")) || [];
+      setCartItems(Array.isArray(guestCart) ? guestCart : []);
+    } catch (err) {
+      console.error("Failed to fetch cart", err);
+      setCartItems([]);
     }
-
-    // ✅ Guest → localStorage cart ONLY
-    else {
-      const guestCart = JSON.parse(localStorage.getItem("guestCart")) || [];
-      setCartItems(guestCart);
-    }
-  } catch (err) {
-    console.error("Failed to fetch cart", err);
-    setCartItems([]);
-  }
-};
+  };
 
   /* Load cart after splash */
   useEffect(() => {
@@ -106,35 +80,74 @@ const fetchCart = async () => {
             onCartClick={() => setIsCartOpen(true)}
           />
 
-          <UserMenu
-            onLogout={() => {
-              localStorage.removeItem("token");
-              setCartItems([]);      // Clear cart
-              setIsCartOpen(false);  // Close drawer
-            }}
-          />
-
           <CartDrawer
             isOpen={isCartOpen}
             onClose={() => setIsCartOpen(false)}
             cartItems={cartItems}
             setCartItems={setCartItems}
-            fetchCart={fetchCart}
           />
 
           <div style={{ marginTop: "77px" }}>
             <AnimatePresence mode="wait">
               <Routes location={location} key={location.pathname}>
-                <Route path="/" element={<PageTransition><Home /></PageTransition>} />
-                <Route path="/products" element={<PageTransition><Products /></PageTransition>} />
-                <Route path="/all-products" element={<PageTransition><AllProducts /></PageTransition>} />
-                <Route path="/collection-detail" element={<PageTransition><CollectionDetail /></PageTransition>} />
-                <Route path="/new-arrivals" element={<PageTransition><NewArrivalsPage /></PageTransition>} />
-                <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
-                <Route path="/auth" element={<PageTransition><Auth /></PageTransition>} />
-                <Route path="/account" element={<PageTransition><Account /></PageTransition>} />
-                <Route path="/my-orders" element={<PageTransition><MyOrders /></PageTransition>} />
-                <Route path="/success" element={<OrderSuccess />} />
+                <Route
+                  path="/"
+                  element={
+                    <PageTransition>
+                      <Home />
+                    </PageTransition>
+                  }
+                />
+
+                <Route
+                  path="/products"
+                  element={
+                    <PageTransition>
+                      <Products />
+                    </PageTransition>
+                  }
+                />
+
+                <Route
+                  path="/all-products"
+                  element={
+                    <PageTransition>
+                      <AllProducts />
+                    </PageTransition>
+                  }
+                />
+
+                <Route
+                  path="/collection-detail"
+                  element={
+                    <PageTransition>
+                      <CollectionDetail />
+                    </PageTransition>
+                  }
+                />
+
+                <Route
+                  path="/new-arrivals"
+                  element={
+                    <PageTransition>
+                      <NewArrivalsPage />
+                    </PageTransition>
+                  }
+                />
+
+                <Route
+                  path="/contact"
+                  element={
+                    <PageTransition>
+                      <Contact />
+                    </PageTransition>
+                  }
+                />
+
+                <Route
+                  path="/success"
+                  element={<OrderSuccess />}
+                />
 
                 <Route path="/about" element={<About />} />
                 <Route path="/product-footer" element={<Productfooter />} />
@@ -143,7 +156,6 @@ const fetchCart = async () => {
                 <Route path="/support" element={<CustomerSupport />} />
                 <Route path="/terms" element={<Terms />} />
                 <Route path="/privacy" element={<Privacy />} />
-
 
                 <Route
                   path="/checkouts"
@@ -175,7 +187,7 @@ const fetchCart = async () => {
 }
 
 /* ==================================================
-   🌍 ROOT WRAPPER (DEFAULT EXPORT)
+   🌍 ROOT WRAPPER
 ================================================== */
 export default function AppWrapper() {
   return (

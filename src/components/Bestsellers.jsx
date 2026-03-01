@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { bestsellers } from "../data/bestsellers";
 import "../styles/bestsellers.css";
 
 export default function Bestsellers() {
+  const navigate = useNavigate();
   const homeProducts = bestsellers.filter(p => p.showOnHome);
 
   return (
@@ -16,10 +18,16 @@ export default function Bestsellers() {
 
       <div className="bestsellers-grid">
         {homeProducts.map(item => (
-          <div key={item.id} className="product-card">
+          <div
+            key={item.id}
+            className="product-card"
+            onClick={() => navigate(`/product/${item.slug}`)}
+            style={{ cursor: "pointer" }}
+          >
+            <span className="badge badge-bestseller">Bestseller</span>
             <div className="product-image">
-              <img src={item.image} className="img-default" />
-              <img src={item.hoverImage} className="img-hover" />
+              <img src={item.image} className="img-default" alt={item.name} />
+              <img src={item.hoverImage} className="img-hover" alt={item.name} />
             </div>
 
             <div className="product-info">

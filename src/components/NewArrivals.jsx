@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { newArrivals } from "../data/newarrivals";
 import "../styles/bestsellers.css";
 
 export default function NewArrivals() {
+  const navigate = useNavigate();
   return (
     <section className="bestsellers">
       <div className="bestsellers-header">
@@ -29,8 +31,13 @@ export default function NewArrivals() {
               : [];
 
             return (
-              <div key={item.id} className="product-card">
-                <span className="badge new">New</span>
+              <div
+                key={item.id}
+                className="product-card"
+                onClick={() => navigate(`/product/${item.slug}`)}
+                style={{ cursor: "pointer" }}
+              >
+                <span className="badge badge-new">New Arrival</span>
 
                 {/* IMAGE */}
                 <div className="product-image">

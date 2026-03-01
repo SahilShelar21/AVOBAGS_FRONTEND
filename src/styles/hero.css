@@ -1,6 +1,6 @@
 .hero {
   position: relative;
-  height: 120vh;          /* lock to screen */
+  height: 115vh;          /* lock to screen */
   min-height: 760px;     /* 🔥 ensures text fits below bag */
   width: 100%;
   overflow: hidden;
@@ -56,8 +56,9 @@
 .hero-text {
   position: absolute;
   top: 550px;
-  left: 399px;
-  width: 650px;
+  font-family: 'Inter', sans-serif;
+  left: 380px;
+  width: 700px;
   height: auto;
   display: flex;
   flex-direction: column;
@@ -69,7 +70,7 @@
 
 /* Heading tighter */
 .hero-text h2 {
-font-family: Playfair Display;
+font-family: 'Playfair Display', serif;
 font-weight: 500;
 font-style: Medium;
 font-size: 54px;

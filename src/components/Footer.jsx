@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom'; // ✅ Import Link
 import { Instagram, Facebook, Twitter, Linkedin } from 'lucide-react';
 import "../styles/footer.css";
-import logo from "../assets/bags/avobags_logo.png";
+import logo from "../assets/bags/avobag_logo_footer.png";
 
 export default function Footer() {
   

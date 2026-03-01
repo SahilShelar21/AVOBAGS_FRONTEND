@@ -1,155 +1,132 @@
-import bag1 from "../assets/bags/Backpack.png";
-import bag1Hover from "../assets/bags/Backpack Lady.png";
-import bag2 from "../assets/bags/Backpack.png";
-import bag2Hover from "../assets/bags/Backpack Lady.png";
-import bag3 from "../assets/bags/Backpack.png";
-import bag3Hover from "../assets/bags/Backpack Lady.png";
-import bag4 from "../assets/bags/Backpack.png";
-import bag4Hover from "../assets/bags/Backpack Lady.png";
-import bag5 from "../assets/bags/Backpack.png";
-import bag5Hover from "../assets/bags/Backpack Lady.png";
-import bag6 from "../assets/bags/Backpack.png";
-import bag6Hover from "../assets/bags/Backpack Lady.png";
+import bagface from "../assets/bags/Grey_Bag/Grey_show.png";
+import bagfacehover from "../assets/bags/Grey_Bag/Grey_BagHover.png";
+import bag1_1 from "../assets/bags/Grey_Bag/Grey_2.png";
+import bag1_2 from "../assets/bags/Grey_Bag/Grey_feature.png";
+import bag1_3 from "../assets/bags/Grey_Bag/Grey_3.png";
+import bag1_4 from "../assets/bags/Grey_Bag/Grey_4.png";
+
+import bag2face from "../assets/bags/Blue_Bag/Blue_show.png";
+import bag2facehover from "../assets/bags/Blue_Bag/Blue_Hover.png";
+import bag2_2 from "../assets/bags/Blue_Bag/Blue_Main.png";
+import bag2_3 from "../assets/bags/Blue_Bag/Blue_3.png";
+import bag2_4 from "../assets/bags/Blue_Bag/Blue_4.png";
+
+import bag3face from "../assets/bags/extend_series/BlueBag_Show.png";
+import bag3facehover from "../assets/bags/extend_series/BlueBag_Hover.png";
+import bag3_2 from "../assets/bags/extend_series/BlueBag_1_2.png";
+import bag3_3 from "../assets/bags/extend_series/BlueBag_1_4.png";
+import bag3_4 from "../assets/bags/extend_series/BlueBag_1_6.png";
+
+import bag4face from "../assets/bags/Black_Bag/Black_Show.png";
+import bag4facehover from "../assets/bags/Black_Bag/Black_Hover.png";
+import bag4_2 from "../assets/bags/Black_Bag/Black_1_2.png";
+import bag4_3 from "../assets/bags/Black_Bag/Black_1_3.png";
+import bag4_4 from "../assets/bags/Black_Bag/Black_1_4.png";
+
 
 export const bestsellers = [
   {
     id: 1,
-    slug: "classic-travel-backpack-v1",
-    name: "Classic Travel Backpack",
-    price:189.99,
-    oldPrice: 209.99,
+    slug: "avo-expedition-pro-grey",
+    name: "Avo Expedition Pro– Grey",
+    category: "Expedition Series",
+    price: 4999.99,
+    oldPrice: 5499.99,
     rating: 4.2,
     reviews: 128,
-    stock: 15,
-    color: "Jet Black",
-    image: bag1,
-    hoverImage: bag1Hover,
-    gallery: [bag1, bag1Hover, bag1, bag1Hover],
-    features: ["Fits 15.6”", "24L", "Office use"],
-    description: "The ultimate companion for the daily commuter. Designed with ergonomics in mind and built with water-resistant polyester.",
+    stock: 50,
+    color: "Grey",
+    image: bagface,
+    hoverImage: bagfacehover,
+    gallery: [bagface, bag1_2, bag1_3, bag1_4],
+    features: ["Fits 15.6” Laptop", "Travel"],
+    description: "The Avo Expedition Series Backpack is designed for travelers, professionals, and students who need space, smart organization, and security in one premium bag. Built with high-quality Nylon + PU waterproof material, this 35L backpack combines durability, smart organization, and modern functionality.",
     specifications: [
-      "Capacity: 24L",
-      "Material: Premium Polyester",
-      "Weight: 850g",
-      "Warranty: 1 Year"
+      "2 Front Quick-Access Compartments",
+      "25% Expandable Storage",
+      "Dedicated 16-inch Laptop Compartment",
+      "Hidden Anti-Theft Pocket",
+      "USB Charging Port",
+      "Available in Black | Blue | Grey"
     ],
     showOnHome: true
   },
+
   {
     id: 2,
-    slug: "urban-explorer-pack",
-    name: "Urban Explorer Pack",
-    price:189.99,
-    oldPrice: 189.99,
-    rating: 4.5,
-    reviews: 89,
-    stock: 8,
-    color: "Charcoal",
-    image: bag2,
-    hoverImage: bag2Hover,
-    gallery: [bag2, bag2Hover, bag2, bag2Hover],
-    features: ["Fits 15.6”", "24L", "Office use"],
-    description: "Navigate the city streets with confidence. Features hidden pockets and a sleek, minimal silhouette.",
+    slug: "avo-expedition-xplorer-blue",
+    name: "Avo Expedition Xplorer– Blue",
+    category: "Expedition Series",
+    price: 4999.99,
+    oldPrice: 5499.99,
+    rating: 4.2,
+    reviews: 128,
+    stock: 50,
+    color: "Blue",
+    image: bag3face,
+    hoverImage: bag3facehover,
+    gallery: [bag3face, bag3_2, bag3_3, bag3_4],
+    features: ["Fits 15.6” Laptop", "Travel"],
+    description: "Designed for modern explorers, the Avo Expedition Xplorer v2 offers expandable storage, waterproof compartments, and secure laptop protection for business and travel.",
     specifications: [
-      "Capacity: 24L",
-      "Material: High-Grade Nylon",
-      "Weight: 900g",
-      "Features: Hidden Zippers"
+      "Expandable Storage +25%",
+      "Power Bank Holder",
+      "3 Internal Sections",
+      "Secret Anti-Theft Pocket",
+      "Premium Water-Resistant Material"
     ],
     showOnHome: true
   },
+
   {
     id: 3,
-    slug: "professional-commuter",
-    name: "Professional Commuter",
-    price:189.99,
-    oldPrice: 220.00,
-    rating: 4.8,
-    reviews: 210,
-    stock: 12,
-    color: "Navy Blue",
-    image: bag3,
-    hoverImage: bag3Hover,
-    gallery: [bag3, bag3Hover, bag3, bag3Hover],
-    features: ["Fits 15.6”", "24L", "Office use"],
-    description: "A premium backpack for the high-end professional. Includes a dedicated padded compartment for tech gear.",
+    slug: "avo-expedition-max-black",
+    name: "Avo Expedition Max– Black",
+    category: "Expedition Series",
+    price: 4999.99,
+    oldPrice: 5499.99,
+    rating: 4.2,
+    reviews: 128,
+    stock: 50,
+    color: "Black",
+    image: bag4face,
+    hoverImage: bag4facehover,
+    gallery: [bag4face, bag4_2, bag4_3, bag4_4],
+    features: ["Fits 15.6” Laptop", "Travel"],
+    description: "A bold and powerful travel companion, the Avo Expedition Max v2 is built for durability, security, and modern professional needs.",
     specifications: [
-      "Capacity: 24L",
-      "Material: Ballistic Nylon",
-      "Weight: 950g",
-      "Warranty: 2 Years"
+      "Dedicated Laptop + Tablet Section",
+      "USB Charging Port",
+      "Hidden Security Pocket",
+      "2 Waterproof Compartments",
+      "Premium Nylon + PU Material"
     ],
     showOnHome: true
   },
   {
     id: 4,
-    slug: "daily-essential-bag",
-    name: "Daily Essential Bag",
-    price:189.99,
-    oldPrice: 189.99,
+    slug: "avo-essential-flex-blue",
+    name: "Avo Essential Flex – Blue",
+    category: "Essential Series",
+    price: 4999.99,
+    oldPrice: 5499.99,
     rating: 4.2,
-    reviews: 56,
-    stock: 20,
-    color: "Grey",
-    image: bag4,
-    hoverImage: bag4Hover,
-    gallery: [bag4, bag4Hover, bag4, bag4Hover],
-    features: ["Fits 15.6”", "24L", "Office use"],
-    description: "Simple, effective, and stylish. The perfect bag for students and light travelers alike.",
+    reviews: 128,
+    stock: 50,
+    color: "Blue",
+    image: bag2face,
+    hoverImage: bag2facehover,
+    gallery: [bag2face, bag2_2, bag2_3, bag2_4],
+    features: ["Fits 15.6” Laptop", "Travel"],
+    description: "The Avo Essential Flex v2 is crafted for daily professionals and students who need sleek design, comfort, and efficient organization.",
     specifications: [
-      "Capacity: 24L",
-      "Material: Eco-Canvas",
-      "Weight: 700g",
-      "Style: Minimalist"
+      "Slim Professional Design",
+      "Laptop & Tablet Section",
+      "Internal Organizer Compartments",
+      "Water-Resistant Exterior",
+      "Modern Urban Finish"
     ],
     showOnHome: true
   },
-  {
-    id: 5,
-    slug: "hiking-adventure-pack",
-    name: "Hiking Adventure Pack",
-    price:189.99,
-    oldPrice: 299.99,
-    rating: 4.9,
-    reviews: 340,
-    stock: 5,
-    color: "Forest Green",
-    image: bag5,
-    hoverImage: bag5Hover,
-    gallery: [bag5, bag5Hover, bag5, bag5Hover],
-    features: ["Fits 15.6”", "24L", "Office use"],
-    description: "Built for the wild. This heavy-duty pack includes a rain cover and specialized gear loops for hiking equipment.",
-    specifications: [
-      "Capacity: 40L",
-      "Material: Ripstop Nylon",
-      "Weight: 1.2kg",
-      "Weather: Fully Waterproof"
-    ],
-    showOnHome: false
-  },
-  {
-    id: 6,
-    slug: "compact-daypack-mini",
-    name: "Compact Daypack",
-    price:189.99,
-    oldPrice: 119.99,
-    rating: 4.0,
-    reviews: 41,
-    stock: 25,
-    color: "Tan",
-    image: bag6,
-    hoverImage: bag6Hover,
-    gallery: [bag6, bag6Hover, bag6, bag6Hover],
-    features: ["Fits 15.6”", "24L", "Office use"],
-    description: "When you only need the essentials. This mini-pack is perfect for quick trips and weekend walks.",
-    specifications: [
-      "Capacity: 12L",
-      "Material: Soft Polyester",
-      "Weight: 450g",
-      "Type: Daypack"
-    ],
-    showOnHome: false
-  }
 ];
-
 export const products = bestsellers;

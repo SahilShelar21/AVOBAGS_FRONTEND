@@ -1,8 +1,6 @@
 import "../styles/cart-drawer.css";
 import { useNavigate } from "react-router-dom";
-const token = localStorage.getItem("token");
-
-const API_BASE_URL = import.meta.env.VITE_API_URL;
+import { useEffect } from "react";
 
 export default function CartDrawer({
   isOpen,
@@ -13,55 +11,61 @@ export default function CartDrawer({
   const navigate = useNavigate();
   const items = Array.isArray(cartItems) ? cartItems : [];
 
+  /* ===============================
+     CLEAR CART ON FIRST VISIT
+  =============================== */
+  useEffect(() => {
+    const hasVisited = sessionStorage.getItem("hasVisited");
+
+    if (!hasVisited) {
+      localStorage.removeItem("cart");
+      sessionStorage.setItem("hasVisited", "true");
+      setCartItems([]);
+    }
+  }, []);
+
+  /* ===============================
+     SAVE CART TO LOCAL STORAGE
+  =============================== */
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(items));
+  }, [items]);
+
+  /* ===============================
+     CALCULATE SUBTOTAL
+  =============================== */
   const subtotal = items.reduce(
-    (sum, item) => sum + item.price * item.quantity,
+    (sum, item) => sum + (Number(item.price) || 0) * (Number(item.quantity) || 0),
     0
   );
 
   /* ===============================
-     UPDATE QUANTITY
-     =============================== */
-const updateQty = async (id, newQty) => {
-  if (newQty < 1) return;
+     UPDATE QUANTITY (FIXED)
+  =============================== */
+  const updateQty = (id, newQty) => {
+    if (newQty < 1) return;
 
-  try {
-    const token = localStorage.getItem("token");
-
-    if (!token) {
-      console.error("No auth token found");
-      return;
-    }
-
-    const res = await fetch(`${API_BASE_URL}/api/cart/update`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({ id, quantity: newQty }),
-    });
-
-    const data = await res.json();
-
-    if (!res.ok || !data.success) {
-      throw new Error("Update failed");
-    }
-
-    // Update UI only after backend success
     setCartItems((prev) =>
       prev.map((item) =>
-        item.id === id ? { ...item, quantity: newQty } : item
+        item.id === id
+          ? { ...item, quantity: newQty }
+          : item
       )
     );
+  };
 
-  } catch (err) {
-    console.error("QTY UPDATE FAILED:", err);
-  }
-};
+  /* ===============================
+     REMOVE ITEM (FIXED)
+  =============================== */
+  const removeItem = (id) => {
+    setCartItems((prev) =>
+      prev.filter((item) => item.id !== id)
+    );
+  };
 
   /* ===============================
      CHECKOUT
-     =============================== */
+  =============================== */
   const handleCheckout = () => {
     if (items.length === 0) return;
 
@@ -72,7 +76,7 @@ const updateQty = async (id, newQty) => {
         items: items.map((item) => ({
           productId: item.product_id,
           name: item.name,
-          image: item.image_url, // already absolute URL from DB
+          image: item.image_url,
           price: item.price,
           quantity: item.quantity,
         })),
@@ -103,7 +107,9 @@ const updateQty = async (id, newQty) => {
             <div className="cart-card" key={item.id}>
               <div className="cart-img-box">
                 <img
-                  src={item.image_url}
+                  src={
+                    item.image_url || item.image || item.imageUrl || item.img || ""
+                  }
                   alt={item.name}
                 />
               </div>
@@ -118,11 +124,21 @@ const updateQty = async (id, newQty) => {
 
                 <div className="cart-actions">
                   <div className="qty-selector">
-                    <button onClick={() => updateQty(item.id, item.quantity - 1)}>
+                    <button
+                      onClick={() =>
+                        updateQty(item.id, item.quantity - 1)
+                      }
+                    >
                       −
                     </button>
+
                     <span>{item.quantity}</span>
-                    <button onClick={() => updateQty(item.id, item.quantity + 1)}>
+
+                    <button
+                      onClick={() =>
+                        updateQty(item.id, item.quantity + 1)
+                      }
+                    >
                       +
                     </button>
                   </div>
@@ -153,6 +169,7 @@ const updateQty = async (id, newQty) => {
             <button className="btn-checkout" onClick={handleCheckout}>
               Checkout
             </button>
+
             <button className="btn-continue" onClick={onClose}>
               Continue Shopping
             </button>

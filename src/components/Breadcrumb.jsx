@@ -29,4 +29,4 @@ export default function Breadcrumb({ current, items }) {
       <span className="breadcrumb-current">{current}</span>
     </nav>
   );
-}
+} 

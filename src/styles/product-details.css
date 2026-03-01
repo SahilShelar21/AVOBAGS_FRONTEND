@@ -1,6 +1,8 @@
 .product-page {
   padding: 0;
   font-family: 'Inter', sans-serif;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 /* LAYOUT */
@@ -8,8 +10,10 @@
   display: flex;
   gap: 45px;
   width: 1200px;
+  min-width: 1200px;
   padding: 40px 120px;
   margin: 0 auto;
+  flex-shrink: 0;
 }
 
 /* GALLERY */

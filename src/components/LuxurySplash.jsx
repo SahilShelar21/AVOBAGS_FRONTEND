@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import "../styles/luxurySplash.css";
+import logo from "../assets/bags/avobags_logo.png"; 
 
 export default function LuxurySplash({ onFinish }) {
   const [isVisible, setIsVisible] = useState(true);
@@ -8,8 +9,8 @@ export default function LuxurySplash({ onFinish }) {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsVisible(false);
-      setTimeout(onFinish, 1200); 
-    }, 4500);
+      setTimeout(onFinish, 1000); 
+    }, 5000); 
     return () => clearTimeout(timer);
   }, [onFinish]);
 
@@ -17,72 +18,53 @@ export default function LuxurySplash({ onFinish }) {
     <AnimatePresence>
       {isVisible && (
         <motion.div
-          className="luxury-splash"
+          className="splash-container"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          exit={{ 
-            opacity: 0,
-            scale: 1.1,
-            filter: "blur(20px)",
-            transition: { duration: 1, ease: [0.7, 0, 0.3, 1] } 
-          }}
+          exit={{ opacity: 0, scale: 1.1, filter: "blur(20px)" }}
         >
-          <motion.div className="bag-container">
-            {/* HANDLE ANIMATION */}
-            <motion.div
-              className="bag-handle"
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.5, duration: 1, ease: "easeOut" }}
+          <div className="logo-wrapper">
+            {/* STAGE 1 & 2: The Letter and Border Reveal */}
+            {/* We use clip-path to show the center first, then expand to the edges */}
+            <motion.img
+              src={logo}
+              alt="AVO BAGS"
+              className="splash-logo-reveal"
+              initial={{ clipPath: "inset(30% 20% 30% 20%)", opacity: 0 }}
+              animate={{ 
+                clipPath: "inset(0% 0% 0% 0%)", 
+                opacity: 1 
+              }}
+              transition={{ 
+                duration: 2, 
+                ease: "easeInOut",
+                delay: 0.5 
+              }}
             />
 
-            {/* BODY ANIMATION */}
-            <motion.div
-              className="bag-loader"
-              initial={{ y: 40, opacity: 0, scale: 0.9 }}
-              animate={{ y: 0, opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            >
-              {/* Gold Clasp Reveal */}
-              <motion.div 
-                className="gold-clasp"
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 1.2, type: "spring" }}
-              />
-            </motion.div>
-          </motion.div>
+            {/* STAGE 3: The "Pop" - A second layer that scales up */}
+            <motion.img
+              src={logo}
+              className="logo-pop-layer"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ 
+                delay: 2.2, 
+                duration: 0.8, 
+                type: "spring", 
+                stiffness: 100 
+              }}
+            />
+          </div>
 
-          {/* TEXT CONTENT */}
-          <motion.div className="brand-wrapper">
-            <motion.h1
-              className="loading-text"
-              initial={{ opacity: 0, filter: "blur(10px)", y: 20 }}
-              animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
-              transition={{ delay: 1.5, duration: 1 }}
-            >
-              AVOBAGS
-            </motion.h1>
-            
-            <motion.p 
-              className="sub-text"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 2, duration: 1 }}
-            >
-              Excellence in Every Stitch
-            </motion.p>
-
-            {/* Elegant Minimal Loader */}
-            <div style={{ width: '60px', height: '1px', background: '#eee', margin: '20px auto', position: 'relative' }}>
-              <motion.div 
-                style={{ height: '100%', background: '#0b1c2d', position: 'absolute', left: 0 }}
-                initial={{ width: 0 }}
-                animate={{ width: '100%' }}
-                transition={{ delay: 1.5, duration: 2.5, ease: "easeInOut" }}
-              />
-            </div>
-          </motion.div>
+          <motion.p 
+            className="tagline"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 3, duration: 1 }}
+          >
+            Excellence in Every Stitch
+          </motion.p>
         </motion.div>
       )}
     </AnimatePresence>
