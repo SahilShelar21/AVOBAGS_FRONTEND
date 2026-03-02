@@ -13,7 +13,8 @@
 .hero-watermark {
   position: absolute;
   top: 120px;
-  left: 254px;
+  left: 50%;
+  transform: translateX(-50%);
   width: 1000px;
   height: 260px;
   font-family: "Geist", sans-serif;
@@ -44,8 +45,10 @@
 .hero-bag {
   position: absolute;
   top: 145px;
-  left: 480px;
+  left: 50%;
+  transform: translateX(-50%);
   width: 450px;
+  max-width: 90%;
   height: 420px;
   object-fit: contain;
   z-index: 2;
@@ -57,8 +60,10 @@
   position: absolute;
   top: 550px;
   font-family: 'Inter', sans-serif;
-  left: 380px;
+  left: 50%;
+  transform: translateX(-50%);
   width: 700px;
+  max-width: 90%;
   height: auto;
   display: flex;
   flex-direction: column;
@@ -120,4 +125,70 @@ margin-top: 1px;
 .hero-text button:hover {
   background-color: #0A1455 !important;
   box-shadow: 0 12px 30px rgba(15, 28, 80, 0.35);
+}
+
+/* ===== responsive adjustments ===== */
+@media (max-width: 1024px) {
+  .hero-bag {
+    width: 400px;
+  }
+  .hero-text {
+    width: 80%;
+  }
+  .hero-text h2 {
+    font-size: 44px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    height: auto;
+    min-height: 100vh;
+  }
+  .hero-bag {
+    width: 350px;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 160px;
+  }
+  .hero-watermark {
+    font-size: 150px;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .hero-text {
+    position: relative;
+    top: auto;
+    left: auto;
+    margin-top: 320px;
+    margin-bottom: 40px;
+    width: 90%;
+    max-width: 320px;
+    z-index: 999;
+  }
+  .hero-text h2 {
+    font-size: 36px;
+  }
+  .hero-text p {
+    font-size: 14px;
+  }
+  .hero-text button {
+    width: 180px;
+    height: 50px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-bag {
+    width: 260px;
+    top: 140px;
+  }
+  .hero-watermark {
+    font-size: 120px;
+  }
+  .hero-text {
+    margin-top: 300px;
+  }
 }

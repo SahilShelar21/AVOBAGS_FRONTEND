@@ -87,7 +87,7 @@ const OrderSuccess = () => {
       {state?.waLink && (
         <div style={{ marginTop: "20px", textAlign: "center" }}>
           <a href={state.waLink} target="_blank" rel="noreferrer" className="send-admin-btn" style={{ display: "inline-block", padding: "10px 20px", backgroundColor: "#ff6a00", color: "#fff", textDecoration: "none", borderRadius: "6px", fontWeight: "bold" }}>
-            📤 Send Order To Admin
+            📤 Send Order To Admin and generate Invoice
           </a>
         </div>
       )}
