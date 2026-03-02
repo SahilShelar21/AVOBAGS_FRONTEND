@@ -59,25 +59,44 @@ export default function Checkouts() {
     return Object.keys(temp).length === 0;
   };
 
-  /* ---------------- PLACE ORDER ---------------- */
+/* ---------------- PLACE ORDER ---------------- */
 const placeOrder = async () => {
   if (!validate()) return;
   if (!items.length) return alert("Your cart is empty");
 
+  // COD flow handled via modal
   if (paymentMethod === "cod") {
     setShowCodModal(true);
+    return;
+  }
+
+  if (!import.meta.env.VITE_RAZORPAY_KEY_ID) {
+    alert("Razorpay Key Missing in Frontend ENV");
     return;
   }
 
   try {
     setLoading(true);
 
+    // 1) Create Razorpay order on backend
+    const createRes = await fetch(`${API_BASE_URL}/api/orders/create-razorpay-order`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ amount: totalAmount }),
+    });
+
+    if (!createRes.ok) throw new Error("Failed to create Razorpay order");
+    const createData = await createRes.json();
+    const order_id = createData.id || createData.order_id || createData._id;
+
+    // 2) Open Razorpay checkout
     const options = {
       key: import.meta.env.VITE_RAZORPAY_KEY_ID,
       amount: totalAmount * 100,
       currency: "INR",
       name: "AVOBAGS",
       description: "Secure Order Payment",
+      order_id,
       prefill: {
         name: customer.name,
         email: customer.email,
@@ -85,80 +104,71 @@ const placeOrder = async () => {
       },
       theme: { color: "#0b1c2d" },
 
-handler: async function (response) {
-  try {
-    const verifyRes = await fetch(
-      `${API_BASE_URL}/api/orders/verify-payment`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          razorpay_order_id: response.razorpay_order_id,
-          razorpay_payment_id: response.razorpay_payment_id,
-          razorpay_signature: response.razorpay_signature,
-          orderData: {
-            name: customer.name,
-            email: customer.email,
-            phone: customer.phone,
-            address: customer.address,
-            city: customer.city,
-            state: customer.state,
-            pincode: customer.pincode,
-            total_amount: totalAmount,
-            session_id: Date.now().toString(),
-            items: items.map((it) => ({
-              productId: it.product_id || it.productId,
-              name: it.name,
-              price: it.price,
-              quantity: it.quantity,
-              image: it.image || it.image_url || it.imageUrl || null,
-            })),
-          },
-        }),
-      }
-    );
+      handler: async function (response) {
+        try {
+          const verifyRes = await fetch(`${API_BASE_URL}/api/orders/verify-payment`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature: response.razorpay_signature,
+              orderData: {
+                name: customer.name,
+                email: customer.email,
+                phone: customer.phone,
+                address: customer.address,
+                city: customer.city,
+                state: customer.state,
+                pincode: customer.pincode,
+                total_amount: totalAmount,
+                session_id: Date.now().toString(),
+                items: items.map((it) => ({
+                  productId: it.product_id || it.productId,
+                  name: it.name,
+                  price: it.price,
+                  quantity: it.quantity,
+                  image: it.image || it.image_url || it.imageUrl || null,
+                })),
+              },
+            }),
+          });
 
-    if (!verifyRes.ok) {
-      throw new Error("Server verification failed");
-    }
+          const verifyData = await verifyRes.json();
 
-    const verifyData = await verifyRes.json();
+          if (!verifyRes.ok || !verifyData.success) {
+            throw new Error(verifyData.message || "Verification failed");
+          }
 
-    if (!verifyData.success) {
-      throw new Error(verifyData.message || "Payment verification failed");
-    }
+          // Server notifies admin via WhatsApp; do not open customer WA automatically
 
-    // If backend returned a wa link for customer, open it (fallback when API not configured)
-    if (verifyData.waCustomerLink) {
-      try {
-        window.open(verifyData.waCustomerLink, "_blank");
-      } catch (e) {
-        console.log("Customer WA link:", verifyData.waCustomerLink);
-      }
-    }
+          // Navigate to success page
+          navigate("/order-success", {
+            state: { orderId: verifyData.order.id },
+            replace: true,
+          });
+        } catch (err) {
+          console.error("Verification Error:", err);
+          alert("Payment verification failed. Please contact support.");
+        }
+      },
 
-    navigate("/order-success", {
-      state: { orderId: verifyData.order.id },
-      replace: true,
-    });
-
-  } catch (err) {
-    console.error("Verification Error:", err);
-    alert("Payment verification failed. Please contact support.");
-  }
-},
+      modal: {
+        ondismiss: function () {
+          setLoading(false);
+        },
+      },
     };
 
     const rzp = new window.Razorpay(options);
     rzp.open();
   } catch (err) {
-    console.error(err);
-    alert("Something went wrong during payment.");
+    console.error("Payment Init Error:", err);
+    alert("Payment initialization failed.");
   } finally {
     setLoading(false);
   }
 };
-
   return (
     <>
       <div className="checkout">

@@ -18,6 +18,9 @@ const OrderSuccess = ({ orderId }) => {
 
   if (!order) return <p>Loading...</p>;
 
+  const adminNumber = import.meta.env.VITE_ADMIN_WHATSAPP || "918591650200";
+  const adminWaLink = `https://wa.me/${adminNumber}?text=${encodeURIComponent(`Hi Admin, I have a question about Order ${order.id}`)}`;
+
   return (
     <div>
       <h2>Order Successful!</h2>
@@ -28,6 +31,11 @@ const OrderSuccess = ({ orderId }) => {
       <h3>Shipping Details:</h3>
       <p>{order.name}</p>
       <p>{order.address}, {order.city}, {order.state} - {order.pincode}</p>
+
+      <div style={{ marginTop: 20 }}>
+        <p>If you need more details, contact the admin:</p>
+        <a href={adminWaLink} target="_blank" rel="noreferrer">Contact Admin on WhatsApp</a>
+      </div>
     </div>
   );
 };
