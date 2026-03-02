@@ -74,6 +74,7 @@
   flex-direction: column;
   gap: 2px;
   padding: 0 5px;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
 }
 
 @media (max-width: 480px) {
@@ -92,9 +93,8 @@
 
 .price {
   font-size: 20px;
-  font-weight: 600;
-  font-style: 'semibold';
-  font-family: 'inter', sans-serif;
+  font-weight: 700;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   margin-bottom: 2px;
 }
 

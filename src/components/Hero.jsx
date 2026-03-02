@@ -20,7 +20,7 @@ export default function Hero() {
             Your journey deserves more<br />
             than just a bag.
           </h2>
-          <p>Crafted with precision. Designed for the modern traveler.</p>
+          <p>Designed for Those Who Refuse Ordinary</p>
           <Link to="/all-products" style={{ textDecoration: "none" }}>
             <button className="hero-btn">Explore Collection</button>
           </Link>

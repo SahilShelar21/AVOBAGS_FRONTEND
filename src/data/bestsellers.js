@@ -76,56 +76,5 @@ export const bestsellers = [
     ],
     showOnHome: true
   },
-
-  {
-    id: 3,
-    slug: "avo-expedition-max-black",
-    name: "Avo Expedition Max– Black",
-    category: "Expedition Series",
-    price: 4999.99,
-    oldPrice: 5499.99,
-    rating: 4.2,
-    reviews: 128,
-    stock: 50,
-    color: "Black",
-    image: bag4face,
-    hoverImage: bag4facehover,
-    gallery: [bag4face, bag4_2, bag4_3, bag4_4],
-    features: ["Fits 15.6” Laptop", "Travel"],
-    description: "A bold and powerful travel companion, the Avo Expedition Max v2 is built for durability, security, and modern professional needs.",
-    specifications: [
-      "Dedicated Laptop + Tablet Section",
-      "USB Charging Port",
-      "Hidden Security Pocket",
-      "2 Waterproof Compartments",
-      "Premium Nylon + PU Material"
-    ],
-    showOnHome: true
-  },
-  {
-    id: 4,
-    slug: "avo-essential-flex-blue",
-    name: "Avo Essential Flex – Blue",
-    category: "Essential Series",
-    price: 4999.99,
-    oldPrice: 5499.99,
-    rating: 4.2,
-    reviews: 128,
-    stock: 50,
-    color: "Blue",
-    image: bag2face,
-    hoverImage: bag2facehover,
-    gallery: [bag2face, bag2_2, bag2_3, bag2_4],
-    features: ["Fits 15.6” Laptop", "Travel"],
-    description: "The Avo Essential Flex v2 is crafted for daily professionals and students who need sleek design, comfort, and efficient organization.",
-    specifications: [
-      "Slim Professional Design",
-      "Laptop & Tablet Section",
-      "Internal Organizer Compartments",
-      "Water-Resistant Exterior",
-      "Modern Urban Finish"
-    ],
-    showOnHome: true
-  },
 ];
 export const products = bestsellers;

@@ -5,7 +5,7 @@ export default function About() {
     <div className="static-page">
       <div className="static-container">
 
-        <h1>About AVO BAGS</h1>
+        <h1>About Avo Bags</h1>
 
         <h2>Designed for Those Who Refuse Ordinary</h2>
         <p>
@@ -31,7 +31,7 @@ export default function About() {
           And neither should your gear.
         </p>
 
-        <h2>Why AVO Bags?</h2>
+        <h2>Why Avo Bags?</h2>
 
         <h3>1. Engineered Utility</h3>
         <p>
@@ -67,7 +67,7 @@ export default function About() {
 
         <h2>Meet The Team</h2>
         <p>
-          AVO was founded in 2025 by six ambitious individuals who believed
+          Avo was founded in 2025 by six ambitious individuals who believed
           Indian manufacturing could deliver global-level quality.
         </p>
 
@@ -86,7 +86,7 @@ export default function About() {
           practical, ambitious, and detail-driven.
         </p>
         <p>
-          AVO is not built by one person.
+          Avo is not built by one person.
           It is built by shared vision, shared standards, and shared ambition.
           And this is only the beginning.
         </p>
@@ -97,10 +97,10 @@ export default function About() {
           It carries deadlines. Ideas. Opportunities. Responsibilities. Dreams.
         </p>
         <p>
-          AVO Bags exists to support that journey.
+          Avo Bags exists to support that journey.
           Whether you're heading to college, the office, the gym,
           or your next adventure —
-          <strong>AVO moves with you.</strong>
+          <strong>Avo moves with you.</strong>
         </p>
 
       </div>

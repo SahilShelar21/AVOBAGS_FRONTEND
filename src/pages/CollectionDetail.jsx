@@ -1,7 +1,6 @@
 import { useLocation } from "react-router-dom";
-import { allProducts } from "../data/allProducts"; // Use the unified data file
+import { allProducts } from "../data/allProducts";
 import ProductCard from "../components/ProductCard";
-import Filters from "../components/Filters";
 import Breadcrumb from "../components/Breadcrumb";
 import "../styles/collection-detail.css";
 
@@ -20,18 +19,15 @@ export default function CollectionDetail() {
 
   return (
     <>
-      {/* 🔥 Dynamic Breadcrumb */}
+      {/* Dynamic Breadcrumb */}
       <Breadcrumb current={displayTitle} />
 
       <section className="products-page">
-        <div className="collection-header" style={{ marginBottom: "0px" }}>
-           <h1 style={{ color: "#24394C", fontSize: "32px" }}>{displayTitle} Bags</h1>
+        <div style={{ fontFamily: "'Inter', sans-serif", fontSize: "20px", fontWeight: "500", marginBottom: "24px", color: "#24394C", marginTop: "20px" }}>
+          {displayTitle} Bags ({filteredProducts.length} bags)
         </div>
 
-        {/* 🔥 Filters bar - passing filtered length */}
-        <Filters total={filteredProducts.length} />
-
-        {/* 🔥 4-column product layout */}
+        {/* 4-column product layout */}
         <div className="products-grid">
           {filteredProducts.map((product) => (
             <ProductCard

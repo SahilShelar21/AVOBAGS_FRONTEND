@@ -14,7 +14,7 @@ export default function Feedback() {
     <div className="static-page">
       <div className="static-container">
         <h1>Share Your Feedback</h1>
-        <p>How was your experience with AVOBAGS? We value your thoughts.</p>
+        <p>How was your experience with Avo Bags? We value your thoughts.</p>
         <form onSubmit={handleSubmit} className="feedback-form">
           <textarea
             rows="6"

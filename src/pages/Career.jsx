@@ -4,7 +4,7 @@ export default function Career() {
   return (
     <div className="static-page">
       <div className="static-container">
-        <h1>Careers at AVO BAGS</h1>
+        <h1>Careers at Avo Bags</h1>
         <p>We are always looking for passionate individuals who love design, innovation, and growth. Join us in building the future of travel gear.</p>
         <h2>Open Positions</h2>
         <ul>

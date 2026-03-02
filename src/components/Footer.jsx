@@ -25,17 +25,11 @@ export default function Footer() {
           </p>
           
           <div className="social-icons">
-            <a href="https://instagram.com" target="_blank" rel="noreferrer" aria-label="Instagram">
+            <a href="https://www.instagram.com/avobags?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noreferrer" aria-label="Instagram">
               <Instagram size={20} />
             </a>
             <a href="https://facebook.com" target="_blank" rel="noreferrer" aria-label="Facebook">
               <Facebook size={20} />
-            </a>
-            <a href="https://twitter.com" target="_blank" rel="noreferrer" aria-label="Twitter">
-              <Twitter size={20} />
-            </a>
-            <a href="https://linkedin.com" target="_blank" rel="noreferrer" aria-label="LinkedIn">
-              <Linkedin size={20} />
             </a>
           </div>
         </div>
@@ -66,7 +60,7 @@ export default function Footer() {
       <div className="footer-bottom">
         <hr />
         <div className="footer-credits">
-          <p>© Copyright 2026, All Rights Reserved by AVO BAGS</p>
+          <p>© Copyright 2026, All Rights Reserved by Avo Bags</p>
           <p>Design & Developed by Rohit Sawant & Sahil Shelar</p>
         </div>
       </div>
