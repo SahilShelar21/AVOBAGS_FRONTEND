@@ -181,64 +181,130 @@ const placeOrder = async () => {
 
           <div className="input-group">
             <div className="full-width">
+              <label htmlFor="name" style={{ display: "block", marginBottom: "4px", fontWeight: "600", color: "#0b1c2d" }}>
+                Full Name <span style={{ color: "#dc2626" }}>*</span>
+              </label>
               <input
+                id="name"
                 name="name"
-                placeholder="Full Name"
+                placeholder="John Doe"
                 onChange={handleChange}
                 className={errors.name ? "error" : ""}
+                required
               />
-              {errors.name && <span className="error-text">{errors.name}</span>}
+              {errors.name && <span className="error-text">⚠️ {errors.name}</span>}
             </div>
 
-            <input
-              name="email"
-              placeholder="Email"
-              onChange={handleChange}
-              className={errors.email ? "error" : ""}
-            />
-            <input
-              name="confirmEmail"
-              placeholder="Confirm Email"
-              onChange={handleChange}
-              className={errors.confirmEmail ? "error" : ""}
-            />
+            <div>
+              <label htmlFor="email" style={{ display: "block", marginBottom: "4px", fontWeight: "600", color: "#0b1c2d" }}>
+                Email <span style={{ color: "#dc2626" }}>*</span>
+              </label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                placeholder="you@example.com"
+                onChange={handleChange}
+                className={errors.email ? "error" : ""}
+                required
+              />
+              {errors.email && <span className="error-text">⚠️ {errors.email}</span>}
+            </div>
 
-            <input
-              name="phone"
-              placeholder="Phone"
-              onChange={handleChange}
-              className={errors.phone ? "error" : ""}
-            />
+            <div>
+              <label htmlFor="confirmEmail" style={{ display: "block", marginBottom: "4px", fontWeight: "600", color: "#0b1c2d" }}>
+                Confirm Email <span style={{ color: "#dc2626" }}>*</span>
+              </label>
+              <input
+                id="confirmEmail"
+                name="confirmEmail"
+                type="email"
+                placeholder="Confirm email"
+                onChange={handleChange}
+                className={errors.confirmEmail ? "error" : ""}
+                required
+              />
+              {errors.confirmEmail && <span className="error-text">⚠️ {errors.confirmEmail}</span>}
+            </div>
+
+            <div>
+              <label htmlFor="phone" style={{ display: "block", marginBottom: "4px", fontWeight: "600", color: "#0b1c2d" }}>
+                Phone <span style={{ color: "#dc2626" }}>*</span>
+              </label>
+              <input
+                id="phone"
+                name="phone"
+                type="tel"
+                placeholder="10-digit phone"
+                onChange={handleChange}
+                className={errors.phone ? "error" : ""}
+                required
+                minLength="10"
+                maxLength="10"
+              />
+              {errors.phone && <span className="error-text">⚠️ {errors.phone}</span>}
+            </div>
 
             <div className="full-width">
+              <label htmlFor="address" style={{ display: "block", marginBottom: "4px", fontWeight: "600", color: "#0b1c2d" }}>
+                Address <span style={{ color: "#dc2626" }}>*</span>
+              </label>
               <input
+                id="address"
                 name="address"
-                placeholder="Address"
+                placeholder="Street address"
                 onChange={handleChange}
                 className={errors.address ? "error" : ""}
+                required
               />
+              {errors.address && <span className="error-text">⚠️ {errors.address}</span>}
             </div>
 
-            <input
-              name="city"
-              placeholder="City"
-              onChange={handleChange}
-              className={errors.city ? "error" : ""}
-            />
+            <div>
+              <label htmlFor="city" style={{ display: "block", marginBottom: "4px", fontWeight: "600", color: "#0b1c2d" }}>
+                City <span style={{ color: "#dc2626" }}>*</span>
+              </label>
+              <input
+                id="city"
+                name="city"
+                placeholder="City"
+                onChange={handleChange}
+                className={errors.city ? "error" : ""}
+                required
+              />
+              {errors.city && <span className="error-text">⚠️ {errors.city}</span>}
+            </div>
 
-            <input
-              name="state"
-              placeholder="State"
-              onChange={handleChange}
-              className={errors.state ? "error" : ""}
-            />
+            <div>
+              <label htmlFor="state" style={{ display: "block", marginBottom: "4px", fontWeight: "600", color: "#0b1c2d" }}>
+                State <span style={{ color: "#dc2626" }}>*</span>
+              </label>
+              <input
+                id="state"
+                name="state"
+                placeholder="State"
+                onChange={handleChange}
+                className={errors.state ? "error" : ""}
+                required
+              />
+              {errors.state && <span className="error-text">⚠️ {errors.state}</span>}
+            </div>
 
-            <input
-              name="pincode"
-              placeholder="Pincode"
-              onChange={handleChange}
-              className={errors.pincode ? "error" : ""}
-            />
+            <div>
+              <label htmlFor="pincode" style={{ display: "block", marginBottom: "4px", fontWeight: "600", color: "#0b1c2d" }}>
+                Pincode <span style={{ color: "#dc2626" }}>*</span>
+              </label>
+              <input
+                id="pincode"
+                name="pincode"
+                placeholder="6-digit pincode"
+                onChange={handleChange}
+                className={errors.pincode ? "error" : ""}
+                required
+                minLength="6"
+              />
+              {errors.pincode && <span className="error-text">⚠️ {errors.pincode}</span>}
+            </div>
           </div>
 
           {/* PAYMENT METHOD */}

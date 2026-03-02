@@ -70,6 +70,36 @@
   align-items: center;
 }
 
+@media (max-width: 1024px) {
+  .hero-content {
+    grid-template-columns: 1fr 0.9fr;
+    gap: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-hero {
+    padding: 60px 0;
+  }
+
+  .hero-content {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-hero {
+    min-height: 60vh;
+    padding: 40px 0;
+  }
+
+  .hero-content {
+    gap: 30px;
+  }
+}
+
 .badge-logo {
   display: inline-block;
   padding: 6px 16px;
@@ -89,6 +119,20 @@ h1 {
   margin-bottom: 25px;
 }
 
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2.2rem;
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+  }
+}
+
 .gradient-text {
   background: var(--logo-grad);
   -webkit-background-clip: text;
@@ -106,6 +150,36 @@ h1 {
 .hero-btns {
   display: flex;
   gap: 15px;
+}
+
+@media (max-width: 768px) {
+  .hero-btns {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .primary-btn,
+  .secondary-btn-light {
+    width: 100%;
+    max-width: 300px;
+    padding: 14px 28px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-btns {
+    gap: 10px;
+  }
+
+  .primary-btn,
+  .secondary-btn-light {
+    width: 100%;
+    max-width: 100%;
+    padding: 12px 20px;
+    font-size: 13px;
+  }
 }
 
 .primary-btn {
@@ -143,10 +217,30 @@ h1 {
 
 .floating-bag {
   width: 300%; 
-  max-width: 900px; /* Adjust this to your preference */
+  max-width: 900px;
   height: auto;
-    filter: drop-shadow(0 40px 60px rgba(0, 0, 0, 0.2));
-    animation: float 6s ease-in-out infinite;
+  filter: drop-shadow(0 40px 60px rgba(0, 0, 0, 0.2));
+  animation: float 6s ease-in-out infinite;
+}
+
+@media (max-width: 768px) {
+  .hero-visual {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 30px;
+  }
+
+  .floating-bag {
+    width: 200%;
+    max-width: 500px;
+  }
+}
+
+@media (max-width: 480px) {
+  .floating-bag {
+    width: 150%;
+    max-width: 300px;
+  }
 }
 
 @keyframes float {
@@ -160,10 +254,34 @@ h1 {
   text-align: center;
 }
 
+@media (max-width: 768px) {
+  .manifesto-section {
+    padding: 60px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .manifesto-section {
+    padding: 40px 0;
+  }
+}
+
 .manifesto-card h2 {
   font-family: 'Playfair Display', serif;
   font-size: 2.8rem;
   margin: 15px 0;
+}
+
+@media (max-width: 768px) {
+  .manifesto-card h2 {
+    font-size: 2.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .manifesto-card h2 {
+    font-size: 1.8rem;
+  }
 }
 
 .section-label {
@@ -174,12 +292,35 @@ h1 {
   font-size: 0.8rem;
 }
 
+@media (max-width: 480px) {
+  .section-label {
+    letter-spacing: 2px;
+    font-size: 0.7rem;
+  }
+}
+
 /* --- Values Grid --- */
 .values-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 30px;
   padding: 80px 0;
+}
+
+@media (max-width: 768px) {
+  .values-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 50px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .values-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    padding: 30px 0;
+  }
 }
 
 .value-item-light {
@@ -189,6 +330,13 @@ h1 {
   border: 1px solid rgba(0, 18, 66, 0.05);
   box-shadow: 0 10px 30px rgba(0,0,0,0.02);
   transition: 0.3s;
+}
+
+@media (max-width: 480px) {
+  .value-item-light {
+    padding: 25px;
+    border-radius: 12px;
+  }
 }
 
 .value-item-light:hover {
@@ -203,13 +351,46 @@ h1 {
   margin-bottom: 20px;
 }
 
+@media (max-width: 480px) {
+  .value-number {
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+  }
+}
+
 /* --- Team Section --- */
 .team-section {
   padding: 100px 0;
   text-align: center;
 }
 
-.section-header { margin-bottom: 60px; }
+@media (max-width: 768px) {
+  .team-section {
+    padding: 60px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .team-section {
+    padding: 40px 0;
+  }
+}
+
+.section-header { 
+  margin-bottom: 60px;
+}
+
+@media (max-width: 768px) {
+  .section-header {
+    margin-bottom: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .section-header {
+    margin-bottom: 30px;
+  }
+}
 
 .team-grid {
   display: grid;
@@ -217,7 +398,30 @@ h1 {
   gap: 50px 30px;
 }
 
-.team-card { text-align: center; }
+@media (max-width: 1024px) {
+  .team-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 35px 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .team-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .team-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+.team-card { 
+  text-align: center; 
+}
 
 .member-photo {
   width: 220px;
@@ -228,6 +432,22 @@ h1 {
   box-shadow: 15px 15px 40px rgba(0,0,0,0.05);
 }
 
+@media (max-width: 768px) {
+  .member-photo {
+    width: 180px;
+    height: 240px;
+    margin: 0 auto 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .member-photo {
+    width: 150px;
+    height: 200px;
+    margin: 0 auto 12px;
+  }
+}
+
 .member-photo img {
   width: 100%;
   height: 100%;
@@ -235,7 +455,9 @@ h1 {
   transition: 0.5s;
 }
 
-.team-card:hover img { transform: scale(1.05); }
+.team-card:hover img { 
+  transform: scale(1.05); 
+}
 
 .team-card h4 {
   font-family: 'Playfair Display', serif;
@@ -243,11 +465,30 @@ h1 {
   margin-bottom: 5px;
 }
 
+@media (max-width: 768px) {
+  .team-card h4 {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .team-card h4 {
+    font-size: 1rem;
+  }
+}
+
 .team-card p {
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 2px;
   color: #999;
+}
+
+@media (max-width: 480px) {
+  .team-card p {
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+  }
 }
 
 /* --- Philosophy Strip --- */
@@ -260,10 +501,37 @@ h1 {
   margin: 80px 0;
 }
 
+@media (max-width: 768px) {
+  .philosophy-strip {
+    padding: 60px 20px;
+    margin: 50px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .philosophy-strip {
+    padding: 40px 15px;
+    margin: 30px 0;
+    border-radius: 2px;
+  }
+}
+
 .philosophy-strip h2 {
   font-family: 'Playfair Display', serif;
   font-size: 2.5rem;
   font-weight: 400;
+}
+
+@media (max-width: 768px) {
+  .philosophy-strip h2 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .philosophy-strip h2 {
+    font-size: 1.6rem;
+  }
 }
 
 .philosophy-strip span {
@@ -276,6 +544,18 @@ h1 {
   padding-bottom: 120px;
 }
 
+@media (max-width: 768px) {
+  .contact-container {
+    padding-bottom: 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-container {
+    padding-bottom: 60px;
+  }
+}
+
 .contact-glass-light {
   max-width: 850px;
   margin: 0 auto;
@@ -286,12 +566,49 @@ h1 {
   box-shadow: 0 40px 100px rgba(0,0,0,0.05);
 }
 
-.form-header { text-align: center; margin-bottom: 50px; }
+@media (max-width: 768px) {
+  .contact-glass-light {
+    padding: 50px 30px;
+    max-width: 100%;
+    margin: 0 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-glass-light {
+    padding: 25px 20px;
+    margin: 0 10px;
+  }
+}
+
+.form-header { 
+  text-align: center; 
+  margin-bottom: 50px; 
+}
+
+@media (max-width: 480px) {
+  .form-header {
+    margin-bottom: 30px;
+  }
+}
 
 .input-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
+}
+
+@media (max-width: 768px) {
+  .input-row {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .input-row {
+    gap: 12px;
+  }
 }
 
 input, textarea {
@@ -306,6 +623,14 @@ input, textarea {
   transition: 0.3s;
 }
 
+@media (max-width: 480px) {
+  input, textarea {
+    padding: 14px 0;
+    margin-bottom: 18px;
+    font-size: 0.95rem;
+  }
+}
+
 input:focus, textarea:focus {
   outline: none;
   border-bottom-color: var(--navy);
@@ -313,7 +638,7 @@ input:focus, textarea:focus {
 
 .wa-submit-gradient {
   width: 100%;
-  background: #25D366; /* WhatsApp Green */
+  background: #25D366;
   color: white;
   padding: 20px;
   border: none;
@@ -325,6 +650,15 @@ input:focus, textarea:focus {
   justify-content: center;
   gap: 12px;
   transition: 0.3s;
+  border-radius: 4px;
+}
+
+@media (max-width: 480px) {
+  .wa-submit-gradient {
+    padding: 16px;
+    font-size: 0.9rem;
+    gap: 8px;
+  }
 }
 
 .wa-submit-gradient:hover {
@@ -337,16 +671,10 @@ input:focus, textarea:focus {
   height: 24px;
 }
 
-/* --- Responsive --- */
-@media (max-width: 968px) {
-  .hero-content { grid-template-columns: 1fr; text-align: center; }
-  .hero-description { margin: 0 auto 40px; }
-  .hero-btns { justify-content: center; }
-  .team-grid { grid-template-columns: repeat(2, 1fr); }
-  .contact-glass-light { padding: 40px 20px; }
+@media (max-width: 480px) {
+  .wa-mini-icon {
+    width: 20px;
+    height: 20px;
+  }
 }
 
-@media (max-width: 600px) {
-  .team-grid { grid-template-columns: 1fr; }
-  .input-row { grid-template-columns: 1fr; }
-}

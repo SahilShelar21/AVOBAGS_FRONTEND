@@ -6,16 +6,32 @@
   justify-content: center;
   align-items: center;
   z-index: 999;
+  padding: 20px;
 }
 
 .cod-modal-card {
   background: #fff;
   border-radius: 12px;
   width: 450px;
-  max-width: 90%;
+  max-width: 100%;
   padding: 24px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
   animation: fadeIn 0.2s ease-out;
+}
+
+@media (max-width: 768px) {
+  .cod-modal-card {
+    width: 100%;
+    padding: 20px;
+    border-radius: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cod-modal-card {
+    padding: 16px;
+    border-radius: 8px;
+  }
 }
 
 .cod-modal-title {
@@ -24,10 +40,28 @@
   text-align: center;
 }
 
+@media (max-width: 768px) {
+  .cod-modal-title {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .cod-modal-title {
+    font-size: 1.1rem;
+  }
+}
+
 .cod-modal-items {
   max-height: 250px;
   overflow-y: auto;
   margin-bottom: 16px;
+}
+
+@media (max-width: 480px) {
+  .cod-modal-items {
+    max-height: 200px;
+  }
 }
 
 .cod-modal-item {
@@ -37,6 +71,13 @@
   margin-bottom: 12px;
 }
 
+@media (max-width: 480px) {
+  .cod-modal-item {
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+}
+
 .cod-modal-item img {
   width: 60px;
   height: 60px;
@@ -44,13 +85,32 @@
   border-radius: 8px;
 }
 
+@media (max-width: 480px) {
+  .cod-modal-item img {
+    width: 50px;
+    height: 50px;
+  }
+}
+
 .item-name {
   font-weight: 500;
+}
+
+@media (max-width: 480px) {
+  .item-name {
+    font-size: 0.9rem;
+  }
 }
 
 .item-qty-price {
   font-size: 0.9rem;
   color: #555;
+}
+
+@media (max-width: 480px) {
+  .item-qty-price {
+    font-size: 0.8rem;
+  }
 }
 
 .cod-modal-total,
@@ -60,11 +120,25 @@
   text-align: right;
 }
 
+@media (max-width: 480px) {
+  .cod-modal-total,
+  .cod-modal-payment {
+    font-size: 0.9rem;
+  }
+}
+
 .cod-modal-actions {
   display: flex;
   justify-content: flex-end;
   gap: 12px;
   margin-top: 16px;
+}
+
+@media (max-width: 480px) {
+  .cod-modal-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
 }
 
 .btn-cancel {
@@ -73,6 +147,13 @@
   padding: 8px 16px;
   border-radius: 6px;
   cursor: pointer;
+}
+
+@media (max-width: 480px) {
+  .btn-cancel {
+    padding: 10px 12px;
+    font-size: 14px;
+  }
 }
 
 .btn-cancel:hover {
@@ -85,6 +166,13 @@
   padding: 8px 16px;
   border-radius: 6px;
   cursor: pointer;
+}
+
+@media (max-width: 480px) {
+  .btn-confirm {
+    padding: 10px 12px;
+    font-size: 14px;
+  }
 }
 
 .btn-confirm:hover {

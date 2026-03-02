@@ -1,34 +1,80 @@
 .products-page {
-  width: 1200px;
-  margin-left: 150px;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
+/* Mobile */
+@media (max-width: 480px) {
+  .products-page {
+    padding: 15px;
+    margin-left: 0;
+    width: 100%;
+  }
+}
+
+/* Tablet */
+@media (min-width: 481px) and (max-width: 768px) {
+  .products-page {
+    padding: 20px;
+    margin-left: 0;
+    width: 100%;
+  }
+}
+
 .filters-bar {
-  width: 1200px;
+  width: 100%;
+  max-width: 1400px;
   margin: 0 auto 32px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-style: medium;
   font-family: 'Inter', sans-serif;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+@media (max-width: 480px) {
+  .filters-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 20px;
+  }
 }
 
 .filters-left {
   display: flex;
   align-items: center;
   gap: 16px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 480px) {
+  .filters-left {
+    width: 100%;
+    gap: 10px;
+  }
 }
 
 .filter-label {
   font-size: 16px;
   font-weight: 500;
   color: #24394C;
+  white-space: nowrap;
 }
 
-/* 🔥 CLEAN SELECT BOX DESIGN */
+@media (max-width: 480px) {
+  .filter-label {
+    font-size: 14px;
+  }
+}
+
+/* CLEAN SELECT BOX DESIGN */
 .filter-select {
   height: 40px;
   padding: 0 14px;
@@ -42,12 +88,18 @@
   outline: none;
 }
 
-/* subtle hover */
+@media (max-width: 480px) {
+  .filter-select {
+    height: 36px;
+    font-size: 13px;
+    width: 100%;
+  }
+}
+
 .filter-select:hover {
   border-color: #24394C;
 }
 
-/* remove default blue focus */
 .filter-select:focus {
   border-color: #24394C;
   box-shadow: none;
@@ -58,12 +110,50 @@
   color: #8F8F8F;
 }
 
+@media (max-width: 480px) {
+  .filters-right {
+    font-size: 12px;
+    width: 100%;
+  }
+}
 
 /* PRODUCT GRID */
 .products-grid {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
   gap: 22px;
   margin-bottom: 50px;
+}
+
+/* Mobile - 1 column */
+@media (max-width: 480px) {
+  .products-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    margin-bottom: 30px;
+  }
+}
+
+/* Tablet - 2 columns */
+@media (min-width: 481px) and (max-width: 768px) {
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+}
+
+/* Desktop - 3-4 columns */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .products-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+  }
+}
+
+@media (min-width: 1025px) {
+  .products-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
+  }
 }
 

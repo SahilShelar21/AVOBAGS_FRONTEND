@@ -11,11 +11,25 @@
 
 .logo-wrapper {
   position: relative;
-  width: 350px; /* Adjust size as needed */
+  width: 350px;
   height: 200px;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@media (max-width: 768px) {
+  .logo-wrapper {
+    width: 280px;
+    height: 160px;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo-wrapper {
+    width: 220px;
+    height: 130px;
+  }
 }
 
 .splash-logo-reveal {
@@ -30,7 +44,6 @@
   width: 100%;
   height: auto;
   z-index: 2;
-  /* This layer provides the final punchy appearance */
 }
 
 .tagline {
@@ -38,7 +51,23 @@
   font-family: 'Helvetica', sans-serif;
   letter-spacing: 4px;
   font-size: 0.8rem;
-  color: #001242; /* Matches your logo blue */
+  color: #001242;
   text-transform: uppercase;
   font-weight: 300;
+}
+
+@media (max-width: 768px) {
+  .tagline {
+    margin-top: 20px;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+  }
+}
+
+@media (max-width: 480px) {
+  .tagline {
+    margin-top: 15px;
+    font-size: 0.65rem;
+    letter-spacing: 1px;
+  }
 }

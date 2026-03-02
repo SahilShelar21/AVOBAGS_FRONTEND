@@ -9,39 +9,64 @@
 .product-wrapper {
   display: flex;
   gap: 45px;
-  width: 1200px;
-  min-width: 1200px;
+  width: 100%;
+  max-width: 1200px;
   padding: 40px 120px;
   margin: 0 auto;
   flex-shrink: 0;
+}
+
+@media (max-width: 1024px) {
+  .product-wrapper {
+    gap: 30px;
+    padding: 30px 60px;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .product-wrapper {
+    flex-direction: column;
+    gap: 30px;
+    padding: 20px;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .product-wrapper {
+    flex-direction: column;
+    gap: 20px;
+    padding: 15px;
+    max-width: 100%;
+  }
 }
 
 /* GALLERY */
 .gallery {
   display: flex;
   gap: 24px;
-  
+  width: 100%;
 }
 
 .thumbs {
   display: flex;
   width: 102px;
-  height: 100px;
+  height: auto;
   flex-direction: column;
   gap: 24px;
 }
 
 .thumbs img {
-width: 73.722412109375;
-height: 73.722412109375;
-opacity: 1;
-top: 23.14px;
-left: 14.14px;
+  width: 73.722412109375px;
+  height: 73.722412109375px;
+  opacity: 1;
+  top: 23.14px;
+  left: 14.14px;
   border-radius: 6px;
   object-fit: cover;
   cursor: pointer;
-background: #EAEAEA;
-
+  background: #EAEAEA;
 }
 
 .main-image img {
@@ -49,7 +74,55 @@ background: #EAEAEA;
   height: 552px;
   border-radius: 10px;
   object-fit: contain;
-background: #EAEAEA;
+  background: #EAEAEA;
+}
+
+@media (max-width: 768px) {
+  .gallery {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .thumbs {
+    flex-direction: row;
+    width: 100%;
+    height: auto;
+    overflow-x: auto;
+    padding-bottom: 10px;
+  }
+
+  .thumbs img {
+    width: 60px;
+    height: 60px;
+    flex-shrink: 0;
+  }
+
+  .main-image img {
+    width: 100%;
+    height: auto;
+    max-width: 500px;
+  }
+}
+
+@media (max-width: 480px) {
+  .gallery {
+    gap: 10px;
+  }
+
+  .thumbs {
+    gap: 8px;
+  }
+
+  .thumbs img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .main-image img {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+  }
 }
 
 /* INFO */
@@ -60,12 +133,24 @@ background: #EAEAEA;
 }
 
 .info h1 {
-font-family: 'Inter', sans-serif;
-font-weight: 600;
-font-style: Semi Bold;
-font-size: 32px;
-line-height: 100%;
-letter-spacing: 0%;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-style: Semi Bold;
+  font-size: 32px;
+  line-height: 100%;
+  letter-spacing: 0%;
+}
+
+@media (max-width: 768px) {
+  .info h1 {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .info h1 {
+    font-size: 20px;
+  }
 }
 
 /* RATING */
@@ -187,10 +272,10 @@ letter-spacing: 0%;
 /* Container to handle spacing and alignment */
 .buttons {
   display: flex;
-  gap: 16px; /* Adjusted gap to match visual spacing */
+  gap: 16px;
   width: 100%;
-  max-width: 500px; /* Limits width for a realistic button look */
-  font-family: 'Inter', sans-serif; /* Clean sans-serif like the image */
+  max-width: 500px;
+  font-family: 'Inter', sans-serif;
 }
 
 /* Base styles for both buttons */
@@ -211,19 +296,45 @@ button {
 
 /* "Add to Bag" styling */
 .add {
-  background-color: #f4f7fa; /* Light grey-blue tint from image */
-  color: #1e293b; /* Darker slate for the text */
+  background-color: #f4f7fa;
+  color: #1e293b;
 }
 
 /* "Buy Now" styling */
 .buy {
-  background-color: #101a44; /* Deep navy blue */
+  background-color: #101a44;
   color: #ffffff;
 }
 
 /* Hover effects for interaction */
 button:hover {
   opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+  .buttons {
+    max-width: 100%;
+    gap: 12px;
+  }
+
+  button {
+    height: 44px;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  button {
+    width: 100%;
+    height: 44px;
+    font-size: 14px;
+    padding: 0 16px;
+  }
 }
 /* Container and Header Layout */
 .tabs-container {

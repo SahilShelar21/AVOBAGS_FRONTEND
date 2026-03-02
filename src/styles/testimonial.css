@@ -5,9 +5,33 @@
   position: relative;
 }
 
+@media (max-width: 768px) {
+  .testimonial-section {
+    padding: 30px 5%;
+  }
+}
+
+@media (max-width: 480px) {
+  .testimonial-section {
+    padding: 20px 3%;
+  }
+}
+
 .testimonial-header {
   text-align: center;
   margin-bottom: 40px;
+}
+
+@media (max-width: 768px) {
+  .testimonial-header {
+    margin-bottom: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .testimonial-header {
+    margin-bottom: 20px;
+  }
 }
 
 .testimonial-header h2 {
@@ -18,11 +42,37 @@
   -webkit-text-fill-color: transparent;
 }
 
+@media (max-width: 768px) {
+  .testimonial-header h2 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .testimonial-header h2 {
+    font-size: 1.5rem;
+  }
+}
+
 /* --- GRID & CARDS --- */
 .testimonial-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 30px;
+}
+
+@media (max-width: 768px) {
+  .testimonial-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .testimonial-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
 }
 
 .testimonial-card {
@@ -31,6 +81,20 @@
   border-radius: 24px;
   border: 1px solid #e2e8f0;
   transition: all 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .testimonial-card {
+    padding: 20px;
+    border-radius: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .testimonial-card {
+    padding: 15px;
+    border-radius: 12px;
+  }
 }
 
 .testimonial-card:hover {
@@ -46,10 +110,22 @@
   margin-bottom: 20px;
 }
 
+@media (max-width: 480px) {
+  .card-top {
+    margin-bottom: 15px;
+  }
+}
+
 .user-info {
   display: flex;
   align-items: center;
   gap: 15px;
+}
+
+@media (max-width: 480px) {
+  .user-info {
+    gap: 10px;
+  }
 }
 
 .avatar {
@@ -59,8 +135,34 @@
   object-fit: cover;
 }
 
-.user-details h4 { margin: 0; font-size: 1.1rem; }
-.user-details span { font-size: 0.85rem; color: #64748b; }
+@media (max-width: 480px) {
+  .avatar {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+.user-details h4 { 
+  margin: 0; 
+  font-size: 1.1rem; 
+}
+
+@media (max-width: 480px) {
+  .user-details h4 {
+    font-size: 0.9rem;
+  }
+}
+
+.user-details span { 
+  font-size: 0.85rem; 
+  color: #64748b;
+}
+
+@media (max-width: 480px) {
+  .user-details span {
+    font-size: 0.75rem;
+  }
+}
 
 /* --- FLOATING WHATSAPP BUTTON --- */
 .whatsapp-float {
@@ -80,10 +182,26 @@
   transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
+@media (max-width: 480px) {
+  .whatsapp-float {
+    bottom: 20px;
+    right: 20px;
+    width: 55px;
+    height: 55px;
+  }
+}
+
 .whatsapp-float img {
   width: 35px;
   height: 35px;
   z-index: 2;
+}
+
+@media (max-width: 480px) {
+  .whatsapp-float img {
+    width: 28px;
+    height: 28px;
+  }
 }
 
 .whatsapp-float:hover {
@@ -122,18 +240,13 @@
   transition: 0.3s;
 }
 
+@media (max-width: 768px) {
+  .wa-tooltip { 
+    display: none;
+  }
+}
+
 .whatsapp-float:hover .wa-tooltip {
   opacity: 1;
   transform: translateX(-10px);
-}
-
-/* Mobile Responsive */
-@media (max-width: 768px) {
-  .whatsapp-float {
-    bottom: 20px;
-    right: 20px;
-    width: 55px;
-    height: 55px;
-  }
-  .wa-tooltip { display: none; } /* Hide tooltip on mobile */
 }

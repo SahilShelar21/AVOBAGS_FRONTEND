@@ -1,10 +1,26 @@
 /* 🔥 MAIN WRAPPER */
 .our-collection {
-  width: 1200px;
-  margin: 20px auto; /* Centered for a cleaner detail view */
+  width: 100%;
+  max-width: 1200px;
+  margin: 20px auto;
   display: flex;
   flex-direction: column;
   gap: 2px;
+  padding: 0 20px;
+}
+
+@media (max-width: 768px) {
+  .our-collection {
+    padding: 0 15px;
+    margin: 15px auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .our-collection {
+    padding: 0 10px;
+    margin: 10px auto;
+  }
 }
 
 /* 🔥 FILTERS BAR SCOPED */
@@ -15,12 +31,15 @@
   justify-content: space-between;
   align-items: center;
   font-family: 'Inter', sans-serif;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
 .our-collection .filters-left {
   display: flex;
   align-items: center;
   gap: 16px;
+  flex-wrap: wrap;
 }
 
 .our-collection .filter-label {
@@ -53,17 +72,67 @@
   box-shadow: none;
 }
 
+@media (max-width: 768px) {
+  .our-collection .filter-select {
+    flex: 1;
+    min-width: 150px;
+  }
+}
+
+@media (max-width: 480px) {
+  .our-collection .filter-select {
+    width: 100%;
+  }
+
+  .our-collection .filters-left {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .our-collection .filter-label {
+    font-size: 14px;
+  }
+}
+
 .our-collection .filters-right {
   font-size: 14px;
   color: #8F8F8F;
 }
 
-/* 🔥 PRODUCT GRID - 4 COLUMN LAYOUT */
+@media (max-width: 480px) {
+  .our-collection .filters-right {
+    width: 100%;
+    font-size: 12px;
+  }
+}
+
+/* 🔥 PRODUCT GRID - RESPONSIVE LAYOUT */
 .our-collection .products-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* Forces exactly 4 columns */
+  grid-template-columns: repeat(4, 1fr);
   gap: 22px;
   margin-bottom: 0;
+}
+
+@media (max-width: 1024px) {
+  .our-collection .products-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+}
+
+@media (max-width: 768px) {
+  .our-collection .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .our-collection .products-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
 }
 
 /* 🔥 OPTIONAL: HEADER STYLING */
@@ -74,7 +143,25 @@
   margin: 0;
 }
 
+@media (max-width: 768px) {
+  .our-collection h1 {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .our-collection h1 {
+    font-size: 20px;
+  }
+}
+
 .our-collection .collection-header p {
   font-family: 'Inter', sans-serif;
   margin: 4px 0 0 0;
+}
+
+@media (max-width: 480px) {
+  .our-collection .collection-header p {
+    font-size: 13px;
+  }
 }

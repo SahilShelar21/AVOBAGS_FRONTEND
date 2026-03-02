@@ -1,14 +1,35 @@
 .breadcrumb {
-  width: 1200px;
+  width: 100%;
+  max-width: 1200px;
   margin-top: 90px;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 8px;
+  padding: 0 20px;
   display: flex;
   align-items: center;
   gap: 6px;
   font-family: 'Inter', sans-serif;
   font-size: 14px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .breadcrumb {
+    margin-top: 70px;
+    padding: 0 15px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .breadcrumb {
+    margin-top: 60px;
+    margin-bottom: 6px;
+    padding: 0 10px;
+    font-size: 11px;
+    gap: 4px;
+  }
 }
 
 .breadcrumb-link {
