@@ -82,7 +82,10 @@ const placeOrder = async () => {
     const createRes = await fetch(`${API_BASE_URL}/api/orders/create-razorpay-order`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ amount: totalAmount }),
+      body: JSON.stringify({
+        amount: totalAmount,
+        items: items.map((it) => it.name), // send product names for notes
+      }),
     });
 
     if (!createRes.ok) throw new Error("Failed to create Razorpay order");
@@ -144,7 +147,7 @@ const placeOrder = async () => {
 
           // Navigate to success page
           navigate("/order-success", {
-            state: { orderId: verifyData.order.id },
+            state: { orderId: verifyData.order.id, waLink: verifyData.waLink },
             replace: true,
           });
         } catch (err) {

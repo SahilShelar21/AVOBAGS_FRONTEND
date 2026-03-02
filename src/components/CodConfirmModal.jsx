@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/cod-confirm-modal.css";
 import API_BASE_URL from "../config/api";
 
 export default function CodConfirmModal({ open, onClose, items, total, customer, onOrderCreated }) {
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   if (!open) return null;
 
@@ -11,7 +13,6 @@ export default function CodConfirmModal({ open, onClose, items, total, customer,
     try {
       setLoading(true);
 
-      // build headers and body; only include Authorization when token exists
       const token = localStorage.getItem("token");
       const headers = { "Content-Type": "application/json" };
       if (token) headers.Authorization = `Bearer ${token}`;
@@ -40,21 +41,16 @@ export default function CodConfirmModal({ open, onClose, items, total, customer,
         throw new Error(msg);
       }
 
-      // navigate to success and optionally open admin WhatsApp link
-      if (data.waLink) {
-        try {
-          window.open(data.waLink, "_blank");
-        } catch (e) {
-          console.log("WA link:", data.waLink);
-        }
-      }
-
-      onOrderCreated(data.orderId);
+      // Close modal and navigate to success page with orderId + waLink
       onClose();
+      navigate("/order-success", {
+        state: { orderId: data.orderId, waLink: data.waLink },
+        replace: true,
+      });
 
     } catch (err) {
       console.error(err);
-      alert("Something went wrong!");
+      alert(`Order failed: ${err.message}`);
     } finally {
       setLoading(false);
     }
