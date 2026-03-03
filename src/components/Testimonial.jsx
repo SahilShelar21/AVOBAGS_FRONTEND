@@ -25,21 +25,21 @@ export default function Testimonial() {
         <div className="testimonial-grid">
           <TestimonialCard
             image={avatar1}
-            name="Rohit Sharma"
-            role="Product Designer"
+            name="Ananya Deshmukh"
+            role="Student"
             emoji="✨"
             text="The quality is absolutely top-notch. It fits my laptop perfectly and looks premium even after daily use."
           />
           <TestimonialCard
             image={avatar1}
-            name="Ananya Verma"
-            role="Frequent Traveler"
+            name="Sahil Shelar"
+            role="Software Engineer"
             emoji="✈️"
             text="I’ve used this bag on multiple trips. Comfortable, spacious, and stylish — exactly what I needed."
           />
           <TestimonialCard
             image={avatar1}
-            name="Karan Patel"
+            name="Sanyukta Gadge"
             role="Corporate Professional"
             emoji="💼"
             text="Minimal design with great build quality. The compartments are well thought out. Worth every rupee."

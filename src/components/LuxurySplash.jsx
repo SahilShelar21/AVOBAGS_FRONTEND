@@ -63,7 +63,7 @@ export default function LuxurySplash({ onFinish }) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 3, duration: 1 }}
           >
-            Excellence in Every Stitch
+            Carry Your Dreams
           </motion.p>
         </motion.div>
       )}
