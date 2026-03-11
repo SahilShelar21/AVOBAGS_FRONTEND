@@ -41,7 +41,7 @@ const OrderSuccess = () => {
 
   if (!order) return <div style={{ padding: "40px", textAlign: "center", color: "red" }}>Order not found</div>;
 
-  const adminNumber = import.meta.env.VITE_ADMIN_WHATSAPP || "918591103161";
+  const adminNumber = import.meta.env.VITE_ADMIN_WHATSAPP || "919137844068";
   const adminWaLink = `https://wa.me/${adminNumber}?text=${encodeURIComponent(`Hi Admin, I have a question about Order ${order.id}`)}`;
 
   return (

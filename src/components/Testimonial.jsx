@@ -8,7 +8,7 @@ export default function Testimonial() {
   const handleWhatsAppClick = () => {
     const message = "Hi AvoBags! I'm interested in your premium collection. Can you help me?";
     window.open(
-      `https://wa.me/918591103161?text=${encodeURIComponent(message)}`,
+      `https://wa.me/919137844068?text=${encodeURIComponent(message)}`,
       "_blank"
     );
   };

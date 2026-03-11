@@ -43,7 +43,7 @@ export const allProducts = [
     hoverImage: bagfacehover,
     gallery: [bagface, bag1_2, bag1_3, bag1_4],
     features: ["Fits 15.6” Laptop", "Travel"],
-    description: "The Avo Expedition Series Backpack is designed for travelers, professionals, and students who need space, smart organization, and security in one premium bag. Built with high-quality Nylon + PU waterproof material, this 35L backpack combines durability, smart organization, and modern functionality.",
+    description: "The Avo Expedition Series Backpack is designed for travelers, professionals and students who need space, smart organization and security in one premium bag. Built with high-quality Nylon + PU waterproof material, 35L backpack combines durability, smart organization and modern functionality.",
     specifications: [
       "2 Front Quick-Access Compartments",
       "25% Expandable Storage",
@@ -70,7 +70,7 @@ export const allProducts = [
     hoverImage: bag3facehover,
     gallery: [bag3face, bag3_2, bag3_3, bag3_4],
     features: ["Fits 15.6” Laptop", "Travel"],
-    description: "Designed for modern explorers, the Avo Expedition Xplorer v2 offers expandable storage, waterproof compartments, and secure laptop protection for business and travel.",
+    description: "Designed for modern explorers, The Avo Expedition Xplorer v2 offers expandable storage, Waterproof compartments and secure laptop protection for business and travel.",
     specifications: [
       "Expandable Storage +25%",
       "Power Bank Holder",
@@ -96,7 +96,7 @@ export const allProducts = [
     hoverImage: bagfacehover,
     gallery: [bagface, bag1_2, bag1_3, bag1_4],
     features: ["Fits 15.6” Laptop", "Travel"],
-    description: "The Avo Expedition Series Backpack is designed for travelers, professionals, and students who need space, smart organization, and security in one premium bag. Built with high-quality Nylon + PU waterproof material, this 35L backpack combines durability, smart organization, and modern functionality.",
+    description: "The Avo Expedition Series Backpack is designed for travelers, professionals and students who need space, smart organization and security in one premium bag. Built with high-quality Nylon + PU waterproof material, 35L backpack combines durability, smart organization and modern functionality.",
     specifications: [
       "2 Front Quick-Access Compartments",
       "25% Expandable Storage",
@@ -123,7 +123,7 @@ export const allProducts = [
     hoverImage: bag3facehover,
     gallery: [bag3face, bag3_2, bag3_3, bag3_4],
     features: ["Fits 15.6” Laptop", "Travel"],
-    description: "Designed for modern explorers, the Avo Expedition Xplorer v2 offers expandable storage, waterproof compartments, and secure laptop protection for business and travel.",
+    description: "Designed for modern explorers, The Avo Expedition Xplorer v2 offers expandable storage, Waterproof compartments and secure laptop protection for business and travel.",
     specifications: [
       "Expandable Storage +25%",
       "Power Bank Holder",
@@ -149,7 +149,7 @@ export const allProducts = [
     hoverImage: bag4facehover,
     gallery: [bag4face, bag4_2, bag4_3, bag4_4],
     features: ["Fits 15.6” Laptop", "Travel"],
-    description: "A bold and powerful travel companion, the Avo Expedition Max v2 is built for durability, security, and modern professional needs.",
+    description: "A bold and powerful travel companion, The Avo Expedition Max v2 is built for durability, security and modern professional needs.",
     specifications: [
       "Dedicated Laptop + Tablet Section",
       "USB Charging Port",

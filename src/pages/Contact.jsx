@@ -27,7 +27,7 @@ export default function Contact() {
 
   const handleWhatsApp = () => {
     const text = `Name: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone}\n\nMessage:\n${form.message}`;
-    window.open(`https://wa.me/918591103161?text=${encodeURIComponent(text)}`, "_blank");
+    window.open(`https://wa.me/919137844068?text=${encodeURIComponent(text)}`, "_blank");
   };
 
   return (
