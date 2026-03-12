@@ -16,12 +16,12 @@ export default function About() {
         <p>
           We believed something was missing.
           A bag should feel engineered. Intentional. Structured. Purpose-driven.
-          So we created <strong>AVO</strong> — not just as a product, but as a statement.
+          So we created <strong>Avo</strong> — not just as a product, but as a statement.
         </p>
 
         <h2>Crafted in India. Built for Movement.</h2>
         <p>
-          AVO is proudly manufactured in India.
+          Avo is proudly manufactured in India.
           Every stitch, every compartment, every material choice is deliberate.
           From premium Nylon + PU waterproof fabrics to reinforced stress points
           and intelligent layout design — our products are built to endure movement.

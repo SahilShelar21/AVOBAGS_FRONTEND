@@ -1,6 +1,5 @@
 import { bestsellers } from "../data/bestsellers";
 import ProductCard from "../components/ProductCard";
-import Filters from "../components/Filters";
 import Breadcrumb from "../components/Breadcrumb";
 import "../styles/products.css";
 
@@ -11,8 +10,9 @@ export default function Products() {
       <Breadcrumb current="Bestsellers" />
 
       <section className="products-page">
-        {/* 🔥 Filters bar */}
-        <Filters total={bestsellers.length} />
+        <div style={{ fontFamily: "'Inter', sans-serif", fontSize: "20px", fontWeight: "500", marginBottom: "24px", color: "#24394C" }}>
+          Bestsellers ({bestsellers.length} bags)
+        </div>
 
         {/* 🔥 4-column product layout */}
         <div className="products-grid">

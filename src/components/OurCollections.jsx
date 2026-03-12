@@ -33,7 +33,7 @@ export default function OurCollections() {
           style={{ backgroundImage: `url(${laptopImg})` }}
         >
           <div className="coming-soon-badge">Coming&nbsp;Soon</div>
-          <CollectionContent title="Laptop Bags" />
+          <CollectionContent title="Laptop Bags" comingSoon />
         </div>
       </div>
 
@@ -44,7 +44,7 @@ export default function OurCollections() {
           style={{ backgroundImage: `url(${trolleyImg})` }}
         >
           <div className="coming-soon-badge">Coming&nbsp;Soon</div>
-          <CollectionContent title="Trolley Bags" />
+          <CollectionContent title="Trolley Bags" comingSoon />
         </div>
 
         <div
@@ -59,7 +59,7 @@ export default function OurCollections() {
   );
 }
 
-function CollectionContent({ title }) {
+function CollectionContent({ title, comingSoon = false }) {
   return (
     <div className="collection-content">
       <h3>{title}</h3>
@@ -68,8 +68,8 @@ function CollectionContent({ title }) {
         <br />
         Built for comfort and crafted for style.
       </p>
-      <button>
-        Explore category <span>→</span>
+      <button className={comingSoon ? "coming-soon-btn" : ""}>
+        {comingSoon ? "Coming Soon" : "Explore category"} <span>{comingSoon ? "" : "→"}</span>
       </button>
     </div>
   );

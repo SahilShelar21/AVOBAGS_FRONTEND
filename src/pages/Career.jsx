@@ -8,8 +8,8 @@ export default function Career() {
         <p>We are always looking for passionate individuals who love design, innovation, and growth. Join us in building the future of travel gear.</p>
         <h2>Open Positions</h2>
         <ul>
-          <li><strong>Marketing Executive</strong> - Remote / Mumbai</li>
-          <li><strong>Operations Manager</strong> - Mumbai</li>
+          <li><strong>Cinematographer</strong> - Remote / Mumbai</li>
+          <li><strong>Video Creator</strong> - Mumbai</li>
           <li><strong>Customer Support Executive</strong> - Remote</li>
         </ul>
         <p>Send your resume to <strong>careers@avobags.com</strong></p>

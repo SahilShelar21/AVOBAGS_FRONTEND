@@ -53,7 +53,7 @@ export default function Navbar({ cartItems = [], onCartClick }) {
             onClick={onCartClick}
             title="Cart"
           >
-            👜
+            🛒
           </div>
 
           {cartCount > 0 && (

@@ -111,12 +111,7 @@ const handleAddToCart = async () => {
 
   return (
     <section className="product-page">
-      <Breadcrumb
-        items={[
-          { name: "Bestsellers", link: "/bestsellers" },
-          { name: product.name },
-        ]}
-      />
+      <Breadcrumb current={product.name} />
 
       <div className="product-wrapper">
         {/* LEFT */}
@@ -143,7 +138,7 @@ const handleAddToCart = async () => {
           <div className="price-row">
             <span className="price">₹{product.price}</span>
             {product.oldPrice && <span className="old">₹{product.oldPrice}</span>}
-            <span className="save">Save 10%</span>
+            <span className="save">Save 40%</span>
           </div>
 
           <div className="features">
@@ -188,13 +183,13 @@ const handleAddToCart = async () => {
           <div className="tabs-container">
             <div className="tab-headers">
               <button
-                className={activeTab === "description" ? "active" : ""}
+                className={`tab-btn ${activeTab === "description" ? "active" : ""}`}
                 onClick={() => setActiveTab("description")}
               >
                 Description
               </button>
               <button
-                className={activeTab === "specifications" ? "active" : ""}
+                className={`tab-btn ${activeTab === "specifications" ? "active" : ""}`}
                 onClick={() => setActiveTab("specifications")}
               >
                 Specifications

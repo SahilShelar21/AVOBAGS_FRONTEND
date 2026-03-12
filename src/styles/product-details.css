@@ -345,37 +345,38 @@ button:hover {
 
 .tab-headers {
   display: flex;
-  gap: 30px;
-  border-bottom: 1px solid #e5e7eb; /* Light grey bottom line */
+  gap: 12px;
   margin-bottom: 20px;
 }
 
 /* Button Styling */
 .tab-btn {
-  background: none;
-  border: none;
-  padding: 10px 0;
+  background: #f4f7fa;
+  border: 1px solid #e5e7eb;
+  padding: 12px 24px;
   font-size: 14px;
   font-weight: 600;
-  color: #94a3b8; /* Faded grey for inactive tab */
+  color: #64748b;
   cursor: pointer;
   position: relative;
-  transition: color 0.2s ease;
+  transition: all 0.2s ease;
+  border-radius: 8px;
 }
 
-/* Active State (Underline) */
+/* Active State */
 .tab-btn.active {
-  color: #0f1c4d; /* Dark navy for active text */
+  background-color: #101a44;
+  color: #ffffff;
+  border-color: #101a44;
+}
+
+.tab-btn:hover:not(.active) {
+  background-color: #e8ecf1;
+  border-color: #d1d5db;
 }
 
 .tab-btn.active::after {
-  content: "";
-  position: absolute;
-  bottom: -1px; /* Overlaps the container border */
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background-color: #0f1c4d; /* Dark underline */
+  display: none;
 }
 
 /* Content Styling */

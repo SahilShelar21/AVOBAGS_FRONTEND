@@ -57,6 +57,9 @@
   color: #0b1c2d;
   margin-bottom: 25px;
   letter-spacing: -1px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 @media (max-width: 768px) {
@@ -73,22 +76,31 @@
   }
 }
 
-.static-page h1::after {
+.static-page h1::before {
   content: "";
   display: block;
-  width: 50px;
-  height: 5px;
+  width: 5px;
+  height: 42px;
   background: #0b1c2d;
-  margin-top: 10px;
   border-radius: 10px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .static-page h1::before {
+    height: 32px;
+  }
 }
 
 @media (max-width: 480px) {
-  .static-page h1::after {
-    width: 40px;
-    height: 4px;
-    margin-top: 8px;
+  .static-page h1::before {
+    height: 24px;
+    width: 4px;
   }
+}
+
+.static-page h1::after {
+  display: none;
 }
 
 .static-page h2 {
