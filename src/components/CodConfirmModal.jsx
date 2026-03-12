@@ -24,7 +24,7 @@ export default function CodConfirmModal({ open, onClose, items, total, customer,
           sessionId: localStorage.getItem("sessionId"),
           customer,
           items: items.map((i) => ({
-            productId: i.product_id || i.productId,
+            product_id: i.product_id || i.productId,
             name: i.name,
             price: i.price,
             quantity: i.quantity,
