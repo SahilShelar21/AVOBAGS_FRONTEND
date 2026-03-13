@@ -100,7 +100,7 @@
 .close-x {
   background: none;
   border: none;
-  font-size: clamp(20px, 3vw, 26px);
+  font-size: clamp(20px, 1vw, 10px);
   cursor: pointer;
   color: var(--color-navy);
   padding: clamp(6px, 1vw, 10px);
@@ -109,14 +109,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  width: 10px;
+  height: 10px;
   border-radius: 8px;
 }
 
 .close-x:hover {
   background: var(--color-light-bg);
-  transform: rotate(90deg);
+  transform: rotate(180deg);
 }
 
 /* =========================
