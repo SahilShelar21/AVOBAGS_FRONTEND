@@ -1,6 +1,6 @@
 import "../styles/cart-drawer.css";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import API_BASE_URL from "../config/api";
 
 export default function CartDrawer({
   isOpen,
@@ -11,61 +11,76 @@ export default function CartDrawer({
   const navigate = useNavigate();
   const items = Array.isArray(cartItems) ? cartItems : [];
 
-  /* ===============================
-     CLEAR CART ON FIRST VISIT
-  =============================== */
-  useEffect(() => {
-    const hasVisited = sessionStorage.getItem("hasVisited");
-
-    if (!hasVisited) {
-      localStorage.removeItem("cart");
-      sessionStorage.setItem("hasVisited", "true");
-      setCartItems([]);
-    }
-  }, []);
-
-  /* ===============================
-     SAVE CART TO LOCAL STORAGE
-  =============================== */
-  useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(items));
-  }, [items]);
-
-  /* ===============================
-     CALCULATE SUBTOTAL
-  =============================== */
+  // Calculate subtotal
   const subtotal = items.reduce(
-    (sum, item) => sum + (Number(item.price) || 0) * (Number(item.quantity) || 0),
+    (sum, item) =>
+      sum + (Number(item.price) || 0) * (Number(item.quantity) || 0),
     0
   );
 
-  /* ===============================
-     UPDATE QUANTITY (FIXED)
-  =============================== */
-  const updateQty = (id, newQty) => {
-    if (newQty < 1) return;
+  // Update quantity
+  const updateQty = async (id, newQty) => {
+    if (newQty < 1) {
+      // If quantity goes to 0, remove the item
+      await removeItem(id);
+      return;
+    }
 
+    // Optimistic update
     setCartItems((prev) =>
       prev.map((item) =>
-        item.id === id
-          ? { ...item, quantity: newQty }
-          : item
+        item.id === id ? { ...item, quantity: newQty } : item
       )
     );
+
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/cart/update`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id, quantity: newQty }),
+      });
+
+      if (!res.ok) throw new Error("Update failed");
+    } catch (err) {
+      console.error("Update cart qty failed:", err);
+      // Revert on error - refetch cart
+      const sessionId = localStorage.getItem("sessionId");
+      if (sessionId) {
+        const cartRes = await fetch(
+          `${API_BASE_URL}/api/cart?sessionId=${sessionId}`
+        );
+        const cartData = await cartRes.json();
+        setCartItems(cartData);
+      }
+    }
   };
 
-  /* ===============================
-     REMOVE ITEM (FIXED)
-  =============================== */
-  const removeItem = (id) => {
-    setCartItems((prev) =>
-      prev.filter((item) => item.id !== id)
-    );
+  // Remove item permanently
+  const removeItem = async (id) => {
+    // Optimistic update
+    setCartItems((prev) => prev.filter((item) => item.id !== id));
+
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/cart/${id}`, {
+        method: "DELETE",
+      });
+
+      if (!res.ok) throw new Error("Delete failed");
+    } catch (err) {
+      console.error("Remove cart item failed:", err);
+      // Revert on error - refetch cart
+      const sessionId = localStorage.getItem("sessionId");
+      if (sessionId) {
+        const cartRes = await fetch(
+          `${API_BASE_URL}/api/cart?sessionId=${sessionId}`
+        );
+        const cartData = await cartRes.json();
+        setCartItems(cartData);
+      }
+    }
   };
 
-  /* ===============================
-     CHECKOUT
-  =============================== */
+  // Checkout
   const handleCheckout = () => {
     if (items.length === 0) return;
 
@@ -93,7 +108,9 @@ export default function CartDrawer({
       <div className="cart-drawer open">
         <div className="cart-header">
           <h2>Your Bag ({items.length})</h2>
-          <button className="close-x" onClick={onClose}>✕</button>
+          <button className="close-x" onClick={onClose}>
+            ✕
+          </button>
         </div>
 
         <div className="cart-content">
@@ -106,12 +123,7 @@ export default function CartDrawer({
           {items.map((item) => (
             <div className="cart-card" key={item.id}>
               <div className="cart-img-box">
-                <img
-                  src={
-                    item.image_url || item.image || item.imageUrl || item.img || ""
-                  }
-                  alt={item.name}
-                />
+                <img src={item.image_url} alt={item.name} />
               </div>
 
               <div className="cart-details">
@@ -124,21 +136,11 @@ export default function CartDrawer({
 
                 <div className="cart-actions">
                   <div className="qty-selector">
-                    <button
-                      onClick={() =>
-                        updateQty(item.id, item.quantity - 1)
-                      }
-                    >
+                    <button onClick={() => updateQty(item.id, item.quantity - 1)}>
                       −
                     </button>
-
                     <span>{item.quantity}</span>
-
-                    <button
-                      onClick={() =>
-                        updateQty(item.id, item.quantity + 1)
-                      }
-                    >
+                    <button onClick={() => updateQty(item.id, item.quantity + 1)}>
                       +
                     </button>
                   </div>
@@ -161,15 +163,12 @@ export default function CartDrawer({
             <span>₹{subtotal.toLocaleString("en-IN")}</span>
           </div>
 
-          <p className="tax-text">
-            Shipping and taxes calculated at checkout
-          </p>
+          <p className="tax-text">Shipping and taxes calculated at checkout</p>
 
           <div className="cart-btns">
             <button className="btn-checkout" onClick={handleCheckout}>
               Checkout
             </button>
-
             <button className="btn-continue" onClick={onClose}>
               Continue Shopping
             </button>

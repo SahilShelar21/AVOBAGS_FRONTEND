@@ -56,12 +56,13 @@ export default function ProductDetails({ fetchCart, openCart }) {
     },
   });
 }; 
+
   // ✅ ADD TO CART (FINAL & WORKING)
 const handleAddToCart = async () => {
+  
   try {
     const token = localStorage.getItem("token");
 
-    // ✅ Logged in → send to backend
     if (token) {
       const res = await fetch(`${API_BASE_URL}/api/cart/add`, {
         method: "POST",
@@ -71,7 +72,7 @@ const handleAddToCart = async () => {
         },
         body: JSON.stringify({
           productId: product.id,
-          quantity: 1,
+          quantity: quantity,
         }),
       });
 
@@ -79,27 +80,27 @@ const handleAddToCart = async () => {
 
       fetchCart();
       openCart();
-    }
-
-    // ✅ Guest → store locally
-    else {
+    } else {
       const guestCart =
         JSON.parse(localStorage.getItem("guestCart")) || [];
 
       const existing = guestCart.find(
-        (item) => item.id === product.id
+        (item) => item.productId === product.id
       );
 
       if (existing) {
-        existing.quantity += 1;
+        existing.quantity += quantity;
       } else {
-        guestCart.push({ ...product, quantity: 1 });
+        guestCart.push({
+          productId: product.id,
+          name: product.name,
+          image: product.image,
+          price: product.price,
+          quantity: quantity,
+        });
       }
 
-      localStorage.setItem(
-        "guestCart",
-        JSON.stringify(guestCart)
-      );
+      localStorage.setItem("guestCart", JSON.stringify(guestCart));
 
       fetchCart();
       openCart();
@@ -109,7 +110,7 @@ const handleAddToCart = async () => {
   }
 };
 
-  return (
+return (
     <section className="product-page">
       <Breadcrumb current={product.name} />
 
