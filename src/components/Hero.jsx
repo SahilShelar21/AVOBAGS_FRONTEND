@@ -17,8 +17,8 @@ export default function Hero() {
 
         <div className="hero-text">
           <h2>
-            Your journey deserves more<br />
-            than just a bag.
+            Carry Your Dreams<br />
+            
           </h2>
           <p>Designed for Those Who Refuse Ordinary</p>
           <Link to="/all-products" style={{ textDecoration: "none" }}>

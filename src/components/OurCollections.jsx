@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import "../styles/collections.css";
 
-import backpackImg from "../assets/bags/Collections/Collection_Backpacks.png";
-import laptopImg from "../assets/bags/Collections/Collection_Laptopbags.png";
-import travelImg from "../assets/bags/Collections/Collection-Travelbags.png";
-import trolleyImg from "../assets/bags/Collections/Collection_Trolleybags.png";
+import backpackImg from "../assets/bags/Collections/Collection_alls.png";
+import laptopImg from "../assets/bags/Collections/Collection_alls.png";
+import travelImg from "../assets/bags/Collections/Collection_alls.png"
+import trolleyImg from "../assets/bags/Collections/Collection_alls.png"
 
 export default function OurCollections() {
   const navigate = useNavigate();

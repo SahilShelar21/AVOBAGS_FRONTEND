@@ -1,186 +1,149 @@
 .cod-modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 999;
   padding: 20px;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 .cod-modal-card {
   background: #fff;
-  border-radius: 12px;
-  width: 450px;
+  border-radius: 14px;
+  width: 460px;
   max-width: 100%;
-  padding: 24px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-  animation: fadeIn 0.2s ease-out;
+  padding: 26px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.18);
+  animation: fadeIn 0.25s ease-out;
+  transition: transform 0.2s ease;
+}
+
+.cod-modal-card:hover {
+  transform: translateY(-2px);
 }
 
 @media (max-width: 768px) {
   .cod-modal-card {
     width: 100%;
-    padding: 20px;
-    border-radius: 10px;
+    padding: 22px;
   }
 }
 
 @media (max-width: 480px) {
   .cod-modal-card {
-    padding: 16px;
-    border-radius: 8px;
+    padding: 18px;
+    border-radius: 10px;
   }
 }
 
 .cod-modal-title {
-  font-size: 1.5rem;
-  margin-bottom: 16px;
+  font-size: 1.55rem;
+  font-weight: 600;
+  margin-bottom: 18px;
   text-align: center;
 }
 
-@media (max-width: 768px) {
-  .cod-modal-title {
-    font-size: 1.3rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .cod-modal-title {
-    font-size: 1.1rem;
-  }
-}
-
 .cod-modal-items {
-  max-height: 250px;
+  max-height: 260px;
   overflow-y: auto;
-  margin-bottom: 16px;
-}
-
-@media (max-width: 480px) {
-  .cod-modal-items {
-    max-height: 200px;
-  }
+  margin-bottom: 22px;
+  padding-right: 4px;
 }
 
 .cod-modal-item {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 12px;
-}
-
-@media (max-width: 480px) {
-  .cod-modal-item {
-    gap: 10px;
-    margin-bottom: 10px;
-  }
+  gap: 14px;
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f1f1f1;
 }
 
 .cod-modal-item img {
-  width: 60px;
-  height: 60px;
+  width: 64px;
+  height: 64px;
   object-fit: cover;
-  border-radius: 8px;
-}
-
-@media (max-width: 480px) {
-  .cod-modal-item img {
-    width: 50px;
-    height: 50px;
-  }
+  border-radius: 10px;
 }
 
 .item-name {
-  font-weight: 500;
-}
-
-@media (max-width: 480px) {
-  .item-name {
-    font-size: 0.9rem;
-  }
+  font-weight: 600;
+  font-size: 0.95rem;
 }
 
 .item-qty-price {
-  font-size: 0.9rem;
-  color: #555;
-}
-
-@media (max-width: 480px) {
-  .item-qty-price {
-    font-size: 0.8rem;
-  }
+  font-size: 0.85rem;
+  color: #666;
 }
 
 .cod-modal-total,
 .cod-modal-payment {
   font-size: 1rem;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   text-align: right;
-}
-
-@media (max-width: 480px) {
-  .cod-modal-total,
-  .cod-modal-payment {
-    font-size: 0.9rem;
-  }
+  font-weight: 500;
 }
 
 .cod-modal-actions {
   display: flex;
   justify-content: flex-end;
   gap: 12px;
-  margin-top: 16px;
+  margin-top: 18px;
 }
 
 @media (max-width: 480px) {
   .cod-modal-actions {
     flex-direction: column;
-    gap: 10px;
   }
 }
 
 .btn-cancel {
   background: transparent;
-  border: 1px solid #ccc;
-  padding: 8px 16px;
-  border-radius: 6px;
+  border: 1px solid #ddd;
+  padding: 10px 18px;
+  border-radius: 8px;
   cursor: pointer;
-}
-
-@media (max-width: 480px) {
-  .btn-cancel {
-    padding: 10px 12px;
-    font-size: 14px;
-  }
+  transition: all 0.25s ease;
+  font-weight: 500;
 }
 
 .btn-cancel:hover {
-  background: #f5f5f5;
+  background: #f3f3f3;
+  border-color: #bbb;
 }
 
 .btn-confirm {
   background: #000;
   color: #fff;
-  padding: 8px 16px;
-  border-radius: 6px;
+  padding: 10px 20px;
+  border-radius: 8px;
   cursor: pointer;
-}
-
-@media (max-width: 480px) {
-  .btn-confirm {
-    padding: 10px 12px;
-    font-size: 14px;
-  }
+  border: none;
+  font-weight: 600;
+  transition: all 0.25s ease;
 }
 
 .btn-confirm:hover {
-  background: #222;
+  background: #0a2a66;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(10,42,102,0.3);
+}
+
+.btn-confirm:active {
+  transform: scale(0.97);
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

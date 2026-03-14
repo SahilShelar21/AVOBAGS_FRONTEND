@@ -41,8 +41,8 @@ export default function CodConfirmModal({ open, onClose, items, total, customer,
         throw new Error(msg);
       }
 
-      // Close modal and navigate to success page with orderId + waLink
       onClose();
+
       navigate("/order-success", {
         state: { orderId: data.orderId, waLink: data.waLink },
         replace: true,
@@ -59,22 +59,53 @@ export default function CodConfirmModal({ open, onClose, items, total, customer,
   return (
     <div className="cod-modal-overlay">
       <div className="cod-modal-card">
-        <h2>Confirm Your Order</h2>
-        {items.map((item, index) => (
-          <div key={`${item.product_id || item.productId}-${index}`}>
-            {item.name} × {item.quantity}
-          </div>
-        ))}
 
-        <p><strong>Total:</strong> ₹{total}</p>
-        <p><strong>Payment:</strong> Cash on Delivery</p>
+        <h2 className="cod-modal-title">Confirm Your Order</h2>
+
+        <div className="cod-modal-items">
+          {items.map((item, index) => (
+            <div
+              className="cod-modal-item"
+              key={`${item.product_id || item.productId}-${index}`}
+            >
+              <img src={item.image || item.image_url} alt={item.name} />
+
+              <div>
+                <div className="item-name">{item.name}</div>
+                <div className="item-qty-price">
+                  Qty: {item.quantity} × ₹{item.price}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="cod-modal-total">
+          Total: ₹{total}
+        </div>
+
+        <div className="cod-modal-payment">
+          Payment: Cash on Delivery
+        </div>
 
         <div className="cod-modal-actions">
-          <button onClick={onClose} disabled={loading}>Cancel</button>
-          <button onClick={handleConfirm} disabled={loading}>
+          <button
+            className="btn-cancel"
+            onClick={onClose}
+            disabled={loading}
+          >
+            Cancel
+          </button>
+
+          <button
+            className="btn-confirm"
+            onClick={handleConfirm}
+            disabled={loading}
+          >
             {loading ? "Processing..." : "Confirm Order"}
           </button>
         </div>
+
       </div>
     </div>
   );
